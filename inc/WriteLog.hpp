@@ -3,6 +3,13 @@
 #include <ctime>
 #include <string>
 
+// ANSI escape codes for text colors
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+
 class WriteLog{
     public:
         WriteLog(const std::string &logFilename= "") : logFilename (logFilename) {}
@@ -19,7 +26,7 @@ class WriteLog{
     }
 
     // Fungsi untuk menulis pesan log ke file
-    void logMessage(const std::string& message) {
+    void logMessage(const std::string& message , const std::string color) {
         // Buka file log untuk menulis (tambahkan mode)
         std::ofstream logFile("./LogFile/"+ currentDateTime().substr(0,10)+".log", std::ios::app);
 
@@ -30,7 +37,7 @@ class WriteLog{
         }
 
         // Tulis timestamp dan pesan log ke file
-        logFile << "[" << currentDateTime() << "] " << message << std::endl;
+        logFile << YELLOW << "[" << currentDateTime() << "] " RESET <<  " " << color << message << RESET << std::endl;
 
         // Tutup file log
         logFile.close();

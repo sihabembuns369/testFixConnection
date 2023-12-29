@@ -3,9 +3,19 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include "inc/WriteLog.hpp"
+#include "inc/netstat.hpp"
+
 // #include <fstream>
 // #include <ctime>
 using boost::asio::ip::tcp;
+
+// ANSI escape codes for text colors
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+
 
 class FixClient
 {
@@ -24,11 +34,19 @@ public:
         //  _connect_timer.async_wait(boost::bind(&FixClient::do_close, this,std::placeholders::_1, std::placeholders::_2));
     }
    
-   void logWrite(std::string log){
+   void logWrite(std::string log, std::string color){
     WriteLog logWrite;
-    logWrite.logMessage(log);
+     netstat net;
+    std::string netprint = net.exec("netstat -an | grep 59881");
+    if (netprint.size()<=0){
+     logWrite.logMessage(log + " => " + "tidak ada koneksi terjadi", color);
+    }else{
+    logWrite.logMessage(log + " => " + netprint, color);
+    }
+    //  logWrite.logMessage(log);
 
    }
+
 
 private:
     bool _active;
@@ -84,7 +102,7 @@ private:
             return;
         if (error) {
             // std::cout << "connection error " << std::endl;
-            logWrite("connection error");
+            logWrite("connection error", RED);
         }
         _active = false;
     }
@@ -96,7 +114,7 @@ private:
                     std::cout << "Received data from server: " << std::string(receive_buffer_.data(), bytes_transferred) << std::endl;
                     startRead();
                 } else {
-                    logWrite( "Read error: " + ec.message());
+                    logWrite( "Read error: " + ec.message(), RED);
                     std::cerr << "Read error: " << ec.message() << std::endl;
                 }
             });
@@ -130,7 +148,7 @@ int main()
         FixClient fixClient(ioService, "172.18.2.213", "59881", "vpfc1001", "jakarta123");
         fixClient.connect();
         ioService.run();
-        // fixClient.logWrite("tes");
+        // fixClient.logWrite("tes", GREEN);
     }
     catch (const std::exception &e)
     {

@@ -3,6 +3,11 @@
 #include <memory>
 #include <string>
 
+class netstat{
+    public:
+
+
+
 std::string exec(const char* cmd) {
     std::array<char, 128> buffer;
     std::string result;
@@ -16,12 +21,22 @@ std::string exec(const char* cmd) {
     return result;
 }
 
-int main() {
-    // Menjalankan perintah netstat dan menangkap hasilnya
-    std::string netstatOutput = exec("netstat");
+};
 
-    // Menampilkan hasilnya
-    std::cout << "Netstat Output:\n" << netstatOutput << std::endl;
+// int main() {
+//     netstat net;
+//     // Menjalankan perintah netstat dan menangkap hasilnya
+//     std::string netstatOutput = net.exec("netstat -an | grep 59881");
 
-    return 0;
-}
+//     // Menampilkan hasilnya
+//     // std::cout  << netstatOutput << std::endl;
+
+//     if (netstatOutput.size() <=0){
+//         std::cout << "tidak ada keluaran" << std::endl;
+//     }else{
+//   std::cout << netstatOutput << std::endl;
+//     }
+    
+
+//     return 0;
+// }
