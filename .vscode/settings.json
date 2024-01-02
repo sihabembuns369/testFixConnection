@@ -75,7 +75,9 @@
         "typeinfo": "cpp",
         "*.ipp": "cpp",
         "optional": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "span": "cpp",
+        "hashtable": "cpp"
     },
 
    

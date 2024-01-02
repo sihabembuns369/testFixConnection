@@ -95,6 +95,8 @@ public:
     {
         if (!error){
             //  logWrite("handlewrite() sukses", BLUE);
+            // 8=FIXT.1.1|35=A|49=SenderCompID|56=TargetCompID|34=1|98=0|108=30|141=Y|10=230|
+            
              std::string fixMessage ="8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|";
           async_write(socket_, boost::asio::buffer(fixMessage, sizeof(fixMessage)),boost::bind(&FixClient::handleWrite,this,boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
         }
