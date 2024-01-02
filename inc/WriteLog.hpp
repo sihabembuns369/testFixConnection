@@ -2,6 +2,7 @@
 #include <fstream>
 #include <ctime>
 #include <string>
+#include <sstream>
 
 // ANSI escape codes for text colors
 #define RESET   "\033[0m"
@@ -22,7 +23,21 @@ class WriteLog{
         strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
         std::stringstream ss;
         ss << buf;
-        return ss.str();
+       std::string files = "./LogFile/" + ss.str().substr(0,10) +".log";
+       std::ifstream file(files.c_str());
+    //    std::cout << files.c_str() << std::endl;
+        if (file.is_open()){
+            // std::cout << "file ada" << std::endl;
+            return ss.str();
+        }else
+        {
+            //   std::cout << "file tidak ada" << std::endl;
+            return buf;
+        }
+        
+        return buf;
+        
+       
     }
 
     // Fungsi untuk menulis pesan log ke file

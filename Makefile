@@ -1,13 +1,13 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = -L /usr/local/lib/ -lboost_system
+CXXFLAGS = -std=c++11 -Wall -Wdeprecated-declarations
+LDFLAGS = -L /usr/local/lib/ -lboost_system  -s -pthread -lboost_system -lboost_thread
 TARGET_DIR = build
 TARGET = $(TARGET_DIR)/test_connection
 
 all:clean $(TARGET) run
 
-$(TARGET): $(TARGET_DIR) main2.cpp
-	$(CXX) $(CXXFLAGS) -o $(TARGET) main2.cpp $(LDFLAGS)
+$(TARGET): $(TARGET_DIR) test.cpp
+	$(CXX) $(CXXFLAGS) -o $(TARGET) test.cpp $(LDFLAGS)
 
 .PHONY: run clean
 

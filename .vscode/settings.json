@@ -14,7 +14,6 @@
         "tab.hoverBackground": "#3043ec"
     },
     "files.associations": {
-        "*.ipp": "cpp",
         "cstddef": "cpp",
         "cstdlib": "cpp",
         "cstring": "cpp",
@@ -73,8 +72,11 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeindex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "*.ipp": "cpp",
+        "optional": "cpp",
+        "variant": "cpp"
     },
-   
+
    
 }

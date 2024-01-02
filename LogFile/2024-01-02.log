@@ -1,0 +1,24 @@
+[33m[2024-01-02 13:44:33] [0m [32mconnected to server => tcp        0      0 172.17.70.160:44342     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-02 13:51:50] [0m [32mconnected to server => tcp        0      0 172.17.70.160:53560     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-02 13:57:01] [0m [32mconnected to server => tcp        0      0 172.17.70.160:33388     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-02 14:56:20] [0m [31merror connecting to the fix server: Element not found => no connection occurs[0m
+[33m[2024-01-02 14:58:31] [0m [31merror connecting to the fix server: Element not found => no connection occurs[0m
+[33m[2024-01-02 15:00:24] [0m [31merror connecting to the fix server: Element not found => no connection occurs[0m
+[33m[2024-01-02 15:00:57] [0m [31merror connecting to the fix server: Element not found => no connection occurs[0m
+[33m[2024-01-02 15:02:10] [0m [31merror connecting to the fix server: Element not found => no connection occurs[0m
+[33m[2024-01-02 15:05:55] [0m [32mconnected to server => tcp        0      0 172.17.70.160:53692     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-02 15:07:00] [0m [32mconnected to server => tcp        0      0 172.17.70.160:37858     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-02 15:07:08] [0m [32mconnected to server => tcp        0      0 172.17.70.160:37868     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:37858     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-02 15:07:21] [0m [32mconnected to server => tcp        0      0 172.17.70.160:42910     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:37868     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:37858     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-02 15:13:23] [0m [32mconnected to server => tcp        0      0 172.17.70.160:41102     172.18.2.213:59881      ESTABLISHED
+[0m
