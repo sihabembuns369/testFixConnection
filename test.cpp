@@ -75,7 +75,7 @@ public:
     }
 
 private:
-    void handleConnect(const boost::system::error_code &ec)
+    void handleConnect(const boost::system::error_code& ec)
     {
         if (!ec)
         {
@@ -85,13 +85,14 @@ private:
             // sendFixMessage("8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|");
 
             // Example: Read messages from the FIX server
-            // readFixMessage();
             //  "8=FIXT.1.1|35=A|49=SenderCompID|56=TargetCompID|34=1|98=0|108=30|141=Y|553=Username|554=Password|10=231|";
             //   std::string times = currentTime();
             // std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
             std::string logon = createLogon("vpfc1001", "jakarta123", "IDX", "VP_01");
-            // handle_connected(ec);
-            do_writestr(logon);
+            handle_connected(ec);
+            // do_writestr(ec);
+            readFixMessage();
+
         }
         else
         {

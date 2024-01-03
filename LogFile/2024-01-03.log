@@ -31,3 +31,14 @@ tcp        0      0 172.17.70.160:38494     172.18.2.213:59881      ESTABLISHED
 [0m
 [33m[2024-01-03 15:37:35] [0m [31mconnection closed => tcp        0      0 172.17.70.160:47636     172.18.2.213:59881      CLOSE_WAIT 
 [0m
+[33m[2024-01-03 15:54:41] [0m [32mconnected to server => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [34mmessage: 00
+ => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [32msend message to server success:  => tcp        0     10 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [33mdi fungsi readFixMessage() => tcp        0     10 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
