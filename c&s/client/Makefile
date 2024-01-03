@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
-LDFLAGS = -L /usr/local/lib/ -lboost_system
-TARGET_DIR = build/client
+LDFLAGS = -L /usr/local/lib/ -lboost_system  -s -pthread -lboost_system -lboost_thread
+TARGET_DIR = ../build/client
 TARGET = $(TARGET_DIR)/client
 
 all:clean $(TARGET) run

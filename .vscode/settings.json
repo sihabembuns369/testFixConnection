@@ -1,5 +1,5 @@
 {
-    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontSize": 11,
     "editor.wordWrap": "on",
     "files.autoSave": "afterDelay",
     "window.zoomLevel": 0.3,

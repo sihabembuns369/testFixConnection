@@ -42,10 +42,16 @@ public:
                                                boost::asio::placeholders::error));
     }
 
+    std::string currentTime(){
+         WriteLog time;
+         return time.timecurrent();
+    }
+
     void logWrite(std::string log, std::string color)
     {
         WriteLog logWrite;
         netstat net;
+        // std::cout << logWrite.timecurrent() << std::endl;
         std::string netprint = net.exec("netstat -an | grep 59881");
         if (netprint.size() <= 0)
         {
@@ -70,15 +76,16 @@ private:
         if (!ec)
         {
             std::cout << "Connected to the FIX server." << std::endl;
+            
             logWrite("connected to server", GREEN);
-
-            // TODO: Implement FIX session logic here
-
-            // Example: Send a FIX Logon message
-            sendFixMessage("8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|");
+            // sendFixMessage("8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|");
 
             // Example: Read messages from the FIX server
             readFixMessage();
+            //  "8=FIXT.1.1|35=A|49=SenderCompID|56=TargetCompID|34=1|98=0|108=30|141=Y|553=Username|554=Password|10=231|";
+              std::string times = currentTime();
+            std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
+            do_writestr(message);
         }
         else
         {
@@ -87,10 +94,17 @@ private:
         }
     }
 
+     void do_writestr(const std::string& message) {
+        // Post the write operation to the io_service
+        ioService_.post(boost::bind(&FixSession::sendFixMessage, this, message));
+    }
+
     void sendFixMessage(const std::string &message)
     {
 
-        boost::asio::async_write(socket_, boost::asio::buffer(message, sizeof(message)), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
+        logWrite("message: "+message, BLUE);
+
+        boost::asio::async_write(socket_, boost::asio::buffer(message), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
     }
 
     void writestr_complete(const boost::system::error_code &error)
@@ -99,8 +113,9 @@ private:
         if (!error)
         {
             logWrite("send message to server success: " , GREEN);
-            readFixMessage();
-        //     std::string message = "8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|";
+            // readFixMessage();            
+            std::string times = currentTime();
+            std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
         //   boost::asio::async_write(socket_, boost::asio::buffer(message, sizeof(message)), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
         }else{
              logWrite(" write error : " + error.message(), RED);
@@ -126,6 +141,8 @@ private:
         {
             // read completed, so process the data
             std::string receivemsg(_read_msg, bytes_transferred);
+            logWrite("reading message from server" + receivemsg, GREEN);
+            std::cout << "reading message from server: " + receivemsg << std::endl;
             // handle_receive(receivemsg);
             // cout << "Enter read_start... "  << endl;
             readFixMessage(); // start waiting for another asynchronous read again

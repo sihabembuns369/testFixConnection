@@ -40,6 +40,16 @@ class WriteLog{
        
     }
 
+    std::string timecurrent(){
+        time_t now = time(0);
+        struct tm tstruct;
+        char buf[80];
+        tstruct = *localtime(&now);
+        strftime(buf, sizeof(buf), "%Y%m%d-%X", &tstruct);
+
+        return buf;
+    }
+
     // Fungsi untuk menulis pesan log ke file
     void logMessage(const std::string& message , const std::string color) {
         // Buka file log untuk menulis (tambahkan mode)

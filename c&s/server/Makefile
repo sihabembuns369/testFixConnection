@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall
 LDFLAGS = -L /usr/local/lib/ -lboost_system
-TARGET_DIR = build/server
+TARGET_DIR = ../build/server
 TARGET = $(TARGET_DIR)/server
 
 all:clean $(TARGET) run
