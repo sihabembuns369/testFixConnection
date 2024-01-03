@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wdeprecated-declarations
-LDFLAGS = -L /usr/local/lib/ -lboost_system  -s -pthread -lboost_system -lboost_thread
+LDFLAGS = -L /usr/local/lib/ -lboost_system  -s -pthread -lboost_system -lboost_thread  -lboost_date_time -lpthread
 TARGET_DIR = build
 TARGET = $(TARGET_DIR)/test_connection
 

@@ -5,6 +5,9 @@
 
 #include "inc/WriteLog.hpp"
 #include "inc/netstat.hpp"
+#include "inc/constant.hpp"
+#include "inc/IDXMessage.h"
+#include "inc/IDXUtil.h"
 
 #define RESET "\033[0m"
 #define RED "\033[31m"
@@ -42,9 +45,10 @@ public:
                                                boost::asio::placeholders::error));
     }
 
-    std::string currentTime(){
-         WriteLog time;
-         return time.timecurrent();
+    std::string currentTime()
+    {
+        WriteLog time;
+        return time.timecurrent();
     }
 
     void logWrite(std::string log, std::string color)
@@ -76,16 +80,18 @@ private:
         if (!ec)
         {
             std::cout << "Connected to the FIX server." << std::endl;
-            
+
             logWrite("connected to server", GREEN);
             // sendFixMessage("8=FIX.1.1|35=A|49=" + username_ + "|56=IDX|34=1|98=0|108=30|141=Y|554=" + password_ + "|");
 
             // Example: Read messages from the FIX server
-            readFixMessage();
+            // readFixMessage();
             //  "8=FIXT.1.1|35=A|49=SenderCompID|56=TargetCompID|34=1|98=0|108=30|141=Y|553=Username|554=Password|10=231|";
-              std::string times = currentTime();
-            std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
-            do_writestr(message);
+            //   std::string times = currentTime();
+            // std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
+            std::string logon = createLogon("vpfc1001", "jakarta123", "IDX", "VP_01");
+            // handle_connected(ec);
+            do_writestr(logon);
         }
         else
         {
@@ -94,7 +100,8 @@ private:
         }
     }
 
-     void do_writestr(const std::string& message) {
+    void do_writestr(const std::string &message)
+    {
         // Post the write operation to the io_service
         ioService_.post(boost::bind(&FixSession::sendFixMessage, this, message));
     }
@@ -102,7 +109,7 @@ private:
     void sendFixMessage(const std::string &message)
     {
 
-        logWrite("message: "+message, BLUE);
+        logWrite("message: " + message, BLUE);
 
         boost::asio::async_write(socket_, boost::asio::buffer(message), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
     }
@@ -112,14 +119,19 @@ private:
 
         if (!error)
         {
-            logWrite("send message to server success: " , GREEN);
-            // readFixMessage();            
+            logWrite("send message to server success: ", GREEN);
+            // readFixMessage();
             std::string times = currentTime();
-            std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52"+ times +"|98=0|108=30|141=Y|553"+username_+"|554=" + password_ + "|";
-        //   boost::asio::async_write(socket_, boost::asio::buffer(message, sizeof(message)), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
-        }else{
-             logWrite(" write error : " + error.message(), RED);
+            std::string message = "8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|52" + times + "|98=0|108=30|141=Y|553" + username_ + "|554=" + password_ + "|";
+            readFixMessage();
+            std::string logon = createLogon("vpfc1001", "jakarta123", "IDX", "VP_01");
+            //   boost::asio::async_write(socket_, boost::asio::buffer(logon), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
+        }
+        else
+        {
+            logWrite(" write error : " + error.message(), RED);
             std::cerr << "Write error: " << error.message() << std::endl;
+            do_close(error);
         }
     }
 
@@ -127,6 +139,7 @@ private:
     {
         // TODO: Implement logic to read FIX message
         // For example: boost::asio::async_read_until(socket_, buffer_, '\x01', ...);
+        logWrite("di fungsi readFixMessage()", YELLOW);
         socket_.async_read_some(boost::asio::buffer(_read_msg, max_read_length),
                                 boost::bind(&FixSession::read_complete,
                                             this,
@@ -143,14 +156,89 @@ private:
             std::string receivemsg(_read_msg, bytes_transferred);
             logWrite("reading message from server" + receivemsg, GREEN);
             std::cout << "reading message from server: " + receivemsg << std::endl;
-            // handle_receive(receivemsg);
+            handle_receive(receivemsg);
             // cout << "Enter read_start... "  << endl;
-            readFixMessage(); // start waiting for another asynchronous read again
+            // readFixMessage(); // start waiting for another asynchronous read again
         }
         else
         {
             logWrite("    error read complete: " + error.value(), RED);
+            do_close(error);
         }
+    }
+    void handle_receive(std::string recv)
+    {
+
+        try
+        {
+            if (!recv.empty())
+            {
+                std::string res(recv);
+                std::cout << "res: " + res << std::endl;
+            }
+        }
+        catch (const std::exception &e)
+        {
+            std::cout << "error" << std::endl;
+            std::cerr << e.what() << '\n';
+        }
+    }
+    void do_close(const boost::system::error_code &error)
+    {
+        // something has gone wrong, so close the socket & make this object inactive
+        if (error == boost::asio::error::operation_aborted) // if this call is the result of a timer cancel()
+            return;                                         // ignore it because the connection cancelled the timer
+        if (error)
+        {
+            logWrite("connection closed", RED);
+            // handle_error(error.message(), error);
+        }
+
+        socket_.close();
+        // _active = false;
+    }
+
+    void handle_connected(const boost::system::error_code &err)
+    {
+        try
+        {
+
+            idx::msg::IDXMessage *oMsg = new idx::msg::IDXMessage(_protocol_version);
+            oMsg->SetData(_fix_raw_logon_string);
+            oMsg->SetSessionName(_connection_name);
+
+            std::string s(oMsg->GetRawString());
+
+            s += IDX_END;
+            this->do_writestr(s);
+            delete oMsg;
+        }
+        catch (std::exception &e)
+        {
+        }
+    }
+
+    // 8=FIXT.1.1^9=116^35=A^49=BuySide^56=SellSide^34=1^52=20190605-11:49:18.979^1128=8^98=0^108=30^141=Y^553=Username^554=Password^1137=8^10=089^
+    std::string createLogon(const std::string &username, const std::string &password, const std::string &targetCompID, const std::string &senderCompID)
+    {
+        std::ostringstream fixMessage;
+        fixMessage << "8=FIX.1.1"           // BeginString
+                   << "\x01"                // SOH (Start of Header)
+                   << "49=" << targetCompID // TargetCompID
+                   << "\x01"                // SOH
+                   << "56=" << senderCompID // SenderCompID
+                   << "\x01"                // SOH
+                   << "35=A"                // MsgType (Logon)
+                   << "\x01"                // SOH
+                   << "553=" << username    // Username
+                   << "\x01"                // SOH
+                   << "554=" << password    // Password
+                   << "1137=8"
+                   << "\x01"; // SOH
+
+        // ... (tambahkan field-field FIX logon yang diperlukan sesuai kebutuhan)
+
+        return fixMessage.str();
     }
 
     boost::thread *_thread_service;
@@ -162,6 +250,12 @@ private:
     std::string password_;
     static const int max_read_length = 1024;
     char _read_msg[max_read_length];
+
+    std::string _MsgType;
+    std::string _SessionName;
+    std::string _fix_raw_logon_string;
+    std::string _connection_name;
+    std::string _protocol_version;
 };
 
 int main()
