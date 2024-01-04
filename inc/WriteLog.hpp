@@ -4,6 +4,10 @@
 #include <string>
 #include <sstream>
 
+#include <cstdio>
+#include <dirent.h>
+// #include "../inc/netstat.hpp"
+
 // ANSI escape codes for text colors
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -50,8 +54,46 @@ class WriteLog{
         return buf;
     }
 
-    // Fungsi untuk menulis pesan log ke file
+    void HouseKeeping(const char *folderAsal,const char *folderTujuan ){
+    DIR *dirAsal;
+    struct dirent *entry;
+
+    // Buka folder asal
+    if ((dirAsal = opendir(folderAsal)) != nullptr) {
+        while ((entry = readdir(dirAsal)) != nullptr) {
+            if (entry->d_type == DT_REG) {
+                std::string fileNamaAsal = folderAsal + std::string("/") + entry->d_name;
+                std::string fileNamaTujuan = folderTujuan + std::string("/") + entry->d_name;
+                // std::cout << "file: " + fileNamaAsal << std::endl;
+
+                if (fileNamaAsal == folderAsal + std::string("/") + currentDateTime().substr(0,10)+".log" )
+                {
+                //  std::cout << "file detection: " << std::endl;
+                }else{
+                   // Memindahkan file
+                if (rename(fileNamaAsal.c_str(), fileNamaTujuan.c_str()) != 0) {
+                    perror("Gagal memindahkan file");
+                } else {
+                    std::cout << "File " << fileNamaAsal << " berhasil dipindahkan ke " << fileNamaTujuan << std::endl;
+                }
+                }
+                
+
+               
+            }
+        }
+        closedir(dirAsal);
+    } else {
+        perror("Error accessing folder");
+        // return 1;
+    }
+
+
+    }
+
+
     void logMessage(const std::string& message , const std::string color) {
+        HouseKeeping("LogFile/" ,"LogFile/HouseKeeping");
         // Buka file log untuk menulis (tambahkan mode)
         std::ofstream logFile("./LogFile/"+ currentDateTime().substr(0,10)+".log", std::ios::app);
 
