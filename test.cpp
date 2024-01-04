@@ -24,6 +24,8 @@
 #include "include/DataDictionary.h"
 #include "include/FixFieldNumbers.h"
 
+#include "include/md5.hpp"
+
 #define RESET "\033[0m"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -43,32 +45,32 @@ public:
     //       password_(password),
     //       _dd(dd) {}
 
-    FixSession(boost::asio::io_service &ioService, const std::string &targetIP, const std::string &targetPort, const std::string &username, const std::string &password)
+    FixSession(boost::asio::io_service &ioService, const std::string &targetIP, const std::string &targetPort, const std::string &username, const std::string &password,FIX::DataDictionary& dd)
         : ioService_(ioService),
           socket_(ioService),
           targetIP_(targetIP),
           targetPort_(targetPort),
           username_(username),
-          password_(password) {}
+          password_(password),
+        _connect_timer(ioService),
+    _connection_timeout(boost::posix_time::seconds(3)),
+    _dd(dd){}
 
     void start()
     {
         // Resolve the target IP and port
+        std::cout << "function start() " << std::endl;
         boost::asio::ip::tcp::resolver resolver(ioService_);
         boost::asio::ip::tcp::resolver::query query(targetIP_, targetPort_);
         // auto endpointIterator = resolver.resolve(query);
         boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
         connect_start(iterator);
         _thread_service = new boost::thread(boost::bind(&FixSession::runIOService, this, boost::ref(ioService_)));
+         bsendthreadrun = true;
+        _thread_send = new boost::thread(boost::bind(&FixSession::handle_send_thread, this));
     }
 
-    void connect_start(boost::asio::ip::tcp::resolver::iterator endpoint_iterator)
-    {
-        boost::asio::ip::tcp::tcp::endpoint endpoint = *endpoint_iterator;
-        boost::asio::async_connect(socket_, endpoint_iterator,
-                                   boost::bind(&FixSession::handleConnect, this,
-                                               boost::asio::placeholders::error));
-    }
+ 
 
     std::string currentTime()
     {
@@ -98,8 +100,33 @@ public:
 
         io_service.reset();
     }
+    
+    void logon(const std::string user, const std::string pass){
+
+        Logon(createLogon(user,pass));
+    }
+    // FIX::DataDictionary& _dd ;
+
+    // void data_dic(FIX::DataDictionary& dd){
+
+    //    FIX::DataDictionary& _dd = dd;
+    // }
+
 
 private:
+
+   void connect_start(boost::asio::ip::tcp::resolver::iterator endpoint_iterator)
+    {
+        boost::asio::ip::tcp::tcp::endpoint endpoint = *endpoint_iterator;
+        boost::asio::async_connect(socket_, endpoint_iterator,
+                                   boost::bind(&FixSession::handleConnect, this,
+                                               boost::asio::placeholders::error));
+
+        _connect_timer.expires_from_now(_connection_timeout); 
+    }
+
+    bool IsActive(){return _active;}
+
     void handleConnect(const boost::system::error_code &ec)
     {
         if (!ec)
@@ -255,6 +282,7 @@ private:
         }
         catch (std::exception &e)
         {
+            std::cerr << e.what() << '\n';
         }
     }
 
@@ -273,13 +301,15 @@ private:
         message.setField(554, pass);
         message.setField(1137, "8");
 
-        // int i=message.toString().length();
-        // cout << "message.toString().length(): " << i << endl;
+        int i=message.toString().length();
+        // std::cout << "message.toString().length(): " << i << std::endl;
+        // std::cout << "datadictionary: " << _dd << std::endl;
 
-        // FIX::Message checkMsg(message.toString(), _dd, true);
+        FIX::Message checkMsg(message.toString(), _dd, true);
 
         return message.toString();
     }
+
     void SendMessage(CSTRING fix_raw_message)
 {
     std::string fix_raw(fix_raw_message);
@@ -295,6 +325,36 @@ private:
 
 }
 
+void  handle_send_thread()
+{
+    try{
+        while (bsendthreadrun)
+        {
+
+	        if (IsActive())
+	        {
+	        	std::string senddata;
+	        	while(queue_send.try_pop(senddata))
+			{
+			    do_writestr(senddata);
+
+			}
+	                
+	        }
+            // ------------------
+            boost::posix_time::milliseconds idletime(_sendsleep);
+            boost::this_thread::sleep(idletime);
+        }
+    }catch (std::exception& e){
+       std::cerr << e.what() << '\n';
+    }
+}
+
+void Logon(CSTRING fix_raw_logon)
+{
+    _fix_raw_logon_string = fix_raw_logon;	
+    FixSession::start();
+}
     // 8=FIXT.1.1^9=116^35=A^49=BuySide^56=SellSide^34=1^52=20190605-11:49:18.979^1128=8^98=0^108=30^141=Y^553=Username^554=Password^1137=8^10=089^
 
     // std::string createLogon(const std::string &username, const std::string &password, const std::string &targetCompID, const std::string &senderCompID)
@@ -326,37 +386,74 @@ private:
     std::string targetPort_;
     std::string username_;
     std::string password_;
+    bool _active;
     static const int max_read_length = 1024;
     char _read_msg[max_read_length];
 
+    boost::asio::deadline_timer _connect_timer;
+    boost::posix_time::time_duration _connection_timeout;
+
     std::string _MsgType;
     std::string _SessionName;
-    std::string _fix_raw_logon_string = createLogon("vpfc1001", "jakarta123");
+    std::string _fix_raw_logon_string ;
     std::string _connection_name = "VP_01";
     std::string _protocol_version = "IDXEQ";
     tbb::concurrent_queue<std::string> queue_receive;
      tbb::concurrent_queue<std::string> queue_send;
     std::deque<std::string> _writestring_msgs;
-    // FIX::DataDictionary& _dd;
+
+    boost::atomic<bool> bsendthreadrun;
+    boost::atomic<float> _sendsleep;
+    boost::thread *_thread_send;
+    FIX::DataDictionary& _dd;
 };
 
 int main()
 {
+
+    std::FILE *file = std::fopen("conf/FIX50SP1-IDX.xml", "rb");
+    std::string MD5FIXML = "d36cb8f0fccd193867eb70d75d57d7a3";
+    if (!file) {
+       std::cout << "ggal membuka file" << std::endl;
+        return 1; // Menghentikan program dengan status error
+    }
+
+   int character;
+    while ((character = std::fgetc(file)) != EOF) {
+        std::putchar(character);
+    }
+
+    if ( MD5FIXML.compare(md5file(file).c_str()) != 0)
+    {
+     std::cout << "md5 matched" << std::endl;
+    }else{
+        std::cout << "md5 has not matched" << std::endl;
+    }
+
     boost::asio::io_service ioService;
-    std::ifstream is("./conf/FIX50SP1-IDX.xml", std::ios::in);
+    std::ifstream is("conf/FIX50SP1-IDX.xml", std::ios::in);
     FIX::DataDictionary dd(is);
+    // FIX::DataDictionary& _dd = dd;
+
 
     // Replace "TARGET_IP" and "TARGET_PORT" with your FIX server details
-    FixSession fixSession(ioService, "172.18.2.213", "59881", "vpfc1001", "jakarta123");
+    // "172.18.2.213", "59881"
+   
+    FixSession fixSession(ioService, "172.18.2.213", "59881" , "vpfc1001", "jakarta123", dd);
     try
     {
 
-        fixSession.start();
 
-        ioService.run();
+        // fixSession.logon("vpfc1001", "jakarta123");
+        // fixSession.data_dic(dd);
+
+        // fixSession.start();
+
+        // ioService.run();
     }
     catch (std::exception &e)
     {
+        std::fclose(file);
         std::string error = e.what();
         fixSession.logWrite("exception: " + error, RED);
         std::cerr << "Exception: " << e.what() << std::endl;

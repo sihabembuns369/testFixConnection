@@ -12,9 +12,11 @@ $(TARGET): $(TARGET_DIR) $(SOURCES)
 .PHONY: run clean
 
 clean:
-	rm -rf $(TARGET_DIR) clear
+	rm -rf $(TARGET_DIR)
+	
 
 run: printout
+	clear
 	./$(TARGET)
 
 printout:
