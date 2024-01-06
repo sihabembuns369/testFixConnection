@@ -15,6 +15,7 @@
         "titleBar.activeForeground": "#fffcfc",
         "tab.hoverBackground": "#3043ec",
         "tab.activeBorder": "#ff0000",
+        "terminal.tab.activeBorder": "#33ff00",
         "tab.activeBorderTop": "#ff0000",
         "titleBar.activeBackground": "#000000",
         "C_Cpp.enhancedColorization": "Enabled",

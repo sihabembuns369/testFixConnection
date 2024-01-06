@@ -91,13 +91,15 @@ public:
         m_fields.insert( Fields::value_type( field.getField(), field ) );
     }
   }
-  /// Set a field without a field class
+
+  // Set a field without a field class
   void setField( int field, const std::string& value )
   throw( RepeatedTag, NoTagValue )
   {
     FieldBase fieldBase( field, value );
     setField( fieldBase );
   }
+
 
   /// Get a field without type checking
   FieldBase& getField( FieldBase& field )

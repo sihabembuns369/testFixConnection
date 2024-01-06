@@ -1,0 +1,60 @@
+[33m[2024-01-05 17:05:24] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:07:21] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:10:33] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:13:30] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:13:30] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:13:43] [0m [33mReconnect. => no connection occurs[0m
+[33m[2024-01-05 17:13:43] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:18:23] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:18:23] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:19:24] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:19:24] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:19:53] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:19:53] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:24:57] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:24:57] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:25:11] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:25:11] [0m [32mstartingconnect to server => no connection occurs[0m
+[33m[2024-01-05 17:27:46] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => tcp        0      0 172.17.70.160:45462     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:37570     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-05 17:27:46] [0m [32mstartingconnect to server => tcp        0      0 172.17.70.160:45462     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:37570     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-05 17:29:02] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:29:02] [0m [32mconnected to server => tcp        0      0 172.17.70.160:54394     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:29:02] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54394     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:29:02] [0m [34mmessage: IDXEQAVP_0108=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195195
+ => tcp        0      0 172.17.70.160:54394     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:29:02] [0m [32msend message to server success:  => tcp        0    106 172.17.70.160:54394     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:29:02] [0m [31m   error read complete: End of file => tcp        0      0 172.17.70.160:54394     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-05 17:30:40] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:30:40] [0m [32mconnected to server => tcp        0      0 172.17.70.160:38888     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:30:40] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38888     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:32:24] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:32:24] [0m [32mconnected to server => tcp        0      0 172.17.70.160:56224     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:32:24] [0m [34mmessage: IDXEQAVP_0108=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195195
+ => tcp        0      0 172.17.70.160:56224     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:32:24] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56224     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:32:24] [0m [32msend message to server success:  => tcp        0    106 172.17.70.160:56224     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:32:24] [0m [31m   error read complete: End of file => tcp        0      0 172.17.70.160:56224     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-05 17:34:00] [0m [34mmessage from create logon: 8=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195 => no connection occurs[0m
+[33m[2024-01-05 17:34:00] [0m [32mconnected to server => tcp        0      0 172.17.70.160:46816     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:34:00] [0m [34mmessage: IDXEQAVP_0108=FIXT.1.19=5935=A49=vpfc100156=IDX553=vpfc1001554=jakarta1231137=810=195195
+ => tcp        0      0 172.17.70.160:46816     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-05 17:34:00] [0m [32msend message to server success:  => tcp        0    106 172.17.70.160:46816     172.18.2.213:59881      ESTABLISHED
+[0m

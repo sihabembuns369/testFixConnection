@@ -84,7 +84,7 @@ private:
 int main() {
     try {
         boost::asio::io_service io_service;
-        FixServer server(io_service, 9876);
+        FixServer server(io_service, 12345);
         io_service.run();
     } catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
