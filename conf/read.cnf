@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<connection>
+		<host>172.18.2.213</host>
+		<port>59881</port>
+		<senderID>VP</senderID>
+		<targetComp>IDX</targetComp>
+		<username>vpfc1001</username>
+		<tradeuser>vpft1001</tradeuser>
+		<password>jakarta123</password>
+	</connection>
+</root>

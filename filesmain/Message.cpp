@@ -23,11 +23,11 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "Message.h"
-#include "Utility.h"
-#include "Values.h"
+#include "../include/Message.h"
+#include "../include/Utility.h"
+#include "../include/Values.h"
 #include <iomanip>
 
 namespace FIX
@@ -80,10 +80,10 @@ bool Message::InitializeXML( const std::string& url )
 
   try
   {
-    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    // #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     std::auto_ptr<DataDictionary> p = std::auto_ptr<DataDictionary>(new DataDictionary(url));
     s_dataDictionary = p;
-    #pragma GCC diagnostic warning "-Wdeprecated-declarations"
+    // #pragma GCC diagnostic warning "-Wdeprecated-declarations"
     return true;
   }
   catch( ConfigError& )
@@ -162,6 +162,7 @@ void Message::reverseRoute( const Header& header )
   if( header.isSetField( onBehalfOfCompID ) )
   {
     header.getField( onBehalfOfCompID );
+    std::cout << "header on line 165: " << header.getField( onBehalfOfCompID ) << std::endl;
     if( onBehalfOfCompID.getValue().size() )
       m_header.setField( DeliverToCompID( onBehalfOfCompID ) );
   }
@@ -320,10 +321,13 @@ throw( InvalidMessage )
   {
     FieldBase field = extractField( string, pos, pSessionDataDictionary, pApplicationDataDictionary );
     if ( count < 3 && headerOrder[ count++ ] != field.getField() )
-      if ( doValidation ) throw InvalidMessage("Header fields out of order");
+      if ( doValidation ) throw InvalidMessage("Header fields out of order hello");
 
     if ( isHeaderField( field, pSessionDataDictionary ) )
     {
+      // std::cout << "field on line 327: " <<  field << "  getField() "<< field.getField() << std::endl;
+      // std::cout << "field on line 327: " <<  field << "  getField() "<< field.getField() << " headerOrder: " << headerOrder[ count++ ]<<  std::endl;
+
       if ( type != header )
       {
         if(m_field == 0) m_field = field.getField();
@@ -332,6 +336,8 @@ throw( InvalidMessage )
 
       if ( field.getField() == FIELD::MsgType )
         msg = field.getString();
+      // std::cout << "msg " <<  field.getString() << std::endl;
+
 
       m_header.setField( field, false );
 
@@ -384,6 +390,8 @@ void Message::setGroup( const std::string& msg, const FieldBase& field,
   {
     std::string::size_type oldPos = pos;
     FieldBase field = extractField( string, pos, &dataDictionary, &dataDictionary, pGroup );
+      std::cout << "field on line 387: " <<  field << std::endl;
+
     if ( (field.getField() == delim)
         || (pGroup == 0 && pDD->isField(field.getField())) )
     {
@@ -424,6 +432,7 @@ bool Message::setStringHeader( const std::string& string )
   while ( pos < string.size() )
   {
     FieldBase field = extractField( string, pos );
+    std::cout << "field line 430: " << field << std::endl;
     if ( count < 3 && headerOrder[ count++ ] != field.getField() )
       return false;
 

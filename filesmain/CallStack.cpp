@@ -22,7 +22,7 @@
 //#else
 //#include "config.h"
 //#endif
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
 #include <sstream>
 #include <typeinfo>

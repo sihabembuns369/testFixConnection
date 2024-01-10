@@ -1,8 +1,8 @@
 
 #include <stdlib.h>
-#include "IDXUtil.h"
-#include "IDXConstants.h"
-#include "IDXMessage.h"
+#include "../include/IDXUtil.h"
+#include "../include/IDXConstants.h"
+#include "../include/IDXMessage.h"
 
 namespace idx
 {

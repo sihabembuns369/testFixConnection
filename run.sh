@@ -1,1 +1,0 @@
-netstat -an | grep 59881

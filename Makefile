@@ -17,7 +17,7 @@ clean:
 
 run: printout
 	clear
-	./$(TARGET)
+	./$(TARGET) ./conf/read.cnf ./DataDictionary/FIX50SP1-IDX.xml
 
 printout:
 	@echo "Starting program at"

@@ -23,9 +23,9 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "MessageSorters.h"
+#include "../include/MessageSorters.h"
 
 namespace FIX
 {

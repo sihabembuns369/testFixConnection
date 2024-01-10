@@ -19,8 +19,8 @@
 **
 ****************************************************************************/
 
-#ifndef FIX_MESSAGE
-#define FIX_MESSAGE
+// #ifndef FIX_MESSAGE
+// #define FIX_MESSAGE
 
 #ifdef _MSC_VER
 #pragma warning( disable: 4786 )
@@ -86,6 +86,7 @@ public:
     m_header = copy.m_header;
     m_trailer = copy.m_trailer;
     m_validStructure = copy.m_validStructure;
+    std::cout << "sss; " << copy.m_validStructure <<  std::endl;
     m_field = copy.m_field;
   }
 
@@ -309,13 +310,14 @@ public:
 
 private:
   FieldBase extractField
-  ( const std::string& string, std::string::size_type& pos,
-    const DataDictionary* pSessionDD = 0, const DataDictionary* pAppDD = 0,
+  ( const std::string& string,
+    std::string::size_type& pos,
+    const DataDictionary* pSessionDD = 0,
+    const DataDictionary* pAppDD = 0,
     const Group* pGroup = 0)
   { QF_STACK_PUSH(extractField)
 
-    std::string::size_type equalSign
-      = string.find_first_of( '=', pos );
+    std::string::size_type equalSign = string.find_first_of( '=', pos );
     if( equalSign == std::string::npos )
       throw InvalidMessage("Equal sign not found in field");
 
@@ -348,9 +350,8 @@ private:
     }
 
     pos = soh + 1;
-    return FieldBase (
-      field,
-      string.substr( equalSign + 1, soh - ( equalSign + 1 ) ) );
+    // std::cout << "yoibro: " <<  FieldBase (field, string.substr( equalSign + 1, soh - ( equalSign + 1 ) ) ) <<std::endl;
+    return FieldBase (field, string.substr( equalSign + 1, soh - ( equalSign + 1 ) ) );
 
     QF_STACK_POP
   }
@@ -391,4 +392,4 @@ throw( MessageParseError )
 }
 }
 
-#endif //FIX_MESSAGE
+// #endif //FIX_MESSAGE

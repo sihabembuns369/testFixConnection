@@ -1,6 +1,6 @@
 
-#ifndef IDX_MESSAGE_H
-#define IDX_MESSAGE_H
+// #ifndef IDX_MESSAGE_H
+// #define IDX_MESSAGE_H
 
 #include <iostream>
 
@@ -51,4 +51,4 @@ public:
 }
 
 
-#endif // IDX_MESSAGE_H
+// #endif // IDX_MESSAGE_H

@@ -1,8 +1,8 @@
 {
-    "terminal.integrated.fontSize": 11,
+    "terminal.integrated.fontSize": 10,
     "editor.wordWrap": "on",
     "files.autoSave": "afterDelay",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 0.5,
     "editor.fontSize": 11,
     "workbench.colorTheme": "Atom One Dark",
     "workbench.iconTheme":"vscode-icons",
@@ -87,7 +87,10 @@
     "streambuf": "cpp",
     "thread": "cpp",
     "typeindex": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "future": "cpp",
+    "optional": "cpp",
+    "source_location": "cpp"
 },
 
 

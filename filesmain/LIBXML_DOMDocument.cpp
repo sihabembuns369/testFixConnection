@@ -25,10 +25,10 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
 #if (HAVE_LIBXML > 0 || _MSC_VER == 0)
-#include "LIBXML_DOMDocument.h"
+#include "../include/LIBXML_DOMDocument.h"
 #include <libxml/xpath.h>
 #include <sstream>
 

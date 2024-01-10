@@ -23,10 +23,10 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "DataDictionary.h"
-#include "Message.h"
+#include "../include/DataDictionary.h"
+#include "../include/Message.h"
 #include <fstream>
 #include <memory>
 #include <pthread.h>

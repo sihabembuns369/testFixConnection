@@ -23,9 +23,9 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "FieldTypes.h"
+#include "../include/FieldTypes.h"
 
 #ifdef HAVE_FTIME
 # include <sys/timeb.h>

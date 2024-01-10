@@ -23,9 +23,9 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "Utility.h"
+#include "../include/Utility.h"
 
 #ifdef USING_STREAMS
 #include <stropts.h>

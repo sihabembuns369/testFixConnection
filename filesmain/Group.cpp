@@ -23,9 +23,9 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "Group.h"
+#include "../include/Group.h"
 
 namespace FIX
 {

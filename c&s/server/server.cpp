@@ -1,6 +1,7 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include <map>
 
 using namespace boost::asio;
 using ip::tcp;
@@ -12,6 +13,15 @@ public:
           socket_(io_service) {
         startAccept();
     }
+
+    // Fungsi untuk mencetak pesan FIX
+void printFixMessage(const std::map<int, std::string>& fixMessage) {
+    std::cout << "Pesan FIX: ";
+    for (const auto& entry : fixMessage) {
+        std::cout << "[" << entry.first << "=" << entry.second << "] ";
+    }
+    std::cout << std::endl;
+}
 
 private:
     void startAccept() {
@@ -41,7 +51,7 @@ private:
             std::string receivemsg(_read_msg, bytes_transferred);
             std::cout << "read message: " + receivemsg << std::endl;
             // handleRead(); // start waiting for another asynchronous read again
-            sendFixMessage("8=FIXT.1.1|9=0|35=A|34=0|49=VP|56=IDX|5220240103-09:26:19|98=0|108=30|141=Y|553vpfc1001|554=jakarta123|");
+            sendFixMessage("8=FIXT.1.19=6335=A49=IDX56=VP34=152=20240109-00:55:1498=0108=451137=810=083");
         }
         else
         {

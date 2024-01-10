@@ -23,9 +23,9 @@
 //#include "config.h"
 //#endif
 
-#include "CallStack.h"
+#include "../include/CallStack.h"
 
-#include "FieldMap.h"
+#include "../include/FieldMap.h"
 #include <algorithm>
 #include <iterator>
 
