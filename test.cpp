@@ -22,7 +22,6 @@
 
 #include "inc/WriteLog.hpp"
 #include "inc/netstat.hpp"
-#include "inc/color.hpp"
 #include "inc/FileCustom.hpp"
 #include "include/IDXConstants.h"
 #include "include/IDXMessage.h"
@@ -36,11 +35,10 @@
 typedef const std::string CSTRING;
 typedef boost::asio::io_service IOSERVICE;
 
-
 class FixSession
 {
 public:
-    FixSession(boost::asio::io_service &ioService, FIX::DataDictionary &dd, const std::string &targetIP, const std::string &targetPort, const std::string &username, const std::string &password , const float sendsleep, const float recvsleep)
+    FixSession(boost::asio::io_service &ioService, FIX::DataDictionary &dd, const std::string &targetIP, const std::string &targetPort, const std::string &username, const std::string &password, const float sendsleep, const float recvsleep)
         : ioService_(ioService),
           _dd(dd),
           targetIP_(targetIP),
@@ -49,69 +47,71 @@ public:
           password_(password),
           _connect_timer(ioService),
           _connection_timeout(boost::posix_time::seconds(100)),
-        _sendsleep(sendsleep),
-        _recvsleep(recvsleep)
+          _sendsleep(sendsleep),
+          _recvsleep(recvsleep)
     {
 
-        // if(IsActive() ==  true){
+        if (IsActive() == true)
+        {
 
-        // try
-        // {
-        //     brecvthreadrun = true;
-        //     _thread_receive = new boost::thread(boost::bind(&FixSession::handle_receive_thread, this));
-        //     std::cout << "brecvthreadrun run." << std::endl;
-        //     // std::cout << "mencoba menyambung ulang..." << std::endl;
-        // }
-        // catch (std::exception &e)
-        // {
-        //     std::cout << "gagal menyambung..." << std::endl;
-        //     // OnErrorSystem(e);
-        //     cerr << e.what() << endl;
-        // }
+            try
+            {
+                brecvthreadrun = true;
+                _thread_receive = new boost::thread(boost::bind(&FixSession::handle_receive_thread, this));
+                std::cout << "brecvthreadrun run." << std::endl;
+                // std::cout << "mencoba menyambung ulang..." << std::endl;
+            }
+            catch (std::exception &e)
+            {
+                std::cout << "gagal menyambung..." << std::endl;
+                // OnErrorSystem(e);
+                cerr << e.what() << endl;
+            }
 
-        // try
-        // {
-        //     bsendthreadrun = true;
-        //     _thread_send = new boost::thread(boost::bind(&FixSession::handle_send_thread, this));
-        //     std::cout << "halo halo halo..." << std::endl;
-        // }
-        // catch (std::exception &e)
-        // {
-        //     // OnErrorSystem(e);
-        //     cerr << e.what() << endl;
-        // }
-        // }
+            try
+            {
+                bsendthreadrun = true;
+                _thread_send = new boost::thread(boost::bind(&FixSession::handle_send_thread, this));
+                std::cout << "halo halo halo..." << std::endl;
+            }
+            catch (std::exception &e)
+            {
+                // OnErrorSystem(e);
+                cerr << e.what() << endl;
+            }
+        }
     }
 
     ~FixSession() // destructor
     {
         if (_thread_service != NULL)
         {
-            // brecvthreadrun = false;
-            // bsendthreadrun = false;
+            brecvthreadrun = false;
+            bsendthreadrun = false;
 
             std::cout << "threadjoind() function has been running: " << std::endl;
-            logWrite("threadjoind() function has be running: ", MAGENTA);
+            // logWrite("threadjoind() function has be running: ", MAGENTA);
 
-            // _thread_service->join();
+            _thread_service->join();
 
-            // _thread_receive->join();
-            // _thread_send->join();
+            _thread_receive->join();
+            _thread_send->join();
 
-            // delete _thread_service;
+            delete _thread_service;
 
-            // delete _thread_receive;
-            // delete _thread_send;
-        }else{
-             std::cout << "threadjoind()not running: " << std::endl;
+            delete _thread_receive;
+            delete _thread_send;
         }
-      
+        else
+        {
+            std::cout << "threadjoind()not running: " << std::endl;
+        }
     }
 
     void start()
     {
         // Resolve the target IP and port
-        logWrite("\t\t\t\tconnection starts...", YELLOW);
+        logWrite("\t\t\t\tconnection starts...", YELLOW, outp);
         std::cout << "connection start" << std::endl;
         boost::asio::io_service io_service;
         boost::asio::ip::tcp::resolver resolver(ioService_);
@@ -128,8 +128,7 @@ public:
         return time.timecurrent();
     }
 
-
-    void logWrite(std::string log, std::string color)
+    void logWrite(std::string log, std::string color, std::string mode)
     {
         WriteLog logWrite;
         netstat net;
@@ -137,11 +136,11 @@ public:
         std::string netprint = net.exec("netstat -an | grep 59881");
         if (netprint.size() <= 0)
         {
-            logWrite.logMessage(log + " => " + "no connection occurs", color);
+            logWrite.logMessage(log + " => " + "no connection occurs", color, mode, 1);
         }
         else
         {
-            logWrite.logMessage(log + " => " + netprint, color);
+            logWrite.logMessage(log + " => " + netprint, color, mode, 1);
         }
         //  logWrite.logMessage(log);
     }
@@ -157,8 +156,9 @@ public:
         Logon(createLogon(user, pass));
     }
 
-    void printCreateLoogn(){
-       try
+    void printCreateLoogn()
+    {
+        try
         {
 
             idx::msg::IDXMessage *oMsg = new idx::msg::IDXMessage(_protocol_version);
@@ -170,23 +170,26 @@ public:
             this->do_writestr(s);
 
             std::cout << "message on printCreateLoogn(): " + _fix_raw_logon_string << std::endl;
-            logWrite("message on  printCreateLoogn(): " + _fix_raw_logon_string, BLUE);
+            logWrite("message on  printCreateLoogn(): " + _fix_raw_logon_string, BLUE, outp);
             delete oMsg;
         }
         catch (std::exception &e)
         {
             std::cerr << e.what() << '\n';
             std::string error = e.what();
-            logWrite("error on handle_connected()" + error, RED);
+            logWrite("error on handle_connected()" + error, RED, outp);
         }
     }
 
     bool is_connect() { return _connect; }
 
-    void val_conf(std::string targetComp, std::string senderId){
-    _targetComp = targetComp;
-    _senderid = senderId;
+    void val_conf(std::string targetComp, std::string senderId)
+    {
+        _targetComp = targetComp;
+        _senderid = senderId;
     }
+    int MsgNum;
+    // bool _HouseKeeping;
 
 private:
     ///////////////////////////block to connect to the server [BEGIN]/////////////////////////////////////
@@ -195,7 +198,7 @@ private:
         boost::asio::ip::tcp::tcp::endpoint endpoint = *endpoint_iterator;
         socket_.reset(new boost::asio::ip::tcp::socket(ioService_));
 
-        socket_->async_connect(endpoint,boost::bind(&FixSession::handleConnect, this,boost::asio::placeholders::error));
+        socket_->async_connect(endpoint, boost::bind(&FixSession::handleConnect, this, boost::asio::placeholders::error));
         // _connect_timer.expires_from_now(_connection_timeout);
         // _connect_timer.async_wait(boost::bind(&FixSession::do_close, this, boost::asio::placeholders::error));
     }
@@ -207,7 +210,7 @@ private:
         if (!ec) // not error
         {
             std::cout << "connection to the server was successful" << std::endl;
-            logWrite("connection to the server was successful", GREEN);
+            logWrite("connection to the server was successful", GREEN, outp);
             // _connect = true;
             _active = true;
 
@@ -217,7 +220,7 @@ private:
         }
         else
         {
-            logWrite("error connecting to the fix server: " + ec.message(), RED);
+            logWrite("error connecting to the fix server: " + ec.message(), RED, outp);
             do_close(ec);
             std::cerr << "Error connecting to the FIX server: " << ec.message() << std::endl;
         }
@@ -234,17 +237,17 @@ private:
 
             std::string s(oMsg->GetRawString());
             s += IDX_END;
-            this->do_writestr(s);
+            this->do_writestr(_fix_raw_logon_string);
 
-            std::cout << "message on handle_connected(): " + s << std::endl;
-            logWrite("message on handle_connected(): " + s, BLUE);
+            std::cout << "message on handle_connected(): " + _fix_raw_logon_string << std::endl;
+            logWrite("message on handle_connected(): " + _fix_raw_logon_string, BLUE, outp);
             delete oMsg;
         }
         catch (std::exception &e)
         {
             std::cerr << e.what() << '\n';
             std::string error = e.what();
-            logWrite("error on handle_connected()" + error, RED);
+            logWrite("error on handle_connected()" + error, RED, outp);
         }
     }
     ///////////////////////////block to connect to the server [END]/////////////////////////////////////////
@@ -283,39 +286,39 @@ private:
             if (!_writestring_msgs.empty())
             {
                 std::cout << "masih ada pesan yang belum terkirim di writestr_complete()" << std::endl;
-                logWrite("masih ada pesan yang belum terkirim di writestr_complete()", GREEN);
+                logWrite("masih ada pesan yang belum terkirim di writestr_complete()", GREEN, outp);
                 boost::asio::async_write(*socket_, boost::asio::buffer(_writestring_msgs.front(), _writestring_msgs.front().size()), boost::bind(&FixSession::writestr_complete, this, boost::asio::placeholders::error));
-            }else{
-            logWrite("send message to server success, write complete: ", GREEN);
+            }
+            else
+            {
+                logWrite("send message to server success, write complete: ", GREEN, outp);
             }
         }
         else
         {
-            logWrite(" write error : " + error.message(), RED);
+            logWrite(" write error : " + error.message(), RED, outp);
             std::cerr << "Write error: " << error.message() << std::endl;
             // do_close(error);
         }
     }
 
-
     void handle_send_thread()
     {
         try
         {
-            logWrite("handle send thread() try: ", MAGENTA);
+            logWrite("handle send thread() try: ", MAGENTA, outp);
 
             while (bsendthreadrun)
             {
-                    logWrite("handle send thread() while (bsendthreadrun): ", MAGENTA);
-
+                // logWrite("handle send thread() while (bsendthreadrun): ", MAGENTA, outp);
 
                 if (IsActive())
                 {
-                    logWrite("handle send thread() if(IsActive()): ", MAGENTA);
+                    // logWrite("handle send thread() if(IsActive()): ", MAGENTA, outp);
                     std::string senddata;
                     while (queue_send.try_pop(senddata))
                     {
-                    logWrite("handle send thread()  while (queue_send.try_pop(senddata)): ", MAGENTA);
+                        logWrite("handle send thread()  while (queue_send.try_pop(senddata)): ", MAGENTA, outp);
 
                         do_writestr(senddata);
                     }
@@ -335,7 +338,7 @@ private:
     ///////////////////////////////////// to read server message [BEGIN]/////////////////////////////////
     void readFixMessage()
     {
-        logWrite("di fungsi readFixMessage()", MAGENTA);
+        logWrite("di fungsi readFixMessage()", MAGENTA, inp);
         socket_->async_read_some(boost::asio::buffer(_read_msg, max_read_length),
                                  boost::bind(&FixSession::read_complete, this,
                                              boost::asio::placeholders::error,
@@ -348,21 +351,21 @@ private:
         if (error)
         {
             std::cout << "error read complete: " << error.message() << std::endl;
-            logWrite("   error read on read_complete(): " + error.message(), RED);
+            logWrite("   error read on read_complete(): " + error.message(), RED, inp);
             do_close(error);
         }
         else
         {
             // read completed, so process the data
             std::string receivemsg(_read_msg, bytes_transferred);
-            logWrite("reading message from server" + receivemsg, GREEN);
+            logWrite("reading message from server" + receivemsg, GREEN, inp);
             // std::cout << "reading message from server: " + receivemsg << std::endl;
             handle_receive(receivemsg);
             readFixMessage();
         }
     }
 
-     void handle_receive(const std::string recv)
+    void handle_receive(const std::string recv)
     {
 
         try
@@ -371,7 +374,7 @@ private:
             {
                 std::string res(recv);
                 queue_receive.push(res);
-                std::cout << "res on handle_receive(): " + res << std::endl;
+                std::cout << "receive message on handle_receive(): " + res << std::endl;
             }
         }
         catch (const std::exception &e)
@@ -382,12 +385,11 @@ private:
         }
     }
 
-    
     void handle_receive_thread()
     {
         try
         {
-           logWrite( "run handle_reveive_thread() try", MAGENTA);
+            logWrite("run handle_reveive_thread() try", MAGENTA, inp);
 
             while (brecvthreadrun)
             {
@@ -398,8 +400,8 @@ private:
 
                 if (queue_receive.try_pop(receivedata))
                 {
-                //  logWrite("run handle_reveive_thread() queue_receive.try_pop(receivedata)", MAGENTA);
-                    std::cout << "receive message: " << receivedata << std::endl; 
+                    logWrite("run handle_reveive_thread() queue_receive.try_pop(receivedata)", MAGENTA, inp);
+                    std::cout << "receive message: " << receivedata << std::endl;
 
                     sraw = _incomplete_raw + receivedata;
                     _incomplete_raw = "";
@@ -407,18 +409,20 @@ private:
                     bool bLoop = true;
                     while (bLoop)
                     {
-                        // logWrite("run handle_reveive_thread()   while (bLoop)" , MAGENTA);
+                        logWrite("run handle_reveive_thread()   while (bLoop)", MAGENTA, inp);
 
                         size_t found = sraw.find(IDX_END);
                         if (found != std::string::npos)
                         {
-                        //    logWrite( "run handle_reveive_thread()      if (found != std::string::npos)", MAGENTA);
+                            logWrite("run handle_reveive_thread()      if (found != std::string::npos)", MAGENTA, inp);
 
                             std::string smsg;
                             std::cout << "fixmsg =====> " << smsg << std::endl;
                             idx::GetStringNextToken(sraw, smsg, IDX_END);
                             if (!smsg.empty())
                                 internal_parsing_data(smsg);
+                            std::cout << "run handle_reveive_thread(): " << smsg << std::endl;
+                            logWrite("run handle_reveive_thread() internal_parsing_data(smsg): " + smsg, BLUE, inp);
                         }
                         else
                         {
@@ -438,8 +442,6 @@ private:
         }
     }
     ///////////////////////////////////// to read server message [END]//////////////////////////////////
-
-   
 
     void internal_parsing_data(const std::string data)
     {
@@ -477,26 +479,25 @@ private:
         // delete oMsg;
     }
 
-   
-  
-  void Logon(CSTRING fix_raw_logon)
+    void Logon(CSTRING fix_raw_logon)
     {
-        std::cout << "logon function has been called:..." <<  std::endl;
+        std::cout << "logon function has been called:..." << std::endl;
         _fix_raw_logon_string = fix_raw_logon;
-        // FixSession::start();
+        FixSession::start();
     }
 
     std::string createLogon(const std::string user, const std::string pass)
     {
+        std::string MsgSeqNum = std::to_string(MsgNum);
         /// construct fix message logon
         FIX::Message message;
 
-        message.getHeader().setField(8, "FIXT.1.1");  // BeginString
-        message.getHeader().setField(35, "A");        // MsgType
-        message.getHeader().setField(49, _senderid); // SenderCompID VP
+        message.getHeader().setField(8, "FIXT.1.1");   // BeginString
+        message.getHeader().setField(35, "A");         // MsgType
+        message.getHeader().setField(49, _senderid);   // SenderCompID VP
         message.getHeader().setField(56, _targetComp); // TargetCompID, with enumeration, FIX::FIELD::TargetCompID IDX
-        message.getHeader().setField(34,"1");
-        message.getHeader().setField(52,currentTime());
+        message.getHeader().setField(34, MsgSeqNum);
+        message.getHeader().setField(52, currentTime());
 
         // message.getHeader().setField(8, "FIXT.1.1");  // BeginString
         // message.getHeader().setField(49, "VP"); // SenderCompID
@@ -506,21 +507,11 @@ private:
         // message.getHeader().setField(52,currentTime());
         message.setField(98, "0");
         message.setField(108, "45");
-        message.setField(553, user); //vpfc1001
-        message.setField(554, pass); //jakarta123 
+        message.setField(553, user); // vpfc1001
+        message.setField(554, pass); // jakarta123
         message.setField(1137, "8");
-
-
-        // message.setField(10, "239");
-        // std::string checksum =message.getField(10);
-        // message.getField(98);
-
-        // int i = message.toString().length();
-        // std::cout << "message.toString().length(): " << i << std::endl;
-        // std::cout << "datadictionary: " << _dd << std::endl;
-
         FIX::Message checkMsg(message.toString(), _dd, true);
-        logWrite("message from create logon: " + message.toString() , GREEN);
+        logWrite("message from create logon: " + message.toString(), GREEN, outp);
         std::cout << "message from create logon: " + message.toString() << std::endl;
         // std::cout << "checksum: " + checksum << std::endl;
 
@@ -541,18 +532,17 @@ private:
     //     delete oMsg;
     // }
 
-  
     void do_close(const boost::system::error_code &error)
     {
         // something has gone wrong, so close the socket & make this object inactive
         if (error == boost::asio::error::operation_aborted) // if this call is the result of a timer cancel()
-            logWrite("connection closed: operation aborted", RED);
+            logWrite("connection closed: operation aborted", RED, outp);
         return; // ignore it because the connection cancelled the timer
         if (error)
         {
 
             std::string s = error.message();
-            logWrite("connection closed: " + s, RED);
+            logWrite("connection closed: " + s, RED, outp);
             handle_error(error.message(), error);
         }
 
@@ -576,16 +566,12 @@ private:
         }
     }
 
- void Close()
+    void Close()
     {
         ioService_.post(boost::bind(&FixSession::do_close, this, boost::system::error_code()));
     }
 
-
-
-
-
-    //declaration variable
+    // declaration variable
     boost::thread *_thread_service;
     boost::asio::io_service &ioService_;
     FIX::DataDictionary &_dd;
@@ -629,7 +615,7 @@ private:
     bool _logonInProgress;
 };
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     std::string filesconfig = argv[1];
     std::string fileDatadictionary = argv[2];
@@ -637,18 +623,15 @@ int main(int argc, char* argv[])
     std::ifstream is(fileDatadictionary, std::ios::in);
     std::string userinput;
     FileCustom conf;
+    // FixSession._HouseKeeping = conf.HouseKeeping();
 
-    
-    
-
-    std::cout << YELLOW << "reading configuration file at a specified path: " << RESET << "" MAGENTA << filesconfig << RESET<<  std::endl;
-    if(!is.is_open()){
-        std::cout << RED << "The file "<<  fileDatadictionary <<" cannot be opened" << RESET <<  std::endl;
+    std::cout << YELLOW << "reading configuration file at a specified path: " << RESET << "" MAGENTA << filesconfig << RESET << std::endl;
+    if (!is.is_open())
+    {
+        std::cout << RED << "The file " << fileDatadictionary << " cannot be opened" << RESET << std::endl;
         return 1;
     }
     FIX::DataDictionary dd(is);
-    
-
 
     // std::FILE *file = std::fopen("conf/FIX50SP1-IDX.xml", "rb");
     // std::string MD5FIXML = "d36cb8f0fccd193867eb70d75d57d7a3";
@@ -677,12 +660,9 @@ int main(int argc, char* argv[])
     // std::cout << " status: " << (fixSession.is_connect() ? GREEN "connected" RESET : RED "not connect" RESET) << std::endl;
     // FIX::DataDictionary& _dd = dd;
 
-    // Replace "TARGET_IP" and "TARGET_PORT" with your FIX server details
-    // "172.18.2.213", "59881"
-
     if (conf.ReadConFile(filesconfig))
     {
-       
+
         //  conf.printFile();
         // conf.myVector[2] = "test change";
         // conf.writeToXml();
@@ -691,34 +671,40 @@ int main(int argc, char* argv[])
         try
         {
             FixSession fixSession(ioService, dd, conf.myVector[0], conf.myVector[1], conf.myVector[4], conf.myVector[6], 10, 10); ////test to jats server
+            fixSession.MsgNum = conf.msgSeqNum();
 
             // fixSession.start();
             fixSession.val_conf(conf.myVector[3], conf.myVector[2]);
 
-            fixSession.logon(conf.myVector[4], conf.myVector[6]);
-
             // fixSession.printCreateLoogn();
+            while (true)
+            {
+                /* code */
 
-            // if (fixSession.is_connect())
-            // {
-            //     std::cout << "do you wwant to logon? y/n:  ";
-            //     std::cin >> userinput;
-            //     if (userinput == "y" or userinput == "Y")
-            //     {
-            //         fixSession.logon("vpfc1001", "jakarta123");
-            //     }
-            //     else
-            //     {
-            //         return 1;
-            //     }
-            // }
-            // else
-            // {
-            //     // reconnect?
-            //     fixSession.logWrite("Reconnect.", YELLOW);
+                if (fixSession.is_connect())
+                {
+                    std::cout << "do you wwant to logon? y/n:  ";
+                    std::cin >> userinput;
+                    if (userinput == "y" or userinput == "Y")
+                    {
+                        fixSession.MsgNum++;
+                        conf.saveSeqNum(fixSession.MsgNum);
+                        std::cout << "msgNum increment: " << fixSession.MsgNum << std::endl;
+                        fixSession.logon(conf.myVector[4], conf.myVector[6]);
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                }
+                else
+                {
+                    // reconnect?
+                    fixSession.logWrite("Reconnect.", YELLOW, outp);
 
-            //     fixSession.start();
-            // }
+                    fixSession.start();
+                }
+            }
 
             // ioService.run();
         }

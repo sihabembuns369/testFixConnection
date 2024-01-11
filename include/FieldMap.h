@@ -82,7 +82,8 @@ public:
   {
     Fields::iterator i = m_fields.find( field.getField() );
     if( i == m_fields.end() )
-      m_fields.insert( Fields::value_type( field.getField(), field ) );
+      m_fields.insert( Fields::value_type( field.getField(), field ) ); 
+      // std::cout << "on FiledMap.h: " << field.getField() << std::endl;
     else
     {
       if( overwrite )

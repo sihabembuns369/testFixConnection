@@ -26,6 +26,8 @@
 #define BOLDMAGENTA   "\033[1m\033[35m"
 #define BOLDCYAN      "\033[1m\033[36m"
 #define BOLDWHITE     "\033[1m\033[37m"
+#define inp "in"
+#define outp "out"
 
 
 class WriteLog{
@@ -67,48 +69,39 @@ class WriteLog{
         return buf;
     }
 
-    void HouseKeeping(const char *folderAsal,const char *folderTujuan ){
-    DIR *dirAsal;
-    struct dirent *entry;
+ 
 
-    // Buka folder asal
-    if ((dirAsal = opendir(folderAsal)) != nullptr) {
-        while ((entry = readdir(dirAsal)) != nullptr) {
-            if (entry->d_type == DT_REG) {
-                std::string fileNamaAsal = folderAsal + std::string("/") + entry->d_name;
-                std::string fileNamaTujuan = folderTujuan + std::string("/") + entry->d_name;
-                // std::cout << "file: " + fileNamaAsal << std::endl;
+    void logMessage(const std::string& message , const std::string color, const std::string mode, bool autoHouseKeeping) {
 
-                if (fileNamaAsal == folderAsal + std::string("/") + currentDateTime().substr(0,10)+".log" )
-                {
-                //  std::cout << "file detection: " << std::endl;
-                }else{
-                   // Memindahkan file
-                if (rename(fileNamaAsal.c_str(), fileNamaTujuan.c_str()) != 0) {
-                    perror("Gagal memindahkan file");
-                } else {
-                    std::cout << "File " << fileNamaAsal << " berhasil dipindahkan ke " << fileNamaTujuan << std::endl;
-                }
-                }
-                
+        logdir =  currentDateTime().substr(0,10)+"_["+mode+"]_.log";
+        // std::cout << "logDir: " << logdir << std::endl;
+        if (autoHouseKeeping == 1 || autoHouseKeeping == true)
+        {
+            // std::cout << GREEN<<"HouseKeeping on"<<RESET<< std::endl;
+            if (mode == inp)
+            {
+                HouseKeeping("LogFile/FromServer", "LogFile/HouseKeeping/FromServer", logdir);
 
-               
+            }else if(mode == outp){
+            HouseKeeping("LogFile/FromApp", "LogFile/HouseKeeping/FromApp", logdir);
             }
+            
         }
-        closedir(dirAsal);
-    } else {
-        perror("Error accessing folder");
-        // return 1;
-    }
 
-
-    }
-
-
-    void logMessage(const std::string& message , const std::string color) {
-        HouseKeeping("LogFile/" ,"LogFile/HouseKeeping");
         // Buka file log untuk menulis (tambahkan mode)
-        std::ofstream logFile("./LogFile/"+ currentDateTime().substr(0,10)+".log", std::ios::app);
+        std::string fileLogDir = "./LogFile/";
+
+        if (mode == inp)
+        {
+          fileLogDir = "./LogFile/FromServer/";
+        }else if (mode == outp)
+        {
+          fileLogDir = "./LogFile/FromApp/";
+        }
+        
+      
+        // std::ofstream logFile(fileLogDir + currentDateTime().substr(0,10)+".log", std::ios::app);
+        std::ofstream logFile(fileLogDir + currentDateTime().substr(0,10)+"_["+mode+"]_.log", std::ios::app);
 
         // Periksa apakah file berhasil dibuka
         if (!logFile.is_open()) {
@@ -134,5 +127,49 @@ class WriteLog{
 
     private:
         std::string logFilename;
+        std::string logdir;
+           void HouseKeeping(const char *folderAsal, const char *folderTujuan, std::string filename)
+    {
+        DIR *dirAsal;
+        struct dirent *entry;
+
+        // Buka folder asal
+        if ((dirAsal = opendir(folderAsal)) != nullptr)
+        {
+            while ((entry = readdir(dirAsal)) != nullptr)
+            {
+                if (entry->d_type == DT_REG)
+                {
+                    std::string fileNamaAsal = folderAsal + std::string("/") + entry->d_name;
+                    std::string fileNamaTujuan = folderTujuan + std::string("/") + entry->d_name;
+                    // std::cout << "file: " + fileNamaAsal << std::endl;
+                    // std::cout << "folderAsal: " <<  folderAsal + std::string("/") + filename << std::endl;
+
+                    if (fileNamaAsal == folderAsal + std::string("/") + filename)
+                    {
+                        //  std::cout << "file detection: " << std::endl;
+                    }
+                    else
+                    {
+                        // Memindahkan file
+                        if (rename(fileNamaAsal.c_str(), fileNamaTujuan.c_str()) != 0)
+                        {
+                            perror("Gagal memindahkan file");
+                        }
+                        else
+                        {
+                            std::cout << "File " << fileNamaAsal << " berhasil dipindahkan ke " << fileNamaTujuan << std::endl;
+                        }
+                    }
+                }
+            }
+            closedir(dirAsal);
+        }
+        else
+        {
+            perror("Error accessing folder");
+            // return 1;
+        }
+    }
 
 };

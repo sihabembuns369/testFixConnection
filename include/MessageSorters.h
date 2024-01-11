@@ -19,8 +19,8 @@
 **
 ****************************************************************************/
 
-#ifndef FIX_MESSAGESORTERS_H
-#define FIX_MESSAGESORTERS_H
+// #ifndef FIX_MESSAGESORTERS_H
+// #define FIX_MESSAGESORTERS_H
 
 #ifdef _MSC_VER
 #pragma warning( disable : 4503 4355 4786 4290 )
@@ -53,13 +53,18 @@ struct header_order
           return x < y;
   }
 
-  static int getOrderedPosition( const int& field )
+  static int getOrderedPosition( const int& field ) //merubah / menyesuaikan uurtan order pesan (suctom)
   {
     switch ( field )
     {
       case FIELD::BeginString: return 1;
       case FIELD::BodyLength: return 2;
       case FIELD::MsgType: return 3;
+      case FIELD::SenderCompID: return 4;
+      case FIELD::TargetCompID: return 5;
+      case FIELD::MsgSeqNum: return 6;
+      case FIELD::SendingTime: return 7;
+      
       default: return 0;
     };
   }
@@ -153,5 +158,5 @@ private:
 };
 }
 
-#endif //FIX_MESSAGESORTERS_H
+// #endif //FIX_MESSAGESORTERS_H
 

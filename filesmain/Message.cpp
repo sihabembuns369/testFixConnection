@@ -97,6 +97,7 @@ void Message::reverseRoute( const Header& header )
 
   // required routing tags
   BeginString beginString;
+  std::cout << "on line 100: " << beginString << std::endl;
   SenderCompID senderCompID;
   TargetCompID targetCompID;
 
@@ -118,6 +119,7 @@ void Message::reverseRoute( const Header& header )
 
     if( beginString >= BeginString_FIX41 )
     {
+      std::cout << "on line 122: beginString >= BeginString_FIX41" << std::endl;
       if( header.isSetField( onBehalfOfLocationID ) )
       {
         header.getField( onBehalfOfLocationID );
@@ -295,10 +297,7 @@ std::string Message::toXMLFields(const FieldMap& fields, int space) const
   QF_STACK_POP
 }
 
-void Message::setString( const std::string& string,
-                         bool doValidation,
-                         const DataDictionary* pSessionDataDictionary,
-                         const DataDictionary* pApplicationDataDictionary )
+void Message::setString( const std::string& string,bool doValidation,const DataDictionary* pSessionDataDictionary,const DataDictionary* pApplicationDataDictionary )
 throw( InvalidMessage )
 { QF_STACK_PUSH(Message::setString)
 
@@ -310,22 +309,28 @@ throw( InvalidMessage )
 
   static int const headerOrder[] =
   {
-    FIELD::BeginString,
-    FIELD::BodyLength,
-    FIELD::MsgType
+    FIELD::BeginString, //8
+    FIELD::BodyLength, //9
+    FIELD::MsgType, //35 //default cuma sampe sini
+    FIELD::SenderCompID, //49
+    FIELD::TargetCompID, //56
+    FIELD::MsgSeqNum, //34
+    FIELD::SendingTime
+
   };
 
   field_type type = header;
-
+//testtttt
   while ( pos < string.size() )
   {
     FieldBase field = extractField( string, pos, pSessionDataDictionary, pApplicationDataDictionary );
+    
     if ( count < 3 && headerOrder[ count++ ] != field.getField() )
       if ( doValidation ) throw InvalidMessage("Header fields out of order hello");
 
     if ( isHeaderField( field, pSessionDataDictionary ) )
     {
-      // std::cout << "field on line 327: " <<  field << "  getField() "<< field.getField() << std::endl;
+      std::cout <<  " on line 335 getField() "<< field.getField() << " field:  " <<  field  << std::endl;
       // std::cout << "field on line 327: " <<  field << "  getField() "<< field.getField() << " headerOrder: " << headerOrder[ count++ ]<<  std::endl;
 
       if ( type != header )
@@ -338,12 +343,11 @@ throw( InvalidMessage )
         msg = field.getString();
       // std::cout << "msg " <<  field.getString() << std::endl;
 
-
       m_header.setField( field, false );
 
       if ( pSessionDataDictionary )
         setGroup( "_header_", field, string, pos, getHeader(), *pSessionDataDictionary );
-    }
+    } //akhir if isHeaderField
     else if ( isTrailerField( field, pSessionDataDictionary ) )
     {
       type = trailer;
@@ -373,6 +377,7 @@ throw( InvalidMessage )
 
   QF_STACK_POP
 }
+
 
 void Message::setGroup( const std::string& msg, const FieldBase& field,
                         const std::string& string,
@@ -431,6 +436,8 @@ bool Message::setStringHeader( const std::string& string )
 
   while ( pos < string.size() )
   {
+    std::cout << "field line 430: "  << std::endl;
+
     FieldBase field = extractField( string, pos );
     std::cout << "field line 430: " << field << std::endl;
     if ( count < 3 && headerOrder[ count++ ] != field.getField() )
@@ -498,6 +505,8 @@ bool Message::isHeaderField( const FieldBase& field,
 
   QF_STACK_POP
 }
+
+
 
 bool Message::isTrailerField( int field )
 { QF_STACK_PUSH(Message::isTrailerField)

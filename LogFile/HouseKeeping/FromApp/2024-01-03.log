@@ -1,0 +1,71 @@
+[33m[2024-01-03 14:01:17] [0m [34mtes log[0m
+[33m[2024-01-03 15:30:24] [0m [32mconnected to server => tcp        0      0 172.17.70.160:34346     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:30:24] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:34346     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:30:24] [0m [34mmessage: 8=FIX.1.149=IDX56=VP_0135=A553=vpfc1001554=jakarta1231137=8 => tcp        0      0 172.17.70.160:34346     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:30:24] [0m [32msend message to server success:  => tcp        0     65 172.17.70.160:34346     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:30:24] [0m [33mdi fungsi readFixMessage() => tcp        0     65 172.17.70.160:34346     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:31:55] [0m [32mconnected to server => tcp        0      0 172.17.70.160:34346     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:38494     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:31:55] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:34346     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:38494     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:33:55] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:38494     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:33:55] [0m [31mconnection closed => tcp        0      0 172.17.70.160:38494     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:35:35] [0m [32mconnected to server => tcp        0      0 172.17.70.160:47636     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:35:35] [0m [34mmessage: 8=FIX.1.149=IDX56=VP_0135=A553=vpfc1001554=jakarta1231137=8 => tcp        0      0 172.17.70.160:47636     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:35:35] [0m [32msend message to server success:  => tcp        0     65 172.17.70.160:47636     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:35:35] [0m [33mdi fungsi readFixMessage() => tcp        0     65 172.17.70.160:47636     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:37:35] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:47636     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:37:35] [0m [31mconnection closed => tcp        0      0 172.17.70.160:47636     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:54:41] [0m [32mconnected to server => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [34mmessage: 00
+ => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [32msend message to server success:  => tcp        0     10 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:54:41] [0m [33mdi fungsi readFixMessage() => tcp        0     10 172.17.70.160:35574     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 15:56:42] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:56:42] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:56:42] [0m [31mconnection closed => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 15:56:42] [0m [31mconnection closed => tcp        0      0 172.17.70.160:35574     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 16:04:52] [0m [32mconnected to server => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 16:04:52] [0m [34mmessage: IDXEQAVP_0108=FIX.1.149=IDX56=VP_0135=A553=vpfc1001554=jakarta1231137=80
+ => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 16:04:52] [0m [33mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 16:04:52] [0m [32msend message to server success:  => tcp        0     87 172.17.70.160:58566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 16:04:52] [0m [33mdi fungsi readFixMessage() => tcp        0     87 172.17.70.160:58566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-03 16:06:52] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 16:06:52] [0m [31m  error read complete:  => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 16:06:52] [0m [31mconnection closed => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-03 16:06:52] [0m [31mconnection closed => tcp        0      0 172.17.70.160:58566     172.18.2.213:59881      CLOSE_WAIT 
+[0m

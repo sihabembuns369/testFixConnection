@@ -90,7 +90,8 @@
     "typeinfo": "cpp",
     "future": "cpp",
     "optional": "cpp",
-    "source_location": "cpp"
+    "source_location": "cpp",
+    "format": "cpp"
 },
 
 

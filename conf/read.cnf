@@ -9,4 +9,8 @@
 		<tradeuser>vpft1001</tradeuser>
 		<password>jakarta123</password>
 	</connection>
+	<Appconfiguration>
+		<HouseKeeping>false</HouseKeeping>
+		<msgSeqNum>24</msgSeqNum>
+	</Appconfiguration>
 </root>
