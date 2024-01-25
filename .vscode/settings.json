@@ -1,33 +1,34 @@
 {
-    "terminal.integrated.fontSize": 10,
-    "editor.wordWrap": "on",
-    "files.autoSave": "afterDelay",
-    "window.zoomLevel": 0.5,
-    "editor.fontSize": 11,
-    "workbench.colorTheme": "Atom One Dark",
-    "workbench.iconTheme":"vscode-icons",
-    
+  "terminal.integrated.fontSize": 12,
+  "editor.wordWrap": "on",
+  "files.autoSave": "afterDelay",
+  "window.zoomLevel": 0.3,
+  "editor.fontSize": 11,
+  "workbench.colorTheme": "Atom One Dark",
+  "workbench.iconTheme": "vscode-icons",
 
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
 
-    "workbench.colorCustomizations": {
-        "tab.activeBackground": "#077e03",
-        "tab.inactiveBackground": "#0c0c0c",
-        "titleBar.activeForeground": "#fffcfc",
-        "tab.hoverBackground": "#3043ec",
-        "tab.activeBorder": "#ff0000",
-        "terminal.tab.activeBorder": "#33ff00",
-        "tab.activeBorderTop": "#ff0000",
-        "titleBar.activeBackground": "#000000",
-        "C_Cpp.enhancedColorization": "Enabled",
-        "C_Cpp.errorSquiggles": "Enabled",
-        "C_Cpp.inlayHints": "Enabled"
-    },
-   
- "terminal.integrated.cursorStyle": "underline",
- "terminal.integrated.cursorBlinking": true,
- "terminal.integrated.tabs.title": "${process}",
-"panelTitle.activeBorder": "#ffc600",
-"files.associations": {
+  "workbench.colorCustomizations": {
+    "tab.activeBackground": "#077e03",
+    "tab.inactiveBackground": "#0c0c0c",
+    "titleBar.activeForeground": "#fffcfc",
+    "tab.hoverBackground": "#3043ec",
+    "tab.activeBorder": "#ff0000",
+    "terminal.tab.activeBorder": "#33ff00",
+    "tab.activeBorderTop": "#ff0000",
+    "titleBar.activeBackground": "#000000",
+    "C_Cpp.enhancedColorization": "Enabled",
+    "C_Cpp.errorSquiggles": "Enabled",
+    "C_Cpp.inlayHints": "Enabled"
+  },
+
+  "terminal.integrated.cursorStyle": "underline",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.tabs.title": "${process}",
+
+  "files.associations": {
     "*.ipp": "cpp",
     "system_error": "cpp",
     "cstddef": "cpp",
@@ -91,84 +92,11 @@
     "future": "cpp",
     "optional": "cpp",
     "source_location": "cpp",
-    "format": "cpp"
-},
-
-
-// "[cpp]": {
-//     "editor.wordBasedSuggestions": false,
-//     "editor.suggest.insertMode": "replace",
-//     "editor.semanticHighlighting.enabled": true,
-//     "editor.inlayHints.enabled": "off"
-// }
-
-
-    // "files.associations": {
-    //     "cstddef": "cpp",
-    //     "cstdlib": "cpp",
-    //     "cstring": "cpp",
-    //     "any": "cpp",
-    //     "array": "cpp",
-    //     "atomic": "cpp",
-    //     "bit": "cpp",
-    //     "*.tcc": "cpp",
-    //     "bitset": "cpp",
-    //     "cctype": "cpp",
-    //     "chrono": "cpp",
-    //     "clocale": "cpp",
-    //     "cmath": "cpp",
-    //     "compare": "cpp",
-    //     "complex": "cpp",
-    //     "concepts": "cpp",
-    //     "coroutine": "cpp",
-    //     "csignal": "cpp",
-    //     "cstdarg": "cpp",
-    //     "cstdint": "cpp",
-    //     "cstdio": "cpp",
-    //     "ctime": "cpp",
-    //     "cwchar": "cpp",
-    //     "cwctype": "cpp",
-    //     "deque": "cpp",
-    //     "list": "cpp",
-    //     "map": "cpp",
-    //     "set": "cpp",
-    //     "string": "cpp",
-    //     "unordered_map": "cpp",
-    //     "vector": "cpp",
-    //     "exception": "cpp",
-    //     "algorithm": "cpp",
-    //     "functional": "cpp",
-    //     "iterator": "cpp",
-    //     "memory": "cpp",
-    //     "memory_resource": "cpp",
-    //     "random": "cpp",
-    //     "ratio": "cpp",
-    //     "string_view": "cpp",
-    //     "system_error": "cpp",
-    //     "tuple": "cpp",
-    //     "type_traits": "cpp",
-    //     "utility": "cpp",
-    //     "initializer_list": "cpp",
-    //     "iomanip": "cpp",
-    //     "iosfwd": "cpp",
-    //     "iostream": "cpp",
-    //     "istream": "cpp",
-    //     "limits": "cpp",
-    //     "new": "cpp",
-    //     "numbers": "cpp",
-    //     "ostream": "cpp",
-    //     "sstream": "cpp",
-    //     "stdexcept": "cpp",
-    //     "streambuf": "cpp",
-    //     "thread": "cpp",
-    //     "typeindex": "cpp",
-    //     "typeinfo": "cpp",
-    //     "*.ipp": "cpp",
-    //     "optional": "cpp",
-    //     "variant": "cpp",
-    //     "span": "cpp",
-    //     "hashtable": "cpp"
-    // },
-
-   
+    "format": "cpp",
+    "span": "cpp"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "cmake.sourceDirectory": "/home/riski/FixEngine/QuickfixAppTest/client/test_connect/backup"
 }

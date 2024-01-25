@@ -19,6 +19,7 @@ namespace idx
 {
 
 void GetStringNextToken(std::string &Receive, std::string &Result, std::string Token);
+void GetMsgFix(std::string &Receive, std::string &Result, std::string Token);
 void Int64ToString(int64_t Val, std::string &Result, const std::string DefaultIfFailed);
 void IntToString(int Val, std::string &Result, const std::string DefaultIfFailed);
 void StringToInt(std::string Val, int &Result, const int DefaultIfFailed);

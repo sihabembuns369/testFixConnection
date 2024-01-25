@@ -1,168 +1,198 @@
+#ifndef __FILECUSTOM__
+#define __FILECUSTOM__
 #include <iostream>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <vector>
 #include "color.hpp"
+
 class FileCustom
 {
 public:
-    std::vector<std::string> myVector;
-   inline bool ReadConFile(std::string filename)
-    {
+    static std::vector<std::string> myVector;
+    static bool ReadConFile(std::string filename);
+    static int saveSeqNum(int client, int server);
+    static bool HouseKeeping();
+    static int getmsgSeqNum();
+    static void writeToXml();
+    static bool checkFileExtension();
+    static void printFile();
+    static int getmsgSeqNumServer();
 
-        filesname = filename;
-        if (checkFileExtension())
-        {
-            try
-            {
-                // Membaca file XML
-                boost::property_tree::read_xml(filesname, pt);
-                // Mengakses root node
-                boost::property_tree::ptree connection = pt.get_child("root.connection");
-                boost::property_tree::ptree Appconfiguration = pt.get_child("root.Appconfiguration");
-            
-                    myVector.clear();
+private:
+    static boost::property_tree::ptree pt;
+    static std::string filesname;
+    static bool _houseKeeping;
+    static int _msgSeqNum;
+    static int _msgSeqNumServer;
+};
 
+std::vector<std::string> FileCustom::myVector;
+boost::property_tree::ptree FileCustom::pt;
+std::string FileCustom::filesname;
+bool FileCustom::_houseKeeping;
+int FileCustom::_msgSeqNum;
+int FileCustom::_msgSeqNumServer;
 
-                // Menelusuri setiap elemen dalam root node
-                for (const auto &element : connection)
-                {
-                    // std::cout << "Tag: " << element.first << std::endl;
-                    // std::cout << "  Value: " << element.second.data() << std::endl;
-                        // std::cout << "  value: "<< attribute.second.data() << std::endl;
-                    myVector.push_back(element.second.data());
-                }
-
-                for (const auto &element: Appconfiguration)
-                {
-                    std::cout << "  tag: " << element.first << std::endl;
-                    if (element.first == "HouseKeeping")
-                    {
-                        if (element.second.data() == "y" )
-                        {
-                         _houseKeeping = true;
-                        }else{
-                            _houseKeeping =  false;
-                        }
-                    }else if(element.first == "msgSeqNum"){
-                        _msgSeqNum = stoi(element.second.data());
-                    }
-                    
-
-                }
-                
-            }
-            catch (const boost::property_tree::xml_parser_error &e)
-            {
-                std::cerr << RED << "Failed to read configuration file. Error message:" << RESET << e.what() << std::endl;
-                // return 1;
-            }
-            return true;
-
-        }else{
-            return false;
-        }
-    }
-    int saveSeqNum(int value){
-         try
-        {
-           
-            boost::property_tree::ptree tree;
-            // chnage config
-            tree.put("root.connection.host",myVector[0]);
-            tree.put("root.connection.port", myVector[1]);
-            tree.put("root.connection.senderID", myVector[2]);
-            tree.put("root.connection.targetComp", myVector[3]);
-            tree.put("root.connection.username",myVector[4]);
-            tree.put("root.connection.tradeuser", myVector[5]);
-            tree.put("root.connection.password",myVector[6]);
-            tree.put("root.Appconfiguration.HouseKeeping",HouseKeeping());
-            tree.put("root.Appconfiguration.msgSeqNum",value);
-
-            boost::property_tree::write_xml(filesname, tree, std::locale(),  boost::property_tree::xml_writer_settings<char>('\t', 1));
-
-            std::cout << "The configuration file has been successfully changed." << std::endl;
-        }
-        catch (const std::exception &e)
-        {
-            std::cerr << "Error: " << e.what() << std::endl;
-            // return 1;
-        }
-    }
-    bool HouseKeeping(){
-        return _houseKeeping;
-    }
-    int msgSeqNum(){
-        return _msgSeqNum;
-    }
-
-    void writeToXml() //melakukan konfigurasi jika user menyetelnya
+bool FileCustom::ReadConFile(std::string filename)
+{
+    filesname = filename;
+    if (checkFileExtension())
     {
         try
         {
-           
-            boost::property_tree::ptree tree;
-            // chnage config
-            tree.put("root.connection.host",myVector[0]);
-            tree.put("root.connection.port", myVector[1]);
-            tree.put("root.connection.senderID", myVector[2]);
-            tree.put("root.connection.targetComp", myVector[3]);
-            tree.put("root.connection.username",myVector[4]);
-            tree.put("root.connection.tradeuser", myVector[5]);
-            tree.put("root.connection.password",myVector[6]);
-             tree.put("root.Appconfiguration.HouseKeeping",HouseKeeping());
-            tree.put("root.Appconfiguration.msgSeqNum",msgSeqNum());
+            // Membaca file XML
+            boost::property_tree::read_xml(FileCustom::filesname, pt);
+            // Mengakses root node
+            boost::property_tree::ptree connection = pt.get_child("root.connection");
+            boost::property_tree::ptree Appconfiguration = pt.get_child("root.Appconfiguration");
 
-            boost::property_tree::write_xml(filesname, tree, std::locale(),  boost::property_tree::xml_writer_settings<char>('\t', 1));
+            FileCustom::myVector.clear();
 
-            std::cout << "The configuration file has been successfully changed." << std::endl;
+            // Menelusuri setiap elemen dalam root node
+            for (const auto &element : connection)
+            {
+                FileCustom::myVector.push_back(element.second.data());
+            }
+
+            for (const auto &element : Appconfiguration)
+            {
+                if (element.first == "HouseKeeping")
+                {
+                    if (element.second.data() == "true")
+                    {
+                        FileCustom::_houseKeeping = true;
+                    }
+                    else if (element.second.data() == "false")
+                    {
+                        FileCustom::_houseKeeping = false;
+                    }
+                }
+                else if (element.first == "msgSeqNum")
+                {
+                    FileCustom::_msgSeqNum = stoi(element.second.data());
+                }
+                else if (element.first == "msgSeqNumServer")
+                {
+                    FileCustom::_msgSeqNumServer = stoi(element.second.data());
+                }
+            }
         }
-        catch (const std::exception &e)
+        catch (const boost::property_tree::xml_parser_error &e)
         {
-            std::cerr << "Error: " << e.what() << std::endl;
-            // return 1;
+            std::cerr << RED << "Gagal Untuk Membaca File, [PESAN ERROR]:" << RESET << e.what() << std::endl;
         }
+        return true;
     }
-
-    bool checkFileExtension()
+    else
     {
-        std::string configFile = filesname;
-        size_t found = configFile.find(".cnf");
-        if (found != std::string::npos)
+        return false;
+    }
+}
+
+int FileCustom::saveSeqNum(int client, int sever)
+{
+    try
+    {
+        boost::property_tree::ptree tree;
+        // chnage config
+        tree.put("root.connection.host", myVector[0]);
+        tree.put("root.connection.port", myVector[1]);
+        tree.put("root.connection.senderID", myVector[2]);
+        tree.put("root.connection.targetComp", myVector[3]);
+        tree.put("root.connection.username", myVector[4]);
+        tree.put("root.connection.tradeuser", myVector[5]);
+        tree.put("root.connection.password", myVector[6]);
+        tree.put("root.Appconfiguration.HouseKeeping", _houseKeeping);
+        tree.put("root.Appconfiguration.msgSeqNum", client);
+        tree.put("root.Appconfiguration.msgSeqNumServer", sever);
+
+        boost::property_tree::write_xml(FileCustom::filesname, tree, std::locale(), boost::property_tree::xml_writer_settings<char>('\t', 1));
+
+        // std::cout << "File konfigurasi telah berhasil diubah" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
+}
+
+bool FileCustom::HouseKeeping() // setter
+{
+    return FileCustom::_houseKeeping;
+}
+
+int FileCustom::getmsgSeqNum() // setter
+{
+    return FileCustom::_msgSeqNum;
+}
+
+int FileCustom::getmsgSeqNumServer() // setter
+{
+    FileCustom::ReadConFile(filesname);
+    return FileCustom::_msgSeqNumServer;
+}
+
+void FileCustom::writeToXml()
+{
+    try
+    {
+        boost::property_tree::ptree tree;
+        // chnage config
+        tree.put("root.connection.host", myVector[0]);
+        tree.put("root.connection.port", myVector[1]);
+        tree.put("root.connection.senderID", myVector[2]);
+        tree.put("root.connection.targetComp", myVector[3]);
+        tree.put("root.connection.username", myVector[4]);
+        tree.put("root.connection.tradeuser", myVector[5]);
+        tree.put("root.connection.password", myVector[6]);
+        tree.put("root.Appconfiguration.HouseKeeping", _houseKeeping);
+        tree.put("root.Appconfiguration.msgSeqNum", FileCustom::getmsgSeqNum());
+        tree.put("root.Appconfiguration.msgSeqNum", FileCustom::getmsgSeqNumServer());
+
+        boost::property_tree::write_xml(filesname, tree, std::locale(), boost::property_tree::xml_writer_settings<char>('\t', 1));
+
+        std::cout << "File konfigurasi telah berhasil diubah" << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
+}
+
+bool FileCustom::checkFileExtension()
+{
+    std::string configFile = FileCustom::filesname;
+    size_t found = configFile.find(".cnf");
+    if (found != std::string::npos)
+    {
+        std::string file = configFile.substr(found);
+        if (file.compare(".cnf"))
         {
-            std::string file = configFile.substr(found);
-            if (file.compare(".cnf"))
-            {
-                std::cout << RED<< "unsupported file extensions" << RESET << std::endl;
-                return false;
-            }
-            else
-            {
-                // std::cout << "supported file extensions " << std::endl;
-                return true;
-            }
+            std::cout << RED << "File Ektensi Tidak Di diukung " << RESET << std::endl;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
-
-    void printFile()
+    else
     {
-        for (const auto &value : myVector)
-        {
-            std::cout << value << " ";
-        }
+        return false;
     }
+}
 
-private:
-    boost::property_tree::ptree pt;
-    std::string filesname;
-    bool _houseKeeping;
-    int _msgSeqNum;
-};
+void FileCustom::printFile()
+{
+    for (const auto &value : myVector)
+    {
+        std::cout << value << " ";
+    }
+}
 
+#endif
 // int main()
 // {
 //     FileCustom file;

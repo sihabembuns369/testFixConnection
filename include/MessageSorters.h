@@ -63,8 +63,12 @@ struct header_order
       case FIELD::SenderCompID: return 4;
       case FIELD::TargetCompID: return 5;
       case FIELD::MsgSeqNum: return 6;
-      case FIELD::SendingTime: return 7;
-      
+      case FIELD::PossDupFlag: return 7;
+      case FIELD::SendingTime: return 8;
+      case FIELD::OrigSendingTime: return 9;
+      case FIELD::GapFillFlag: return 10;
+      case FIELD::NewSeqNo: return 11;
+
       default: return 0;
     };
   }

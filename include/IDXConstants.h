@@ -4,7 +4,6 @@
 
 #include <iostream>
 
-
 static const std::string FIXMSG_DELIMITER = "\x01";
 static const std::string IDX_SEPARATOR = "\x03";
 static const std::string IDX_TYPE_HEARTBEAT = "0";
@@ -18,7 +17,6 @@ static const std::string IDX_TYPE_ADMMESSAGE = "N";
 static const std::string IDX_PROTOCOLVER_EQUITY = "FIXT.1.1";
 static const std::string IDX_PROTOCOLVER_DERIVATIVE = "IDXDR";
 static const std::string IDX_END = "\r\n";
-
-
+static const std::string REPLACE_SOH = " | ";
 
 #endif // IDX_CONSTANTS_H

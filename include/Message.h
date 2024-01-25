@@ -19,8 +19,8 @@
 **
 ****************************************************************************/
 
-// #ifndef FIX_MESSAGE
-// #define FIX_MESSAGE
+#ifndef FIX_MESSAGE
+#define FIX_MESSAGE
 
 #ifdef _MSC_VER
 #pragma warning( disable: 4786 )
@@ -392,4 +392,4 @@ throw( MessageParseError )
 }
 }
 
-// #endif //FIX_MESSAGE
+#endif //FIX_MESSAGE

@@ -4,16 +4,19 @@
 // #include <boost/fusion/include/adapt_struct.hpp>
 #include "inc/WriteLog.hpp"
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
-#define YELLOW  "\033[33m"
-#define BLUE    "\033[34m"
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define YELLOW "\033[33m"
+#define BLUE "\033[34m"
 
-int main() {
+int main()
+{
     WriteLog log;
-    // log.HouseKeeping("LogFile/" ,"LogFile/HouseKeeping");
-    log.logMessage("test", YELLOW, inp, 1);
+    // // log.HouseKeeping("LogFile/" ,"LogFile/HouseKeeping");
+    // log.logMessage("test", YELLOW, inp, 1);
+
+    log.readOsInfo();
 
     return 0;
 }

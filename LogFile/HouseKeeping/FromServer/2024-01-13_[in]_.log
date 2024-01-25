@@ -1,0 +1,738 @@
+[33m[2024-01-13 07:59:06] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:06] [0m [32mreading message from server8=FIXT.1.19=007035=A34=149=IDX56=VP52=20240113-00:59:06.72617298=0108=451137=810=024 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:06] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:50] [0m [32mreading message from server8=FIXT.1.19=005135=034=249=IDX56=VP52=20240113-00:59:51.00007010=148 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:50] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:00:12] [0m [32mreading message from server8=FIXT.1.19=007235=134=349=IDX56=VP52=20240113-01:00:13.000071112=hPUaJyc5SdmZKMAq10=238 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:00:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:00:57] [0m [32mreading message from server8=FIXT.1.19=008235=534=449=IDX56=VP52=20240113-01:00:58.00008058=No response to test request10=157 => tcp        1      0 172.17.70.160:49670     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:00:57] [0m [35mdi fungsi readFixMessage() => tcp        1      0 172.17.70.160:49670     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:00:57] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:34:48] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [32mreading message from server8=FIXT.1.19=007035=A34=549=IDX56=VP52=20240113-01:34:48.45328298=0108=451137=810=027 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:35:32] [0m [32mreading message from server8=FIXT.1.19=005135=034=649=IDX56=VP52=20240113-01:35:33.00005510=150 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:35:32] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:35:54] [0m [32mreading message from server8=FIXT.1.19=007235=134=749=IDX56=VP52=20240113-01:35:55.000071112=gw3J4ZMoTJPPiLcU10=191 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:35:54] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:36:39] [0m [32mreading message from server8=FIXT.1.19=008235=534=849=IDX56=VP52=20240113-01:36:40.00007658=No response to test request10=166 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:36:39] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:36:39] [0m [31m   error read on read_complete(): End of file => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:47:08] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [32mreading message from server8=FIXT.1.19=007035=A34=949=IDX56=VP52=20240113-01:47:08.92728898=0108=451137=810=043 => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:52] [0m [32mreading message from server8=FIXT.1.19=005235=034=1049=IDX56=VP52=20240113-01:47:53.00008510=202 => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:52] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:48:14] [0m [32mreading message from server8=FIXT.1.19=007335=134=1149=IDX56=VP52=20240113-01:48:15.000061112=pZJsIAx4INy9Jxht10=062 => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:48:14] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1249=IDX56=VP52=20240113-01:49:46.50554898=0108=451137=810=081 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:50:30] [0m [32mreading message from server8=FIXT.1.19=005235=034=1349=IDX56=VP52=20240113-01:50:31.00007110=190 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:50:30] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:50:52] [0m [32mreading message from server8=FIXT.1.19=007335=134=1449=IDX56=VP52=20240113-01:50:53.000077112=Bi3z1ogcKMl6pgwo10=088 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:50:52] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:51:37] [0m [32mreading message from server8=FIXT.1.19=008335=534=1549=IDX56=VP52=20240113-01:51:38.00005958=No response to test request10=218 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:51:37] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:51:37] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:53:38] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1649=IDX56=VP52=20240113-01:53:38.76779998=0108=451137=810=099 => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [32mreading message from server8=FIXT.1.19=005235=034=1749=IDX56=VP52=20240113-01:54:23.00007510=203 => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [32mreading message from server8=FIXT.1.19=011335=534=1849=IDX56=VP52=20240113-01:54:23.15706658=(1479): MsgSeqNum(34) too low, expecting 6 but received 510=179 => no connection occurs[0m
+[33m[2024-01-13 08:54:22] [0m [35mdi fungsi readFixMessage() => no connection occurs[0m
+[33m[2024-01-13 08:54:22] [0m [31m   error read on read_complete(): End of file => no connection occurs[0m
+[33m[2024-01-13 08:55:07] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:07] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1949=IDX56=VP52=20240113-01:55:07.77457398=0108=451137=810=088 => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:07] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:51] [0m [32mreading message from server8=FIXT.1.19=005235=034=2049=IDX56=VP52=20240113-01:55:52.00008110=197 => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:51] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:57] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:58] [0m [32mreading message from server8=FIXT.1.19=007135=A34=2149=IDX56=VP52=20240113-02:05:58.21269298=0108=451137=810=072 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:58] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [32mreading message from server8=FIXT.1.19=005235=034=2249=IDX56=VP52=20240113-02:06:43.00007610=200 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [32mreading message from server8=FIXT.1.19=011335=534=2349=IDX56=VP52=20240113-02:06:43.15540758=(1479): MsgSeqNum(34) too low, expecting 8 but received 710=176 => tcp        1      0 172.17.70.160:46702     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:06:42] [0m [35mdi fungsi readFixMessage() => tcp        1      0 172.17.70.160:46702     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:06:42] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:14:27] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:28] [0m [32mreading message from server8=FIXT.1.19=007135=A34=2449=IDX56=VP52=20240113-02:14:28.35074398=0108=451137=810=072 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:28] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:13] [0m [32mreading message from server8=FIXT.1.19=005235=034=2549=IDX56=VP52=20240113-02:15:13.00007610=200 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:13] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:15] [0m [32mreading message from server8=FIXT.1.19=011335=534=2649=IDX56=VP52=20240113-02:15:15.47407558=(1479): MsgSeqNum(34) too low, expecting 9 but received 810=185 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:15:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:15:15] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:16:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [32mreading message from server8=FIXT.1.19=007135=A34=2749=IDX56=VP52=20240113-02:16:34.59314698=0108=451137=810=080 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [32mreading message from server8=FIXT.1.19=005235=034=2849=IDX56=VP52=20240113-02:17:19.00006910=213 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [32mreading message from server8=FIXT.1.19=011435=534=2949=IDX56=VP52=20240113-02:17:19.09668658=(1479): MsgSeqNum(34) too low, expecting 10 but received 910=244 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:17:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:17:18] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:18:49] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:49] [0m [32mreading message from server8=FIXT.1.19=007135=A34=3049=IDX56=VP52=20240113-02:18:49.36231198=0108=451137=810=070 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:49] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:34] [0m [32mreading message from server8=FIXT.1.19=005235=034=3149=IDX56=VP52=20240113-02:19:34.00006510=202 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [32mreading message from server8=FIXT.1.19=007335=134=3249=IDX56=VP52=20240113-02:19:56.000079112=uYNRpgPdB6uYljs410=102 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [32mreading message from server8=FIXT.1.19=011535=534=3349=IDX56=VP52=20240113-02:19:56.08889558=(1479): MsgSeqNum(34) too low, expecting 11 but received 1010=031 => tcp        1      0 172.17.70.160:51472     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:19:55] [0m [35mdi fungsi readFixMessage() => tcp        1      0 172.17.70.160:51472     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:19:55] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:23:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:16] [0m [32mreading message from server8=FIXT.1.19=007135=A34=3449=IDX56=VP52=20240113-02:23:16.38408998=0108=301137=810=074 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:45] [0m [32mreading message from server8=FIXT.1.19=005235=034=3549=IDX56=VP52=20240113-02:23:46.00008610=207 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:45] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:00] [0m [32mreading message from server8=FIXT.1.19=007335=134=3649=IDX56=VP52=20240113-02:24:01.000046112=W.I36yAQeDWqriUx10=245 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:01] [0m [32mreading message from server8=FIXT.1.19=011535=534=3749=IDX56=VP52=20240113-02:24:01.24610358=(1479): MsgSeqNum(34) too low, expecting 12 but received 1110=001 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:24:01] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:24:01] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:25:03] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [32mreading message from server8=FIXT.1.19=007135=A34=3849=IDX56=VP52=20240113-02:25:04.07365198=0108=301137=810=067 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:33] [0m [32mreading message from server8=FIXT.1.19=005235=034=3949=IDX56=VP52=20240113-02:25:34.00008910=213 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:33] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:48] [0m [32mreading message from server8=FIXT.1.19=007335=134=4049=IDX56=VP52=20240113-02:25:49.000070112=u/4e/dbQlBgNM71g10=161 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:48] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:26:18] [0m [32mreading message from server8=FIXT.1.19=008335=534=4149=IDX56=VP52=20240113-02:26:19.00004458=No response to test request10=213 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:26:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:26:18] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:30:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [32mreading message from server8=FIXT.1.19=007135=A34=4249=IDX56=VP52=20240113-02:30:19.99244898=0108=301137=810=078 => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [32mreading message from server8=FIXT.1.19=011535=534=4349=IDX56=VP52=20240113-02:30:20.19121358=(1479): MsgSeqNum(34) too low, expecting 14 but received 1310=001 => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:30:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:30:20] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:36:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [32mreading message from server8=FIXT.1.19=007135=A34=4449=IDX56=VP52=20240113-02:36:12.79662998=0108=301137=810=082 => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [32mreading message from server8=FIXT.1.19=011535=534=4549=IDX56=VP52=20240113-02:36:12.91460358=(1479): MsgSeqNum(34) too low, expecting 15 but received 1410=018 => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:36:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:36:12] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:36:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [32mreading message from server8=FIXT.1.19=007135=A34=4649=IDX56=VP52=20240113-02:36:47.51236298=0108=301137=810=072 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [32mreading message from server8=FIXT.1.19=006235=234=4749=IDX56=VP52=20240113-02:36:48.0105457=1616=010=141 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:37:17] [0m [32mreading message from server8=FIXT.1.19=005235=034=4849=IDX56=VP52=20240113-02:37:18.00007310=211 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:37:17] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:37:31] [0m [32mreading message from server8=FIXT.1.19=006235=234=4949=IDX56=VP52=20240113-02:37:32.0000757=1616=010=1348=FIXT.1.19=007335=134=5049=IDX56=VP52=20240113-02:37:32.000075112=YKhsZemdb4N/jEjj10=069 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:37:31] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:01] [0m [32mreading message from server8=FIXT.1.19=008335=534=5149=IDX56=VP52=20240113-02:38:02.00008058=No response to test request10=209 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:38:01] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:38:01] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:38:20] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:20] [0m [32mreading message from server8=FIXT.1.19=011535=534=5249=IDX56=VP52=20240113-02:38:21.24938258=(1479): MsgSeqNum(34) too low, expecting 35 but received 1610=027 => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:38:20] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:38:20] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:15] [0m [32mreading message from server8=FIXT.1.19=011535=534=5349=IDX56=VP52=20240113-02:39:15.79721958=(1479): MsgSeqNum(34) too low, expecting 35 but received 1710=040 => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:15] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:58] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:59] [0m [32mreading message from server8=FIXT.1.19=011535=534=5449=IDX56=VP52=20240113-02:39:59.77386758=(1479): MsgSeqNum(34) too low, expecting 35 but received 1810=053 => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:59] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:39:59] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:40:57] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:40:57] [0m [32mreading message from server8=FIXT.1.19=011535=534=5549=IDX56=VP52=20240113-02:40:58.16288458=(1479): MsgSeqNum(34) too low, expecting 35 but received 1910=037 => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:40:57] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:40:57] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:41:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [32mreading message from server8=FIXT.1.19=007135=A34=5649=IDX56=VP52=20240113-02:41:47.95766498=0108=301137=810=0878=FIXT.1.19=006235=234=5749=IDX56=VP52=20240113-02:41:47.9576647=1616=010=159 => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [32mreading message from server8=FIXT.1.19=011535=534=5849=IDX56=VP52=20240113-02:41:48.15021958=(1479): MsgSeqNum(34) too low, expecting 36 but received 3410=027 => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:41:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:41:47] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:12] [0m [32mreading message from server8=FIXT.1.19=011535=534=5949=IDX56=VP52=20240113-02:55:12.43669358=(1479): MsgSeqNum(34) too low, expecting 36 but received 3510=038 => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:12] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:12] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6049=IDX56=VP52=20240113-02:55:34.51408598=0108=301137=810=0698=FIXT.1.19=006235=234=6149=IDX56=VP52=20240113-02:55:34.5140857=1616=010=141 => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [32mreading message from server8=FIXT.1.19=011535=534=6249=IDX56=VP52=20240113-02:55:34.71967858=(1479): MsgSeqNum(34) too low, expecting 38 but received 3410=044 => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:34] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:55:34] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:57:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6349=IDX56=VP52=20240113-02:57:19.73504098=0108=301137=810=0738=FIXT.1.19=006235=234=6449=IDX56=VP52=20240113-02:57:19.7350407=1616=010=145 => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [32mreading message from server8=FIXT.1.19=011535=534=6549=IDX56=VP52=20240113-02:57:19.88646058=(1479): MsgSeqNum(34) too low, expecting 39 but received 3810=051 => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [35mdi fungsi readFixMessage() => tcp        1      0 172.17.70.160:59218     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:57:19] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:58:23] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6649=IDX56=VP52=20240113-02:58:23.92010198=0108=301137=810=0668=FIXT.1.19=006235=234=6749=IDX56=VP52=20240113-02:58:23.9201017=1616=010=138 => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [32mreading message from server8=FIXT.1.19=011535=534=6849=IDX56=VP52=20240113-02:58:24.04740458=(1479): MsgSeqNum(34) too low, expecting 40 but received 3910=031 => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:58:23] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:58:23] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 10:10:19] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:20] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6949=IDX56=VP52=20240113-03:10:20.29982498=0108=301137=810=0768=FIXT.1.19=006235=234=7049=IDX56=VP52=20240113-03:10:20.2998247=1616=010=139 => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:20] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [32mreading message from server8=FIXT.1.19=007135=A34=7149=IDX56=VP52=20240113-03:15:16.30594298=0108=301137=810=0688=FIXT.1.19=006235=234=7249=IDX56=VP52=20240113-03:15:16.3059427=1616=010=140 => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [32mreading message from server8=FIXT.1.19=011535=534=7349=IDX56=VP52=20240113-03:15:16.52358758=(1479): MsgSeqNum(34) too low, expecting 42 but received 4110=028 => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 10:15:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 10:15:16] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 14:00:48] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:02:09] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:03:39] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:05:04] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:05:35] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:06:37] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:06:48] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:06:51] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:07:41] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:07:46] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:08:00] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:08:13] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:10:34] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:10:36] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:10:37] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:12:40] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:13:01] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:13:15] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:13:18] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:13:45] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:14:17] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:14:25] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:14:34] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:14:41] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:14:58] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:15:00] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:15:44] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:16:26] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:16:36] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:17:10] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:18:55] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:20:18] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:21:07] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:21:23] [0m [32mtest okeokeoke[0m
+[33m[2024-01-13 14:49:02] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:49:02] [0m [32mreading message from server8=FIXT.1.19=007035=A34=149=IDX56=VP52=20240113-07:49:03.03583898=0108=301137=810=0238=FIXT.1.19=006035=234=249=IDX56=VP52=20240113-07:49:03.0358387=116=010=040 => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:49:02] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [32mreading message from server8=FIXT.1.19=007035=A34=349=IDX56=VP52=20240113-07:51:15.14337798=0108=301137=810=0198=FIXT.1.19=006035=234=449=IDX56=VP52=20240113-07:51:15.1433777=116=010=036 => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:54] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [32mreading message from server8=FIXT.1.19=007035=A34=549=IDX56=VP52=20240113-07:51:55.22579298=0108=301137=810=0278=FIXT.1.19=006035=234=649=IDX56=VP52=20240113-07:51:55.2257927=116=010=044 => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:52:24] [0m [32mreading message from server8=FIXT.1.19=005135=034=749=IDX56=VP52=20240113-07:52:25.00007110=155 => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:52:24] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:53:10] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [32mreading message from server8=FIXT.1.19=007035=A34=849=IDX56=VP52=20240113-07:53:11.24208698=0108=301137=810=0198=FIXT.1.19=006035=234=949=IDX56=VP52=20240113-07:53:11.2420867=116=010=036 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:40] [0m [32mreading message from server8=FIXT.1.19=005235=034=1049=IDX56=VP52=20240113-07:53:41.00008210=199 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:53:40] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1149=IDX56=VP52=20240113-07:54:16.60601498=0108=301137=810=0638=FIXT.1.19=006135=234=1249=IDX56=VP52=20240113-07:54:16.6060147=116=010=080 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [32mreading message from server8=FIXT.1.19=011335=534=1349=IDX56=VP52=20240113-07:54:16.77438058=(1479): MsgSeqNum(34) too low, expecting 9 but received 810=192 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 14:54:16] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 14:54:16] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 14:57:27] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1449=IDX56=VP52=20240113-07:57:28.53614798=0108=301137=810=0818=FIXT.1.19=006135=234=1549=IDX56=VP52=20240113-07:57:28.5361477=116=010=098 => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [32mreading message from server8=FIXT.1.19=011535=534=1649=IDX56=VP52=20240113-07:57:28.64152558=(1479): MsgSeqNum(34) too low, expecting 11 but received 1010=023 => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      CLOSE_WAIT 
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      CLOSE_WAIT 
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      CLOSE_WAIT 
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:59:22] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:22] [0m [32mreading message from server8=FIXT.1.19=007135=A34=1749=IDX56=VP52=20240113-07:59:23.45631798=0108=301137=810=0818=FIXT.1.19=006135=234=1849=IDX56=VP52=20240113-07:59:23.4563177=116=010=098 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:22] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:52] [0m [32mreading message from server8=FIXT.1.19=005235=034=1949=IDX56=VP52=20240113-07:59:53.00008210=217 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:52] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:00:07] [0m [32mreading message from server8=FIXT.1.19=006135=234=2049=IDX56=VP52=20240113-08:00:08.0000737=116=010=0658=FIXT.1.19=007335=134=2149=IDX56=VP52=20240113-08:00:08.000073112=rtA/WAAy/5x9yXk810=204 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:00:07] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:00:37] [0m [32mreading message from server8=FIXT.1.19=008335=534=2249=IDX56=VP52=20240113-08:00:38.00006658=No response to test request10=215 => tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:00:37] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:00:37] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:04:42] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:04:42] [0m [32mreading message from server8=FIXT.1.19=011535=534=2349=IDX56=VP52=20240113-08:04:42.98699858=(1479): MsgSeqNum(34) too low, expecting 14 but received 1310=042 => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:04:42] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:04:42] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:05:03] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [32mreading message from server8=FIXT.1.19=007135=A34=2449=IDX56=VP52=20240113-08:05:04.48125898=0108=301137=810=0728=FIXT.1.19=006135=234=2549=IDX56=VP52=20240113-08:05:04.4812587=116=010=089 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:33] [0m [32mreading message from server8=FIXT.1.19=005235=034=2649=IDX56=VP52=20240113-08:05:34.00007610=209 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:33] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:48] [0m [32mreading message from server8=FIXT.1.19=006135=234=2749=IDX56=VP52=20240113-08:05:49.0000727=116=010=0818=FIXT.1.19=007335=134=2849=IDX56=VP52=20240113-08:05:49.000072112=D6sg0Gp75od/fORV10=177 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:48] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:06:18] [0m [32mreading message from server8=FIXT.1.19=008335=534=2949=IDX56=VP52=20240113-08:06:19.00007958=No response to test request10=231 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:06:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:06:18] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:22:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:00] [0m [32mreading message from server8=FIXT.1.19=011535=534=3749=IDX56=VP52=20240113-08:22:00.94046158=(1479): MsgSeqNum(34) too low, expecting 17 but received 1610=022 => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:22:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:22:00] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:22:32] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [32mreading message from server8=FIXT.1.19=007135=A34=3849=IDX56=VP52=20240113-08:22:33.09874998=0108=301137=810=0878=FIXT.1.19=006135=234=3949=IDX56=VP52=20240113-08:22:33.0987497=116=010=104 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [32mreading message from server8=FIXT.1.19=005235=034=4049=IDX56=VP52=20240113-08:23:03.00006610=200 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [32mreading message from server8=FIXT.1.19=012535=334=4149=IDX56=VP52=20240113-08:23:03.22924345=19371=36372=4373=158=(1470): Required tag NewSeqNo(36) is missing10=003 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:32] [0m [32mreading message from server8=FIXT.1.19=005235=034=4249=IDX56=VP52=20240113-08:23:33.00008410=205 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:32] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:47] [0m [32mreading message from server8=FIXT.1.19=006135=234=4349=IDX56=VP52=20240113-08:23:48.0000867=116=010=083 => tcp       98      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:47] [0m [35mdi fungsi readFixMessage() => tcp       98      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:47] [0m [32mreading message from server8=FIXT.1.19=007335=134=4449=IDX56=VP52=20240113-08:23:48.000086112=W1pBzrcrfKflGm9Y10=113 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:17] [0m [32mreading message from server8=FIXT.1.19=008335=534=4549=IDX56=VP52=20240113-08:24:18.00007958=No response to test request10=228 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:24:17] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:24:17] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:24:46] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [32mreading message from server8=FIXT.1.19=007135=A34=4649=IDX56=VP52=20240113-08:24:46.72762898=0108=301137=810=0878=FIXT.1.19=006135=234=4749=IDX56=VP52=20240113-08:24:46.7276287=116=010=104 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [32mreading message from server8=FIXT.1.19=005235=034=4849=IDX56=VP52=20240113-08:25:16.00007910=218 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [32mreading message from server8=FIXT.1.19=012535=334=4949=IDX56=VP52=20240113-08:25:16.11928145=21371=36372=4373=158=(1470): Required tag NewSeqNo(36) is missing10=010 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:45] [0m [32mreading message from server8=FIXT.1.19=005235=034=5049=IDX56=VP52=20240113-08:25:46.00008910=215 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:45] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:26:00] [0m [32mreading message from server8=FIXT.1.19=006135=234=5149=IDX56=VP52=20240113-08:26:01.0000797=116=010=0768=FIXT.1.19=007335=134=5249=IDX56=VP52=20240113-08:26:01.000079112=Vd4hBiHj1p49j6.s10=168 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:26:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:26:30] [0m [32mreading message from server8=FIXT.1.19=008335=534=5349=IDX56=VP52=20240113-08:26:31.00004758=No response to test request10=219 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:26:30] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:26:30] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:29:58] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:29:58] [0m [32mreading message from server8=FIXT.1.19=011535=534=5449=IDX56=VP52=20240113-08:29:59.55968258=(1479): MsgSeqNum(34) too low, expecting 22 but received 2110=045 => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:29:58] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:29:58] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:30:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [32mreading message from server8=FIXT.1.19=007135=A34=5549=IDX56=VP52=20240113-08:30:18.74206898=0108=301137=810=0788=FIXT.1.19=006135=234=5649=IDX56=VP52=20240113-08:30:18.7420687=116=010=095 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:47] [0m [32mreading message from server8=FIXT.1.19=005235=034=5749=IDX56=VP52=20240113-08:30:48.00007410=214 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:47] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:31:02] [0m [32mreading message from server8=FIXT.1.19=006135=234=5849=IDX56=VP52=20240113-08:31:03.0000727=116=010=0748=FIXT.1.19=007335=134=5949=IDX56=VP52=20240113-08:31:03.000072112=fTFDgW16cyY5mMC410=168 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:31:02] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:31:32] [0m [32mreading message from server8=FIXT.1.19=008335=534=6049=IDX56=VP52=20240113-08:31:33.00007158=No response to test request10=212 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:31:32] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:31:32] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:34:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6149=IDX56=VP52=20240113-08:34:00.89758898=0108=301137=810=0888=FIXT.1.19=006135=234=6249=IDX56=VP52=20240113-08:34:00.8975887=116=010=105 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:29] [0m [32mreading message from server8=FIXT.1.19=005235=034=6349=IDX56=VP52=20240113-08:34:30.00007110=203 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:29] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:44] [0m [32mreading message from server8=FIXT.1.19=006135=234=6449=IDX56=VP52=20240113-08:34:45.0000817=116=010=0808=FIXT.1.19=007335=134=6549=IDX56=VP52=20240113-08:34:45.000081112=K6ekarkPnvNBWVX110=051 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:44] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:35:14] [0m [32mreading message from server8=FIXT.1.19=008335=534=6649=IDX56=VP52=20240113-08:35:15.00007758=No response to test request10=228 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:35:14] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:35:14] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:25] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:26] [0m [32mreading message from server8=FIXT.1.19=011535=534=6749=IDX56=VP52=20240113-08:39:26.63362258=(1479): MsgSeqNum(34) too low, expecting 26 but received 2510=039 => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:26] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:26] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:41] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:41] [0m [32mreading message from server8=FIXT.1.19=007135=A34=6849=IDX56=VP52=20240113-08:39:41.72385498=0108=301137=810=0898=FIXT.1.19=006135=234=6949=IDX56=VP52=20240113-08:39:41.7238547=116=010=106 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:41] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:10] [0m [32mreading message from server8=FIXT.1.19=005235=034=7049=IDX56=VP52=20240113-08:40:11.00007510=201 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:10] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:25] [0m [32mreading message from server8=FIXT.1.19=006135=234=7149=IDX56=VP52=20240113-08:40:26.0000737=116=010=075 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:25] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:25] [0m [32mreading message from server8=FIXT.1.19=007335=134=7249=IDX56=VP52=20240113-08:40:26.000073112=PSyq6l7MGzxReSE210=018 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:25] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:55] [0m [32mreading message from server8=FIXT.1.19=008335=534=7349=IDX56=VP52=20240113-08:40:56.00006958=No response to test request10=228 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:55] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:55] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:49:56] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:49:56] [0m [32mreading message from server8=FIXT.1.19=011535=534=7449=IDX56=VP52=20240113-08:49:56.95421558=(1479): MsgSeqNum(34) too low, expecting 28 but received 2710=049 => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:49:56] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:49:56] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:50:01] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [32mreading message from server8=FIXT.1.19=007135=A34=7549=IDX56=VP52=20240113-08:50:02.41375498=0108=301137=810=0728=FIXT.1.19=006135=234=7649=IDX56=VP52=20240113-08:50:02.4137547=116=010=089 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:31] [0m [32mreading message from server8=FIXT.1.19=005235=034=7749=IDX56=VP52=20240113-08:50:32.00007610=213 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:31] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:46] [0m [32mreading message from server8=FIXT.1.19=006135=234=7849=IDX56=VP52=20240113-08:50:47.0000667=116=010=0888=FIXT.1.19=007335=134=7949=IDX56=VP52=20240113-08:50:47.000066112=y6E7awutYZEleLzV10=131 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:46] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:51:16] [0m [32mreading message from server8=FIXT.1.19=008335=534=8049=IDX56=VP52=20240113-08:51:17.00008458=No response to test request10=222 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:51:16] [0m [35mdi fungsi readFixMessage() => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:51:16] [0m [31m   error read on read_complete(): End of file => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 16:00:06] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [32mreading message from server8=FIXT.1.19=007135=A34=8149=IDX56=VP52=20240113-09:00:07.31499398=0108=301137=810=0758=FIXT.1.19=006135=234=8249=IDX56=VP52=20240113-09:00:07.3149937=116=010=092 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:36] [0m [32mreading message from server8=FIXT.1.19=005235=034=8349=IDX56=VP52=20240113-09:00:37.00008010=206 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:36] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:52] [0m [32mreading message from server8=FIXT.1.19=006135=234=8449=IDX56=VP52=20240113-09:00:52.0000817=116=010=0748=FIXT.1.19=007335=134=8549=IDX56=VP52=20240113-09:00:52.000081112=/VI5yRt9FyMVDC7h10=167 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:52] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:01:21] [0m [32mreading message from server8=FIXT.1.19=008335=534=8649=IDX56=VP52=20240113-09:01:22.00008358=No response to test request10=219 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 16:01:21] [0m [35mdi fungsi readFixMessage() => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 16:01:21] [0m [31m   error read on read_complete(): End of file => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      CLOSE_WAIT 
+[0m

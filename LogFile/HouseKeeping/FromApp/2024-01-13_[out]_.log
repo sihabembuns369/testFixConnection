@@ -1,0 +1,729 @@
+[33m[2024-01-13 07:59:06] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=152=20240113-07:59:0698=0108=45553=vpfc1001554=jakarta1231137=810=247 => no connection occurs[0m
+[33m[2024-01-13 07:59:06] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 07:59:06] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:06] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=152=20240113-07:59:0698=0108=45553=vpfc1001554=jakarta1231137=810=247 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:06] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=152=20240113-07:59:0698=0108=45553=vpfc1001554=jakarta1231137=810=247 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 07:59:06] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:49670     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=252=20240113-08:34:4898=0108=45553=vpfc1001554=jakarta1231137=810=248 => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:34:48] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:49670     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:34:48] [0m [32mconnection to the server was successful => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=252=20240113-08:34:4898=0108=45553=vpfc1001554=jakarta1231137=810=248 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=252=20240113-08:34:4898=0108=45553=vpfc1001554=jakarta1231137=810=248 => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:34:48] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:49670     172.18.2.213:59881      LAST_ACK   
+tcp        0    114 172.17.70.160:37178     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=352=20240113-08:47:0898=0108=45553=vpfc1001554=jakarta1231137=810=249 => no connection occurs[0m
+[33m[2024-01-13 08:47:08] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 08:47:08] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=352=20240113-08:47:0898=0108=45553=vpfc1001554=jakarta1231137=810=249 => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=352=20240113-08:47:0898=0108=45553=vpfc1001554=jakarta1231137=810=249 => tcp        0      0 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:47:08] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:35962     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-08:49:4698=0108=45553=vpfc1001554=jakarta1231137=810=254 => no connection occurs[0m
+[33m[2024-01-13 08:49:46] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 08:49:46] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-08:49:4698=0108=45553=vpfc1001554=jakarta1231137=810=254 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-08:49:4698=0108=45553=vpfc1001554=jakarta1231137=810=254 => tcp        0      0 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:49:46] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:56398     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-08:53:3898=0108=45553=vpfc1001554=jakarta1231137=810=251 => no connection occurs[0m
+[33m[2024-01-13 08:53:38] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 08:53:38] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-08:53:3898=0108=45553=vpfc1001554=jakarta1231137=810=251 => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-08:53:3898=0108=45553=vpfc1001554=jakarta1231137=810=251 => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:53:38] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [32msend message to server success, write complete:  => tcp        0     95 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0     95 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp        0     95 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp        0    190 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0    190 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0    190 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [32mmasih ada pesan yang belum terkirim di writestr_complete() => tcp        0    190 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0    285 172.17.70.160:55066     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp      139    190 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp      139    190 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp      139    190 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp      139    190 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [32mmasih ada pesan yang belum terkirim di writestr_complete() => tcp      139    190 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => tcp      139    285 172.17.70.160:55066     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => no connection occurs[0m
+[33m[2024-01-13 08:54:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7235=049=VP56=IDX34=552=20240113-08:54:2298=0108=45112=4hdg1137=810=128 => no connection occurs[0m
+[33m[2024-01-13 08:54:22] [0m [32mmasih ada pesan yang belum terkirim di writestr_complete() => no connection occurs[0m
+[33m[2024-01-13 08:54:22] [0m [31m write error : Broken pipe => no connection occurs[0m
+[33m[2024-01-13 08:55:07] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-08:55:0798=0108=45553=vpfc1001554=jakarta1231137=810=250 => no connection occurs[0m
+[33m[2024-01-13 08:55:07] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 08:55:07] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:07] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-08:55:0798=0108=45553=vpfc1001554=jakarta1231137=810=250 => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:07] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-08:55:0798=0108=45553=vpfc1001554=jakarta1231137=810=250 => tcp        0      0 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 08:55:07] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:56628     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:57] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-09:05:5798=0108=45553=vpfc1001554=jakarta1231137=810=252 => no connection occurs[0m
+[33m[2024-01-13 09:05:57] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:05:57] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:57] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-09:05:5798=0108=45553=vpfc1001554=jakarta1231137=810=252 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:57] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-09:05:5798=0108=45553=vpfc1001554=jakarta1231137=810=252 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:05:57] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6335=049=VP56=IDX34=752=20240113-09:06:4298=0108=451137=810=073 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:06:42] [0m [32msend message to server success, write complete:  => tcp        0     86 172.17.70.160:46702     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:27] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-09:14:2798=0108=45553=vpfc1001554=jakarta1231137=810=250 => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:14:27] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:46702     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 09:14:27] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:27] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-09:14:2798=0108=45553=vpfc1001554=jakarta1231137=810=250 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:27] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-09:14:2798=0108=45553=vpfc1001554=jakarta1231137=810=250 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:14:27] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:13] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:13] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6335=049=VP56=IDX34=852=20240113-09:15:1398=0108=451137=810=072 => tcp        0      0 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:15:13] [0m [32msend message to server success, write complete:  => tcp        0     86 172.17.70.160:35258     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=952=20240113-09:16:3498=0108=45553=vpfc1001554=jakarta1231137=810=251 => no connection occurs[0m
+[33m[2024-01-13 09:16:34] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:16:34] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=952=20240113-09:16:3498=0108=45553=vpfc1001554=jakarta1231137=810=251 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=952=20240113-09:16:3498=0108=45553=vpfc1001554=jakarta1231137=810=251 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:16:34] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6335=049=VP56=IDX34=952=20240113-09:17:1898=0108=451137=810=080 => tcp        0      0 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:17:18] [0m [32msend message to server success, write complete:  => tcp        0     86 172.17.70.160:38512     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:48] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-09:18:4898=0108=45553=vpfc1001554=jakarta1231137=810=043 => no connection occurs[0m
+[33m[2024-01-13 09:18:48] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:18:49] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:49] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-09:18:4898=0108=45553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:49] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-09:18:4898=0108=45553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:18:49] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6435=049=VP56=IDX34=1052=20240113-09:19:5598=0108=451137=810=124 => tcp        0      0 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:19:55] [0m [32msend message to server success, write complete:  => tcp        0     87 172.17.70.160:51472     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:15] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-09:23:1598=0108=10553=vpfc1001554=jakarta1231137=810=026 => no connection occurs[0m
+[33m[2024-01-13 09:23:15] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:23:16] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:16] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-09:23:1598=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:16] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-09:23:1598=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:23:16] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:00] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:00] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1152=20240113-09:24:0098=0112=TestReqID1137=810=084 => tcp        0      0 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:24:00] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:47322     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1252=20240113-09:25:0398=0108=10553=vpfc1001554=jakarta1231137=810=026 => no connection occurs[0m
+[33m[2024-01-13 09:25:03] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:25:03] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1252=20240113-09:25:0398=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1252=20240113-09:25:0398=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:25:03] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:41336     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-09:30:1998=0108=10553=vpfc1001554=jakarta1231137=810=030 => no connection occurs[0m
+[33m[2024-01-13 09:30:19] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:30:19] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-09:30:1998=0108=10553=vpfc1001554=jakarta1231137=810=030 => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-09:30:1998=0108=10553=vpfc1001554=jakarta1231137=810=030 => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1352=20240113-09:30:1998=0112=TestReqID1137=810=093 => tcp        0      0 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:30:19] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:43124     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1452=20240113-09:36:1298=0108=10553=vpfc1001554=jakarta1231137=810=030 => no connection occurs[0m
+[33m[2024-01-13 09:36:12] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:36:12] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1452=20240113-09:36:1298=0108=10553=vpfc1001554=jakarta1231137=810=030 => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1452=20240113-09:36:1298=0108=10553=vpfc1001554=jakarta1231137=810=030 => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1452=20240113-09:36:1298=0112=TestReqID1137=810=093 => tcp        0      0 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:12] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:36184     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-09:36:4798=0108=10553=vpfc1001554=jakarta1231137=810=039 => no connection occurs[0m
+[33m[2024-01-13 09:36:47] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:36:47] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-09:36:4798=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-09:36:4798=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=3452=20240113-09:36:4798=0112=TestReqID1137=810=103 => tcp        0      0 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:36:47] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:52566     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:20] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-09:38:2098=0108=10553=vpfc1001554=jakarta1231137=810=033 => no connection occurs[0m
+[33m[2024-01-13 09:38:20] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:38:20] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:20] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-09:38:2098=0108=10553=vpfc1001554=jakarta1231137=810=033 => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:20] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-09:38:2098=0108=10553=vpfc1001554=jakarta1231137=810=033 => tcp        0      0 172.17.70.160:54980     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:38:20] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:54980     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:14] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1752=20240113-09:39:1498=0108=10553=vpfc1001554=jakarta1231137=810=038 => no connection occurs[0m
+[33m[2024-01-13 09:39:14] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:39:15] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:15] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1752=20240113-09:39:1498=0108=10553=vpfc1001554=jakarta1231137=810=038 => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:15] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1752=20240113-09:39:1498=0108=10553=vpfc1001554=jakarta1231137=810=038 => tcp        0      0 172.17.70.160:43782     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:15] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43782     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:57] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-09:39:5798=0108=10553=vpfc1001554=jakarta1231137=810=046 => no connection occurs[0m
+[33m[2024-01-13 09:39:57] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:39:58] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:58] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-09:39:5798=0108=10553=vpfc1001554=jakarta1231137=810=046 => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:58] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-09:39:5798=0108=10553=vpfc1001554=jakarta1231137=810=046 => tcp        0      0 172.17.70.160:53008     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:39:58] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:53008     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:40:57] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1952=20240113-09:40:5798=0108=10553=vpfc1001554=jakarta1231137=810=039 => no connection occurs[0m
+[33m[2024-01-13 09:40:57] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:40:57] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:40:57] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1952=20240113-09:40:5798=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:40:57] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1952=20240113-09:40:5798=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:41162     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:40:57] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:41162     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:41:4798=0108=10553=vpfc1001554=jakarta1231137=810=037 => no connection occurs[0m
+[33m[2024-01-13 09:41:47] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:41:47] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:41:4798=0108=10553=vpfc1001554=jakarta1231137=810=037 => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:41:4798=0108=10553=vpfc1001554=jakarta1231137=810=037 => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=3452=20240113-09:41:4798=0112=TestReqID1137=810=099 => tcp        0      0 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:41:47] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:51340     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:11] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:55:1198=0108=10553=vpfc1001554=jakarta1231137=810=033 => no connection occurs[0m
+[33m[2024-01-13 09:55:11] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:55:12] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:12] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:55:1198=0108=10553=vpfc1001554=jakarta1231137=810=033 => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:12] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3552=20240113-09:55:1198=0108=10553=vpfc1001554=jakarta1231137=810=033 => tcp        0      0 172.17.70.160:37648     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:12] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:37648     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:33] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3752=20240113-09:55:3398=0108=10553=vpfc1001554=jakarta1231137=810=039 => no connection occurs[0m
+[33m[2024-01-13 09:55:33] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:55:34] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3752=20240113-09:55:3398=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3752=20240113-09:55:3398=0108=10553=vpfc1001554=jakarta1231137=810=039 => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=3452=20240113-09:55:3498=0112=TestReqID1137=810=100 => tcp        0      0 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:55:34] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:46454     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3852=20240113-09:57:1998=0108=10553=vpfc1001554=jakarta1231137=810=046 => no connection occurs[0m
+[33m[2024-01-13 09:57:19] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:57:19] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3852=20240113-09:57:1998=0108=10553=vpfc1001554=jakarta1231137=810=046 => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3852=20240113-09:57:1998=0108=10553=vpfc1001554=jakarta1231137=810=046 => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=3852=20240113-09:57:1998=0112=TestReqID1137=810=109 => tcp        0      0 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:57:19] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:59218     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3952=20240113-09:58:2398=0108=10553=vpfc1001554=jakarta1231137=810=043 => no connection occurs[0m
+[33m[2024-01-13 09:58:23] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 09:58:23] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3952=20240113-09:58:2398=0108=10553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3952=20240113-09:58:2398=0108=10553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=3952=20240113-09:58:2398=0112=TestReqID1137=810=106 => tcp        0      0 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 09:58:23] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:43458     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:18] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=4052=20240113-10:10:1898=0108=10553=vpfc1001554=jakarta1231137=810=019 => no connection occurs[0m
+[33m[2024-01-13 10:10:18] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 10:10:19] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:19] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=4052=20240113-10:10:1898=0108=10553=vpfc1001554=jakarta1231137=810=019 => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:19] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=4052=20240113-10:10:1898=0108=10553=vpfc1001554=jakarta1231137=810=019 => tcp        0      0 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:10:19] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:37028     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:15] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=4152=20240113-10:15:1598=0108=10553=vpfc1001554=jakarta1231137=810=022 => no connection occurs[0m
+[33m[2024-01-13 10:15:15] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 10:15:15] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:15] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=4152=20240113-10:15:1598=0108=10553=vpfc1001554=jakarta1231137=810=022 => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:15] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=4152=20240113-10:15:1598=0108=10553=vpfc1001554=jakarta1231137=810=022 => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:15] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=4152=20240113-10:15:1698=0112=TestReqID1137=810=086 => tcp        0      0 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:15:16] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:42490     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 10:16:49] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=4252=20240113-10:16:4998=0108=10553=vpfc1001554=jakarta1231137=810=031 => no connection occurs[0m
+[33m[2024-01-13 10:42:37] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=152=20240113-10:42:3798=0108=10553=vpfc1001554=jakarta1231137=810=229 => no connection occurs[0m
+[33m[2024-01-13 10:42:37] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 13:13:49] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=252=20240113-13:13:4998=0108=10553=vpfc1001554=jakarta1231137=810=234 => no connection occurs[0m
+[33m[2024-01-13 13:13:49] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 13:14:23] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=352=20240113-13:14:2398=0108=10553=vpfc1001554=jakarta1231137=810=228 => no connection occurs[0m
+[33m[2024-01-13 13:14:23] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 13:14:23] [0m [31merror connecting to the fix server: Connection refused => no connection occurs[0m
+[33m[2024-01-13 13:47:47] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-13:47:4798=0108=10553=vpfc1001554=jakarta1231137=810=241 => no connection occurs[0m
+[33m[2024-01-13 13:47:47] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 13:47:47] [0m [31merror connecting to the fix server: Connection refused => no connection occurs[0m
+[33m[2024-01-13 13:55:16] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-13:55:1698=0108=10553=vpfc1001554=jakarta1231137=810=237 => no connection occurs[0m
+[33m[2024-01-13 13:55:16] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 13:55:18] [0m [31merror connecting to the fix server: Connection refused => no connection occurs[0m
+[33m[2024-01-13 14:49:02] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-14:49:0298=0108=10553=vpfc1001554=jakarta1231137=810=235 => no connection occurs[0m
+[33m[2024-01-13 14:49:02] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 14:49:02] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:49:02] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-14:49:0298=0108=10553=vpfc1001554=jakarta1231137=810=235 => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:49:02] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=452=20240113-14:49:0298=0108=10553=vpfc1001554=jakarta1231137=810=235 => tcp        0      0 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:49:02] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:50092     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-14:51:1498=0108=10553=vpfc1001554=jakarta1231137=810=232 => no connection occurs[0m
+[33m[2024-01-13 14:51:14] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 14:51:14] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-14:51:1498=0108=10553=vpfc1001554=jakarta1231137=810=232 => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=552=20240113-14:51:1498=0108=10553=vpfc1001554=jakarta1231137=810=232 => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:14] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:54172     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:51:54] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-14:51:5498=0108=10553=vpfc1001554=jakarta1231137=810=237 => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-14:51:5498=0108=10553=vpfc1001554=jakarta1231137=810=237 => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=652=20240113-14:51:5498=0108=10553=vpfc1001554=jakarta1231137=810=237 => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:51:54] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:60204     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:54172     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-14:53:1098=0108=10553=vpfc1001554=jakarta1231137=810=232 => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-14:53:1098=0108=10553=vpfc1001554=jakarta1231137=810=232 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=752=20240113-14:53:1098=0108=10553=vpfc1001554=jakarta1231137=810=232 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:53:10] [0m [32msend message to server success, write complete:  => tcp        0    114 172.17.70.160:33032     172.18.2.213:59881      ESTABLISHED
+tcp        0      0 172.17.70.160:60204     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:54:15] [0m [32mmessage from create logon: 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-14:54:1598=0108=10553=vpfc1001554=jakarta1231137=810=239 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:54:15] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+[0m
+[33m[2024-01-13 14:54:16] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-14:54:1598=0108=10553=vpfc1001554=jakarta1231137=810=239 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9135=A49=VP56=IDX34=852=20240113-14:54:1598=0108=10553=vpfc1001554=jakarta1231137=810=239 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [32msend message to server success, write complete:  => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0    114 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7035=049=VP56=IDX34=852=20240113-14:54:1698=0112=TestReqID1137=810=047 => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0      0 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:54:16] [0m [32msend message to server success, write complete:  => tcp        0      0 172.17.70.160:33032     172.18.2.213:59881      TIME_WAIT  
+tcp        0     93 172.17.70.160:59252     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:57:27] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-14:57:2798=0108=10553=vpfc1001554=jakarta1231137=810=031 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [33m				connection starts... => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-14:57:2798=0108=10553=vpfc1001554=jakarta1231137=810=031 => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1052=20240113-14:57:2798=0108=10553=vpfc1001554=jakarta1231137=810=031 => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:27] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1052=20240113-14:57:2898=0112=TestReqID1137=810=095 => tcp        0      0 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:57:28] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:43950     172.18.2.213:59881      ESTABLISHED
+tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:59:22] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-14:59:2298=0108=10553=vpfc1001554=jakarta1231137=810=029 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:59:22] [0m [33m				connection starts... => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+[0m
+[33m[2024-01-13 14:59:22] [0m [32mconnection to the server was successful => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:22] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-14:59:2298=0108=10553=vpfc1001554=jakarta1231137=810=029 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:22] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1152=20240113-14:59:2298=0108=10553=vpfc1001554=jakarta1231137=810=029 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:22] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0    115 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:23] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:23] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1252=20240113-14:59:2298=0112=TestReqID1137=810=093 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:23] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0     94 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:52] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:52] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1352=20240113-14:59:5298=0112=TestReqID1137=810=097 => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 14:59:52] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:59252     172.18.2.213:59881      LAST_ACK   
+tcp        0     94 172.17.70.160:57372     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:04:42] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-15:04:4298=0108=10553=vpfc1001554=jakarta1231137=810=024 => no connection occurs[0m
+[33m[2024-01-13 15:04:42] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:04:42] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:04:42] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-15:04:4298=0108=10553=vpfc1001554=jakarta1231137=810=024 => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:04:42] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1352=20240113-15:04:4298=0108=10553=vpfc1001554=jakarta1231137=810=024 => tcp        0      0 172.17.70.160:54366     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:04:42] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:54366     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-15:05:0398=0108=10553=vpfc1001554=jakarta1231137=810=024 => no connection occurs[0m
+[33m[2024-01-13 15:05:03] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:05:03] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-15:05:0398=0108=10553=vpfc1001554=jakarta1231137=810=024 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1552=20240113-15:05:0398=0108=10553=vpfc1001554=jakarta1231137=810=024 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:03] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:33] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:33] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=049=VP56=IDX34=1652=20240113-15:05:3398=0112=TestReqID1137=810=091 => tcp        0      0 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:05:33] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:58090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:00] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-15:22:0098=0108=10553=vpfc1001554=jakarta1231137=810=021 => no connection occurs[0m
+[33m[2024-01-13 15:22:00] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:22:00] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:00] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-15:22:0098=0108=10553=vpfc1001554=jakarta1231137=810=021 => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:00] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1652=20240113-15:22:0098=0108=10553=vpfc1001554=jakarta1231137=810=021 => tcp        0      0 172.17.70.160:56934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:00] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:56934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-15:22:3298=0108=10553=vpfc1001554=jakarta1231137=810=028 => no connection occurs[0m
+[33m[2024-01-13 15:22:32] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:22:32] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-15:22:3298=0108=10553=vpfc1001554=jakarta1231137=810=028 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=1852=20240113-15:22:3298=0108=10553=vpfc1001554=jakarta1231137=810=028 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:22:32] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=449=VP56=IDX34=1952=20240113-15:23:0298=0112=TestReqID1137=810=094 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:23:02] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:43228     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2052=20240113-15:24:4698=0108=10553=vpfc1001554=jakarta1231137=810=028 => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:24:46] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:43228     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:24:46] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2052=20240113-15:24:4698=0108=10553=vpfc1001554=jakarta1231137=810=028 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2052=20240113-15:24:4698=0108=10553=vpfc1001554=jakarta1231137=810=028 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:24:46] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7135=449=VP56=IDX34=2152=20240113-15:25:1598=0112=TestReqID1137=810=093 => tcp        0      0 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:25:15] [0m [32msend message to server success, write complete:  => tcp        0     94 172.17.70.160:38220     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:29:58] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2152=20240113-15:29:5898=0108=10553=vpfc1001554=jakarta1231137=810=037 => no connection occurs[0m
+[33m[2024-01-13 15:29:58] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:29:58] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:29:58] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2152=20240113-15:29:5898=0108=10553=vpfc1001554=jakarta1231137=810=037 => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:29:58] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2152=20240113-15:29:5898=0108=10553=vpfc1001554=jakarta1231137=810=037 => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:29:58] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:46870     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2252=20240113-15:30:1898=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:30:18] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:46870     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:30:18] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2252=20240113-15:30:1898=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2252=20240113-15:30:1898=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:18] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:47] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:47] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7835=049=VP56=IDX34=2352=20240113-15:30:4798=0108=45112=TestReqID1137=810=163 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:30:47] [0m [32msend message to server success, write complete:  => tcp        0    101 172.17.70.160:33010     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2452=20240113-15:34:0098=0108=10553=vpfc1001554=jakarta1231137=810=023 => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:34:00] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:33010     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:34:00] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2452=20240113-15:34:0098=0108=10553=vpfc1001554=jakarta1231137=810=023 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2452=20240113-15:34:0098=0108=10553=vpfc1001554=jakarta1231137=810=023 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:00] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:29] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:29] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=7835=049=VP56=IDX34=2552=20240113-15:34:2998=0108=45112=TestReqID1137=810=169 => tcp        0      0 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:34:29] [0m [32msend message to server success, write complete:  => tcp        0    101 172.17.70.160:43090     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:25] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2552=20240113-15:39:2598=0108=10553=vpfc1001554=jakarta1231137=810=036 => no connection occurs[0m
+[33m[2024-01-13 15:39:25] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:39:25] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:25] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2552=20240113-15:39:2598=0108=10553=vpfc1001554=jakarta1231137=810=036 => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:25] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2552=20240113-15:39:2598=0108=10553=vpfc1001554=jakarta1231137=810=036 => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:25] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:50824     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:40] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2652=20240113-15:39:4098=0108=10553=vpfc1001554=jakarta1231137=810=034 => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:40] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:50824     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:39:41] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:41] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2652=20240113-15:39:4098=0108=10553=vpfc1001554=jakarta1231137=810=034 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:41] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2652=20240113-15:39:4098=0108=10553=vpfc1001554=jakarta1231137=810=034 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:39:41] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:10] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:10] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6635=049=VP56=IDX34=2752=20240113-15:40:10112=TestReqID1137=810=124 => tcp        0      0 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:40:10] [0m [32msend message to server success, write complete:  => tcp        0     89 172.17.70.160:53934     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:49:56] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2752=20240113-15:49:5698=0108=10553=vpfc1001554=jakarta1231137=810=043 => no connection occurs[0m
+[33m[2024-01-13 15:49:56] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 15:49:56] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:49:56] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2752=20240113-15:49:5698=0108=10553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:49:56] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2752=20240113-15:49:5698=0108=10553=vpfc1001554=jakarta1231137=810=043 => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:49:56] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:52758     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=2852=20240113-15:50:0198=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:50:01] [0m [33m				connection starts... => tcp        0      0 172.17.70.160:52758     172.18.2.213:59881      CLOSE_WAIT 
+[0m
+[33m[2024-01-13 15:50:01] [0m [32mconnection to the server was successful => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2852=20240113-15:50:0198=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=2852=20240113-15:50:0198=0108=10553=vpfc1001554=jakarta1231137=810=026 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:01] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0    115 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:31] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:31] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6635=049=VP56=IDX34=2952=20240113-15:50:31112=TestReqID1137=810=130 => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0      0 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 15:50:31] [0m [32msend message to server success, write complete:  => tcp        0      1 172.17.70.160:52758     172.18.2.213:59881      LAST_ACK   
+tcp        0     89 172.17.70.160:33896     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [32mmessage from create logon: 8=FIXT.1.19=9235=A49=VP56=IDX34=3052=20240113-16:00:0698=0108=10553=vpfc1001554=jakarta1231137=810=020 => no connection occurs[0m
+[33m[2024-01-13 16:00:06] [0m [33m				connection starts... => no connection occurs[0m
+[33m[2024-01-13 16:00:06] [0m [32mconnection to the server was successful => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [34mmessage on handle_connected(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3052=20240113-16:00:0698=0108=10553=vpfc1001554=jakarta1231137=810=020 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=9235=A49=VP56=IDX34=3052=20240113-16:00:0698=0108=10553=vpfc1001554=jakarta1231137=810=020 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:06] [0m [32msend message to server success, write complete:  => tcp        0    115 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:36] [0m [35mhandle send thread()  while (queue_send.try_pop(senddata)):  => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:36] [0m [34m_writestring_msgs on senFixMessage(): 8=FIXT.1.19=6635=049=VP56=IDX34=3152=20240113-16:00:36112=TestReqID1137=810=124 => tcp        0      0 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m
+[33m[2024-01-13 16:00:36] [0m [32msend message to server success, write complete:  => tcp        0     89 172.17.70.160:57500     172.18.2.213:59881      ESTABLISHED
+[0m

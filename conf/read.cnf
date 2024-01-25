@@ -10,7 +10,8 @@
 		<password>jakarta123</password>
 	</connection>
 	<Appconfiguration>
-		<HouseKeeping>false</HouseKeeping>
-		<msgSeqNum>24</msgSeqNum>
+		<HouseKeeping>true</HouseKeeping>
+		<msgSeqNum>887</msgSeqNum>
+		<msgSeqNumServer>1239</msgSeqNumServer>
 	</Appconfiguration>
 </root>
