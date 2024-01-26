@@ -68,3 +68,4 @@ int main()
     amqp_destroy_connection(conn);
     return 0;
 }
+// g++ -o penerima penerima.cpp $(pkg-config --cflags --libs librabbitmq)

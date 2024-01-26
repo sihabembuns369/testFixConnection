@@ -255,20 +255,22 @@ public:
 
     void logWrite(std::string log, std::string color, std::string mode)
     {
-        WriteLog logWrite;
+        // WriteLog *logWrite = new WriteLog();
+
         netstat net;
         // std::cout << logWrite.timecurrent() << std::endl;
         std::string netprint = net.exec("netstat -an | grep 59881");
         if (netprint.size() <= 0)
         {
-            logWrite.logMessage(log + " => " + "no connection occurs", color, mode, 1);
+            LogWrite->logMessage(log + " => " + "no connection occurs", color, mode, 1);
         }
         else
         {
-            logWrite.logMessage(log, color, mode, 1);
+            LogWrite->logMessage(log, color, mode, 1);
         }
         //  logWrite.logMessage(log);
     }
+
     void runIOService(boost::asio::io_service &io_service)
     {
         // std::cout << "runIOService Running: " << std::endl;
@@ -370,6 +372,8 @@ public:
     };
 
 public:
+    WriteLog *LogWrite = new WriteLog();
+
     int MsgNum;
     int MsgNumServer;
     bool _active;
@@ -477,6 +481,7 @@ private:
 
         std::cout << "_writestring_msgs on senFixMessage(): " << Replace_Soh(_writestring_msgs.front()) << std::endl;
         FileCustom::saveSeqNum(FixSession::MsgNum, FixSession::MsgNumServer);
+        LogWrite->SaveToDb(_writestring_msgs.front());
 
         logWrite(Replace_Soh(_writestring_msgs.front()), BLUE, outp);
 
@@ -975,6 +980,7 @@ private:
         ioService_.post(boost::bind(&FixSession::do_close, this, boost::system::error_code()));
     }
 
+private:
     // declaration variable
     boost::thread *_thread_service;
     boost::asio::io_service &ioService_;

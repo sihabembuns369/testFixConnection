@@ -20,10 +20,13 @@ public:
     std::string gmt_Time();
     std::string timecurrent();
     void logMessage(const std::string &message, const std::string color, const std::string mode, bool autoHouseKeeping);
+    void SaveToDb(const std::string &pesan);
 
 private:
     std::string logFilename;
     std::string logdir;
+    std::string fileLogDir = "./LogFile/";
+    std::string _message;
     std::string currentDateTime();
     void readOsInfo();
     void HouseKeeping(const char *folderAsal, const char *folderTujuan, std::string filename);
@@ -82,6 +85,8 @@ void WriteLog::logMessage(const std::string &message, const std::string color, c
 {
 
     logdir = currentDateTime().substr(0, 10) + "_[" + mode + "]_.log";
+    _message = message;
+
     // std::cout << "logDir: " << logdir << std::endl;
     if (autoHouseKeeping == 1 || autoHouseKeeping == true)
     {
@@ -97,7 +102,6 @@ void WriteLog::logMessage(const std::string &message, const std::string color, c
     }
 
     // Buka file log untuk menulis (tambahkan mode)
-    std::string fileLogDir = "./LogFile/";
 
     if (mode == inp)
     {
@@ -120,10 +124,24 @@ void WriteLog::logMessage(const std::string &message, const std::string color, c
 
     // Tulis timestamp dan pesan log ke file
     logFile << YELLOW << "[" << currentDateTime() << "] " RESET << " " << color << message << RESET << std::endl;
-
     // Tutup file log
     logFile.close();
 }
+
+void WriteLog::SaveToDb(const std::string &pesan)
+{
+
+    std::cout << "fungsi save to db fi panggil" << std::endl;
+    std::ofstream dbPesan("./LogFile/DbPesan/" + currentDateTime().substr(0, 10) + "_[  DbPesan  ]_.log", std::ios::app);
+    if (!dbPesan.is_open())
+    {
+        std::cerr << "Gagal membuka file log2" << std::endl;
+        return;
+    }
+    dbPesan << pesan << std::endl;
+    dbPesan.close();
+}
+
 void WriteLog::readOsInfo()
 {
     struct utsname info;
