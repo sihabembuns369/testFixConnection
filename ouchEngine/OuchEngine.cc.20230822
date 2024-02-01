@@ -1,0 +1,590 @@
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include "OuchEngine.h"
+
+COuchEngine::COuchNode::COuchNode(COuchEngine *parent) : 
+	curServer(0), nThreadsRunning(0), isThreadRunning(false), isConnectionActive(false),
+	pparent(parent)
+{
+	pthread_mutex_init(&mutex, NULL);
+	memset(&ouchCfg, 0x00, sizeof(SOUPBIN_CFG_DATA));
+}
+
+COuchEngine::COuchNode::~COuchNode()
+{
+	DisconnectFromOuchServer();
+	ReleaseQueue();
+	pthread_mutex_destroy(&mutex);
+}
+
+void COuchEngine::COuchNode::ReleaseQueue()
+{
+	outgoingQ.Release();
+	callOutgoingQ.Release();
+	outgoingQ.ReleaseImmediately();
+	callOutgoingQ.ReleaseImmediately();
+	incomingQ.Release();
+}
+
+bool COuchEngine::COuchNode::isOuchUserId(const char *szId) {
+	return (0 == strcmp(szId, ouchCfg.szUserId));
+}
+
+void COuchEngine::COuchNode::SetSoupBinCfgData(SOUPBIN_CFG_DATA *o) {
+	memcpy(&ouchCfg, o, sizeof(SOUPBIN_CFG_DATA));
+}
+
+void COuchEngine::COuchNode::SubscribeOUCHTradingLimitMessage()
+{
+	{
+		COuchTradingLimitRequest o(TL_TYPE_POOL);
+		ouchSocket.WriteBlock(o, o.GetPackageLength());
+	}
+	{
+		COuchTradingLimitRequest o(TL_TYPE_EQUITY);
+		ouchSocket.WriteBlock(o, o.GetPackageLength());
+	}
+	{
+		COuchTradingLimitRequest o(TL_TYPE_DERIVATIVE);
+		ouchSocket.WriteBlock(o, o.GetPackageLength());
+	}
+}
+
+long COuchEngine::COuchNode::SendOuchClientHeartBeat()
+{
+	CSoupBin o(0, SB_PKG_CLIENT_HEART_BEAT);
+	return ouchSocket.WriteBlock(o, o.GetPackageLength());
+}
+
+int COuchEngine::COuchNode::SendIDXOUCHLoginPackage(const char *uid, const char *pwd, unsigned long lseq)
+{
+	COuch pkg;
+	pkg.ComposeLoginRequest(uid, pwd, "          ", lseq);
+	pparent->journal.WriteLog("Sending Login Package, Uid : %s; Seq : %lu;\n", uid, lseq);
+	return ouchSocket.WriteBlock(pkg, pkg.GetPackageLength());
+}
+
+uint16_t COuchEngine::COuchNode::GetCurrentActiveServerAddr(char *szAddr)
+{
+	uint16_t port = ouchCfg.serverPort[curServer];
+	strcpy(szAddr, ouchCfg.szServerIPAddress[curServer]);
+	if (++curServer >= ouchCfg.servers)
+		curServer = 0;
+	return port;
+}
+
+bool COuchEngine::COuchNode::SendOuchEnterOrderMessage(COuchEnterOrder *o, bool isNonImmediate, bool ispreop, bool isCallAuction)
+{
+	if (0 == o->GetOrderBookId())
+		o->SetOrderbookId(pparent->orderBookDir.GetOrderBookId(o->GetStockCode()));
+	uint32_t orderToken = 0;
+	uint16_t pkgLen = o->GetPackageLength();
+	const char	*psz = *o, 
+		*orderId = o->GetOrderId();
+	pthread_mutex_lock(&mutex);
+	pparent->tokenMap.RegisterToken(o->SetOrderToken(orderToken = pparent->GetNextTokenId()), orderId);
+	long nWrite = ouchSocket.WriteBlock(psz, pkgLen);
+	pthread_mutex_unlock(&mutex);
+	switch (nWrite)
+	{
+	case 0:
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchEnterOrderMessage][Id:%s] - OUCH Connection closed.\n", ouchCfg.szUserId);
+		break;
+	case SOCKET_ERROR:
+		pparent->PrintErrNoMessage(errno, "[COuchEngine::COuchNode::SendOuchEnterOrderMessage]");
+		break;
+	default:
+		if (nWrite == pkgLen)
+		{
+			pparent->ouchSentJournal.WriteLog("%s|%s|%lu|\r\n", ouchCfg.szUserId, orderId, orderToken);
+			if (pparent->oConfig.ouchConfig.logOuchMessages)
+			{
+				char szDesc[2048];
+				o->GetDescriptions(szDesc);
+				pparent->ouchOutJournal.WriteOuchOutLog(o->GetMessageType(), ouchCfg.szUserId, szDesc, psz, pkgLen);
+			}
+			delete o; o = NULL;
+			return true;
+		}
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchEnterOrderMessage][Id:%s] - Incomplete write operation.\n", ouchCfg.szUserId);
+		break;
+	};
+	RequeueOuchMessage(o, isNonImmediate, ispreop, isCallAuction);
+	return false;
+}
+
+bool COuchEngine::COuchNode::SendOuchReplaceOrderMessage(COuchReplaceOrder *o, bool isNonImmediate, bool ispreop, bool isCallAuction)
+{
+	uint32_t newOrderToken = 0;
+	uint16_t pkgLen = o->GetPackageLength();
+	const char	*psz = *o, 
+		*orderId = o->GetOrderId();
+	pthread_mutex_lock(&mutex);
+	pparent->tokenMap.RegisterToken(o->SetNewOrderToken(newOrderToken = pparent->GetNextTokenId()), orderId);
+	long nWrite = ouchSocket.WriteBlock(psz, pkgLen);
+	pthread_mutex_unlock(&mutex);
+	switch (nWrite)
+	{
+	case 0:
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchReplaceOrderMessage][Id:%s] - OUCH Connection closed.\n", ouchCfg.szUserId);
+		break;
+	case SOCKET_ERROR:
+		pparent->PrintErrNoMessage(errno, "[COuchEngine::COuchNode::SendOuchReplaceOrderMessage]");
+		break;
+	default:
+		if (nWrite == pkgLen)
+		{
+			pparent->ouchSentJournal.WriteLog("%s|%s|%lu|%s|\r\n", ouchCfg.szUserId, o->GetAmendId(), newOrderToken, orderId);
+			if (pparent->oConfig.ouchConfig.logOuchMessages)
+			{
+				char szDesc[2048];
+				o->GetDescriptions(szDesc);
+				pparent->ouchOutJournal.WriteOuchOutLog(o->GetMessageType(), ouchCfg.szUserId, szDesc, psz, pkgLen);
+			}
+			delete o; o = NULL;
+			return true;
+		}
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchReplaceOrderMessage][Id:%s] - Incomplete write operation.\n", ouchCfg.szUserId);
+		break;
+	};
+	RequeueOuchMessage(o, isNonImmediate, ispreop, isCallAuction);
+	return false;
+}
+
+bool COuchEngine::COuchNode::SendOuchCancelOrderMessage(COuchCancelOrder *o, bool isNonImmediate, bool ispreop)
+{
+	const char *psz = *o;
+	uint16_t pkgLen = o->GetPackageLength();
+	long nWrite = ouchSocket.WriteBlock(psz, pkgLen);
+	switch (nWrite)
+	{
+	case 0:
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchCancelOrderMessage][Id:%s] - OUCH Connection closed.\n", ouchCfg.szUserId);
+		break;
+	case -1:
+		pparent->PrintErrNoMessage(errno, "[COuchEngine::COuchNode::SendOuchCancelOrderMessage]");
+		break;
+	default:
+		if (nWrite == pkgLen)
+		{
+			pparent->ouchSentJournal.WriteLog("%s|%s|%lu|%s|", 
+				ouchCfg.szUserId, o->GetWithdrawId(), o->GetOrderToken(), o->GetOrderId());
+			if (pparent->oConfig.ouchConfig.logOuchMessages)
+			{
+				char szDesc[2048];
+				o->GetDescriptions(szDesc);
+				pparent->ouchOutJournal.WriteOuchOutLog(o->GetMessageType(), ouchCfg.szUserId, szDesc, psz, pkgLen);
+			}
+			delete o; o = NULL;
+			return true;
+		}
+		pparent->journal.WriteLog("[COuchEngine::COuchNode::SendOuchCancelOrderMessage][Id:%s] - Incomplete write operation.\n", ouchCfg.szUserId);
+		break;
+	};
+	RequeueOuchMessage(o, isNonImmediate, ispreop, false);
+	return false;
+}
+
+void COuchEngine::COuchNode::ConnectToOuchServer()
+{
+	if (isThreadRunning)
+		return;
+	pthread_t tid = 0;
+	pthread_attr_t attr;
+	pthread_attr_init(&attr);
+	pthread_create(&tid, &attr, (void* (*)(void*))OuchClientThread, (void*)this);
+	pthread_attr_destroy(&attr);
+}
+
+void COuchEngine::COuchNode::DisconnectFromOuchServer()
+{
+	if (!isThreadRunning)
+		return;
+	isThreadRunning = false;
+	while (nThreadsRunning)
+		sleep(1);
+}
+
+void COuchEngine::COuchNode::OuchSendThread(void *p)
+{
+	COuchNode *node = (COuchNode*)p;
+	uint32_t nId = __sync_add_and_fetch(&node->nThreadsRunning, 1);
+	bool ispreop = (0 == (nId % 2)),
+		iscallauction = (3 == nId);
+	CTSession *session = iscallauction ? &(node->pparent->callsession) :
+		ispreop ? &(node->pparent->psession) : &(node->pparent->ssession);
+	if (iscallauction)
+		node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - Call Auction OuchSendThread has been started.\n", node->ouchCfg.szUserId);
+	else
+	{
+		if (ispreop)
+			node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - OuchSendThread has been started.\n", node->ouchCfg.szUserId);
+		else
+			node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - Regular Session OuchSendThread has been started.\n", node->ouchCfg.szUserId);
+	}
+	CSoupBin *msg = NULL;
+	uint16_t lsession = 0;
+	bool isNonImmediate = true;
+	__OUCH_OUTQ__ *queue = iscallauction ? &node->callOutgoingQ : &node->outgoingQ;
+	while (node->isThreadRunning)
+	{
+		if (!node->isConnectionActive)
+		{
+			usleep(100000);
+			continue;
+		}
+		if ( (isNonImmediate = (NULL == (msg = node->outgoingQ.GetImmediately()))) )
+		{
+			if (0 == (lsession = session->CheckSession()))
+			{
+				session->Suspend(100);
+				session->SynchronizeState();
+				continue;
+			}
+			msg = ispreop ? queue->GetPreopFromQueue(0 != (lsession & TSES_SESSIONS)) : queue->GetfromQueue();
+			if (NULL == msg)
+			{
+				usleep(100000);	//	100 ms
+				continue;
+			}
+		}
+		switch (msg->GetMessageType())
+		{
+		case OUCH_TYPE_ENTER_ORDER_MSG:
+			break;
+		case OUCH_TYPE_REPLACED_ORDER_MSG:
+			break;
+		case OUCH_TYPE_CANCEL_ORDER_MSG:
+			break;
+		}
+	}
+	if (iscallauction)
+		node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - Call Auction OuchSendThread has been ended.\n", node->ouchCfg.szUserId);
+	else
+	{
+		if (ispreop)
+			node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - OuchSendThread has been ended.\n", node->ouchCfg.szUserId);
+		else
+			node->pparent->journal.WriteLog("[COuchEngine::COuchNode::OuchSendThread][Id:%s] - Regular Session OuchSendThread has been ended.\n", node->ouchCfg.szUserId);
+	}
+	__sync_sub_and_fetch(&node->nThreadsRunning, 1);
+}
+
+void COuchEngine::COuchNode::StartOuchSendThreads()
+{
+	if (!isThreadRunning)
+		return;
+	pthread_t tid = 0;
+	pthread_attr_t attr;
+	pthread_attr_init(&attr);
+	pthread_create(&tid, &attr, (void* (*)(void*))OuchSendThread, (void*)this);
+	pthread_attr_destroy(&attr);
+}
+
+void COuchEngine::COuchNode::OuchClientThread(void *p)
+{
+	long lread = 0;
+	uint16_t port;
+	char szAddr[64];
+	bool bClientRunning = false;
+	COuchNode *node = (COuchNode*)p;
+	uint32_t nSeq = 0,
+			  nId = __sync_add_and_fetch(&node->nThreadsRunning, 1);
+	node->isThreadRunning = true;
+	node->pparent->journal.WriteLog("[OuchClientThread] - Starting OUCH Client Thread, nId : %lu; OuchId : %s;\n", 
+		nId, node->ouchCfg.szUserId);
+	while (node->isThreadRunning)
+	{
+		if (0 == node->ouchSocket.Create())
+		{
+			node->isThreadRunning = false;
+			node->pparent->journal.WriteLog("[OuchClientThread] - Can not create socket\n");
+			continue;
+		}
+		port = node->GetCurrentActiveServerAddr(szAddr);
+		node->pparent->journal.WriteLog("Trying to connect OUCH Server %s:%u.\n", szAddr, port);
+		if (0 == node->ouchSocket.Connect(szAddr, port))
+			node->pparent->journal.WriteLog("[OuchClientThread] - Can not connect to %s:%u\n", szAddr, port);
+		else
+		{
+			node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Client has been connected to %s:%u\n", szAddr, port);
+			lread = node->SendIDXOUCHLoginPackage(node->ouchCfg.szUserId, node->ouchCfg.szPassword, nSeq + 1);
+			if (lread <= 0)
+				node->pparent->journal.WriteLog("[OuchClientThread] - Send OUCH Login Package Failed.\n");
+			else
+			{
+				bClientRunning = true;
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Login Package has been sent succesfully.\n");
+				break;
+			}
+		}
+		node->ouchSocket.CloseSocket();
+		sleep(5);
+	}
+	if (bClientRunning)
+	 	node->StartOuchSendThreads();
+	//      --------------------------------------------------------------------------------------------------
+	char *psz = NULL;
+	time_t lastTime = time(NULL);
+	uint16_t nSize = 0, nCount = 0;
+	while(bClientRunning && node->isThreadRunning)
+	{
+		if (lread > 0)
+			if (difftime(time(NULL), lastTime) >= 1)
+			{
+				lastTime = time(NULL);
+				node->SendOuchClientHeartBeat();
+				if (nCount++ > 15)
+				{
+					nCount = 0;
+					node->SubscribeOUCHTradingLimitMessage();
+				}
+			}
+		if ((lread = node->ouchSocket.Read((char*)&nSize, SZ_INT16, MSG_WAITALL, 1)) > 0)
+		{
+			if (SZ_INT16 == lread)
+			{
+				OL_UINT16 n = nSize;
+				if ( (nSize = ntohs(nSize)) > MAX_OUCH_PACKAGE_LENGTH )
+				{
+					node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Read Error, OUCH Package Length Oversized, nSize:%u, connection will be terminated, and try to reconnect.\n", nSize);
+					lread = -1;
+				}
+				else
+				{
+					if (NULL == (psz = new char[nSize + SZ_INT16]))
+					{
+						node->isThreadRunning = false;
+						node->pparent->journal.WriteLog("[OuchClientThread] - Memory Full, service will be terminated.\n");
+						continue;
+					}
+					memcpy(psz, &n, SZ_INT16);
+					lread = node->ouchSocket.ReadBlock(psz + SZ_INT16, nSize);
+					if (lread != nSize)
+					{
+						node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Socket Error - lread : %ld - nSize : %ld, Incomplete Read OUCH Package Body Size, connection will be terminated, and try to reconnect.\n", lread, nSize);
+						lread = -1;
+					}
+				}
+			}
+			else
+			{
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Socket Error - lread:%ld, Incomplete Read ITCH Package Header Size, connection will be terminated, and try to reconnect.\n", lread);
+				lread = -1;
+			}
+		}
+		if (lread <= 0)
+		{
+			if (0 == lread)
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Socket Closed, try to reconnect.\n");
+			else if (SOCKET_TIMEOUT == lread)
+			{
+				if (difftime(time(NULL), lastTime) >= 1)
+				{
+					lastTime = time(NULL);
+					lread = node->SendOuchClientHeartBeat();
+					if (nCount++ > 15)
+					{
+						nCount = 0;
+						node->SubscribeOUCHTradingLimitMessage();
+					}
+				}
+				continue;
+			}
+			else if (lread < 0)
+				node->pparent->PrintErrNoMessage(errno, "OUCH SOCKET ERROR");
+			node->isConnectionActive = false;
+			node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Datafeed Socket has been disconnected at Seq %u, try to reconnect ...\n", nSeq);
+			while (node->isThreadRunning)
+			{
+				node->ouchSocket.CloseSocket();
+				sleep(5);
+				if (0 == node->ouchSocket.Create())
+				{
+					node->isThreadRunning = false;
+					node->pparent->journal.WriteLog("[OuchClientThread] - Can not create socket\n");
+					continue;
+				}
+				port = node->GetCurrentActiveServerAddr(szAddr);
+				node->pparent->journal.WriteLog("Trying to connect OUCH Server %s:%u.\n", szAddr, port);
+				if (0 == node->ouchSocket.Connect(szAddr, port))
+					node->pparent->journal.WriteLog("[OuchClientThread] - Can not connect to %s:%u\n", szAddr, port);
+				else
+				{
+					node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Client has been connected to %s:%u\n", szAddr, port);
+					lread = node->SendIDXOUCHLoginPackage(node->ouchCfg.szUserId, node->ouchCfg.szPassword, nSeq + 1);
+					if (lread <= 0)
+						node->pparent->journal.WriteLog("[OuchClientThread] - Send OUCH Login Package Failed.\n");
+					else
+					{
+						node->isConnectionActive = bClientRunning = true;
+						node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Login Package has been sent succesfully.\n");
+						break;
+					}
+				}
+			}
+			continue;
+		}
+		switch (psz[2])
+		{
+		case SB_PKG_LOGIN_ACCEPTED:
+			{
+				char szSession[16] = {}, szSeq[24] = {};
+				CSoupBin p(psz, nSize + SZ_INT16, false);
+				p.GetString(10, szSession);
+				p.GetString(20, szSeq);
+				psz = NULL;
+				node->isConnectionActive = true;
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Login Accepted With Session : %s; Seq : %s;\n", szSession, szSeq);
+			}
+			break;
+		case SB_PKG_LOGIN_REJECTED:
+			switch (psz[3])
+			{
+			case LOGIN_NOT_AUTHORIZED:
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Login Failed, Login not authorized.\n");
+				break;
+			case LOGIN_SESSION_UNAVAILABLE:
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Login Failed, Login Session Unavailable.\n");
+				break;
+			default:
+				node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Login Failed, undefined.\n");
+				break;
+			}
+			node->isThreadRunning = false;
+			break;
+		case SB_PKG_SERVER_HEARTBEAT:
+			if (difftime(time(NULL), lastTime) >= 1)
+			{
+				lastTime = time(NULL);
+				lread = node->SendOuchClientHeartBeat();
+				if (nCount++ > 15)
+				{
+					nCount = 0;
+					node->SubscribeOUCHTradingLimitMessage();
+				}
+			}
+			break;
+		case SB_PKG_SEQUENCED:
+			{
+				++nSeq;
+				COuch *o = new COuch(psz, nSize + SZ_INT16, false);
+				o->SetIdentity(node->ouchCfg.szUserId);
+				node->incomingQ.AddtoQueue(o);
+			}
+			//node->incomingQ.AddtoQueue(new COuch(psz, nSize + SZ_INT16, false));
+			psz = NULL;
+			break;
+		case SB_PKG_END_OF_SESSION:
+			node->isThreadRunning = false;
+			node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Server Session Ended.\n");
+			break;
+		case SB_PKG_DEBUG:
+			node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Debug Package Received.\n");
+			node->pparent->journal.Binary_Dump(psz, nSize + SZ_INT16);
+			break;
+		default:
+			node->pparent->journal.WriteLog("[OuchClientThread] - Unknown OUCH Package Received, package will be dump.\n");
+			node->pparent->journal.Binary_Dump(psz, nSize + SZ_INT16);
+			break;
+		}
+		if (psz) {
+			delete []psz; psz = NULL;
+		}
+	}
+	node->isThreadRunning = node->isConnectionActive = false;
+	while (node->nThreadsRunning > 1)
+		sleep(1);
+	node->ouchSocket.CloseSocket();
+	node->pparent->journal.WriteLog("[OuchClientThread] - OUCH Client Thread Ended, nId : %lu.\n", nId);
+	__sync_sub_and_fetch(&node->nThreadsRunning, 1);
+}
+
+//-------------------------------------------------------------------------------
+
+COuchEngine::COuchEngine() : 
+	isRunning(false), bHoliday(isHoliday(lCurDate, weekDay)), tokenId(0), SHARES_LOT(100),
+	psession(TSES_PREOPENING), ssession(TSES_SESSIONS), callsession(TSES_CALL_AUCTION_SESSIONS)
+{
+}
+
+COuchEngine::~COuchEngine()
+{
+	ReleaseAllPackages();
+}
+
+void COuchEngine::ReleaseAllPackages()
+{
+	// incoming_ouch_packages.Release();
+	// outgoing_ouch_packages.Release();
+}
+
+uint32_t COuchEngine::ConvertTIF(uint8_t expiry)
+{
+    return (EXP_DAY_ORDER == expiry) ? TIF_DAY : 
+		(EXP_SES_ORDER == expiry) ? TIF_SESSION : TIF_IMMEDIATE;
+}
+
+uint8_t COuchEngine::ConvertOrderVerb(uint8_t command)
+{
+    return	(CMD_BUY == command) ? VERB_BUY :
+			(CMD_SELL == command) ? VERB_SELL : 
+			(CMD_MARGIN_BUY == command) ? VERB_MARGIN_BUY : 
+			(CMD_SHORT_SELL == command) ? VERB_SHORT_SELL : VERB_PRICE_STABILIZATION;
+}
+
+// void COuchEngine::SubscribeOUCHTradingLimitMessage(__OUCH_QUEUE__ *q)	//	outgoing queue
+// {
+// 	q->AddtoQueue(new COuchTradingLimitRequest(TL_TYPE_POOL));
+// 	q->AddtoQueue(new COuchTradingLimitRequest(TL_TYPE_EQUITY));
+// 	q->AddtoQueue(new COuchTradingLimitRequest(TL_TYPE_DERIVATIVE));
+// }
+
+void COuchEngine::PrintErrNoMessage(int e, const char *s)
+{
+    if (EAGAIN == e)
+		journal.WriteLog("%s - EAGAIN\n", s);
+	else if (EWOULDBLOCK == e)
+		journal.WriteLog("%s - EWOULDBLOCK\n", s);
+	else if (EBADF == e)
+		journal.WriteLog("%s - EBADF\n", s);
+	else if (ECONNRESET == e)
+		journal.WriteLog("%s - ECONNRESET\n", s);
+	else if (EDESTADDRREQ == e)
+		journal.WriteLog("%s - EDESTADDRREQ\n", s);
+	else if (EMSGSIZE == e)
+		journal.WriteLog("%s - EMSGSIZE\n", s);
+	else if (EOPNOTSUPP == e)
+		journal.WriteLog("%s - EOPNOTSUPP\n", s);
+	else if (EPIPE == e)
+		journal.WriteLog("%s - EPIPE\n", s);
+	else if (EACCES == e)
+		journal.WriteLog("%s - EACCES\n", s);
+	else if (EIO == e)
+		journal.WriteLog("%s - EIO\n", s);
+	else if (ENETDOWN == e)
+		journal.WriteLog("%s - ENETDOWN\n", s);
+	else if (ENETUNREACH == e)
+		journal.WriteLog("%s - ENETUNREACH\n", s);
+	else if (ENOBUFS == e)
+		journal.WriteLog("%s - ENOBUFS\n", s);
+	else if (ETIMEDOUT == e)
+		journal.WriteLog("%s - ETIMEDOUT\n", s);
+	else if (ECONNREFUSED == e)
+		journal.WriteLog("%s - ECONNREFUSED\n", s);
+	else if (EFAULT == e)
+		journal.WriteLog("%s - EFAULT\n", s);
+	else if (EINTR == e)
+		journal.WriteLog("%s - EINTR\n", s);
+	else if (EINVAL == e)
+		journal.WriteLog("%s - EINVAL\n", s);
+	else if (ENOMEM == e)
+		journal.WriteLog("%s - ENOMEM\n", s);
+	else if (ENOTCONN == e)
+		journal.WriteLog("%s - ENOTCONN\n", s);
+	else if (ENOTSOCK == e)
+		journal.WriteLog("%s - ENOTSOCK\n", s);
+	else
+		journal.WriteLog("%s - errno : %d\n", s, e);
+}

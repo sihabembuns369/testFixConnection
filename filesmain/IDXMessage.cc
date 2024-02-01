@@ -218,7 +218,7 @@ namespace idx
             else
             {
                 isTag58 = false;
-                std::cout << "tag 58 tidak ditemukan" << std::endl;
+                // std::cout << "tag 58 tidak ditemukan" << std::endl;
             }
 
             _Data = FixMsgData;

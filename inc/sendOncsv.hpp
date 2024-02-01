@@ -26,6 +26,9 @@
 #include <string.h>
 #include <sys/wait.h>
 
+#include <iomanip>
+#include <ctime>
+
 // shuffle algorithm
 #include <algorithm> // std::shuffle
 #include <array>     // std::array
@@ -90,6 +93,17 @@ namespace msg
         return ss.str();
     }
 
+    std::string generatorCLORID()
+    {
+        std::ostringstream oss;
+        time_t now = time(0);
+        struct tm tstruct;
+        char buf[80];
+        tstruct = *localtime(&now);
+        strftime(buf, sizeof(buf), "%Y%m%d%X", &tstruct);
+
+        return buf;
+    }
     std::string GetFixCurrTime()
     {
         time_t currtime;
@@ -253,14 +267,7 @@ namespace msg
 
         std::string ReqId(pReqId);
 
-        std::string tag_724;
-        std::string tag_263;
-        std::string tag_453;
-        std::string tag_448;
-        std::string tag_447;
-        std::string tag_452;
-        std::string tag_715;
-        std::string tag_60;
+        std::string tag_724, tag_263, tag_453, tag_448, tag_447, tag_452, tag_715, tag_60;
 
         std::ifstream infile;
         infile.open(dataFileCSVRequestForPositions);
@@ -379,193 +386,10 @@ namespace msg
         return message.toString();
     }
 
-    std::string sendCSVNuewOrder(const std::string dataFileCSV, const std::string senderID, int msgnum)
+    std::string sendCSVOrderSingle(const std::string senderID, int msgnum, const std::string tag__11, const std::string tag_581, const std::string tag_38, const std::string tag_40, const std::string tag_44, const std::string tag_55)
     {
         FIX::Message message;
         std::string MsgSeqNum = std::to_string(msgnum);
-
-        char clId[20];
-        gen_random(clId, 20);
-
-        std::string clOrdId(clId);
-
-        std::string tag_11;
-        std::string tag_581;
-        std::string tag_529;
-        std::string tag_38;
-        std::string tag_40;
-        std::string tag_44;
-        std::string tag_54;
-        std::string tag_60;
-        std::string tag_58;
-        std::string tag_59;
-        std::string tag_55;
-        std::string tag_762;
-        std::string tag_453;
-        std::string tag_a_448;
-        std::string tag_a_447;
-        std::string tag_a_452;
-        std::string tag_b_448;
-        std::string tag_b_447;
-        std::string tag_b_452;
-
-        std::ifstream infile;
-        // infile.open("new_order.csv");
-        infile.open(dataFileCSV);
-        if (!infile)
-        {
-            cerr << "Can't open input file " << dataFileCSV << endl;
-        }
-        char buffer[1024];
-        infile.read(buffer, sizeof(buffer));
-        buffer[infile.tellg()] = '\0';
-
-        // parse file, returns vector of rows
-        std::vector<Row> result = parse(buffer, strlen(buffer));
-
-        // print out result
-        for (size_t r = 0; r < result.size(); r++)
-        {
-            Row &row = result[r];
-            if (r == 1)
-            {
-                for (size_t c = 0; c < row.size() - 1; c++)
-                {
-                    std::cout << row[c] << "\t";
-                }
-
-                if (row[0].empty())
-                {
-                    std::cout << " tag 11 can't be empty " << std::endl;
-                    tag_11 = clOrdId;
-                }
-                else
-                    tag_11 = row[0];
-
-                if (row[1].empty())
-                {
-                    std::cout << " tag 581 can't be empty " << std::endl;
-                }
-                else if (in_array(row[1], AccountTypes))
-                {
-                    tag_581 = row[1];
-                }
-                else
-                {
-                    std::cout << " fill in tag 581 with either [1,3,100,101] " << std::endl;
-                }
-
-                // tag_529=row[2];
-                if (in_array(row[2], OrderRestrictions))
-                {
-                    tag_529 = row[2];
-                }
-                else
-                {
-                    std::cout << " fill in tag 529 with either ['q','r','s','t','u','v','w','x','y','z','Q','R','S','T','U','V','W','X','Y','Z'] " << std::endl;
-                }
-
-                if (row[3].empty())
-                    std::cout << " tag 38 can't be empty " << std::endl;
-                else
-                    tag_38 = row[3];
-
-                /* if (row[4].empty()) std::cout <<" tag 40 can't be empty " << std::endl;
-                else tag_40=row[4];
-                 */
-
-                if (in_array(row[4], OrdTypes))
-                {
-                    tag_40 = row[4];
-                }
-                else
-                {
-                    std::cout << " fill in tag 40 with either ['1','2'] " << std::endl;
-                }
-
-                tag_44 = row[5];
-
-                if (row[6].empty())
-                {
-                    std::cout << " tag 54 can't be empty " << std::endl;
-                }
-                else if (in_array(row[6], Sides))
-                {
-                    tag_54 = row[6];
-                }
-                else
-                {
-                    std::cout << " fill in tag 54 with either [1,2,5,M,P] " << std::endl;
-                }
-
-                if (row[7].empty())
-                    tag_60 = GetFixCurrTime();
-                else
-                    tag_60 = row[7];
-                tag_58 = row[8];
-                tag_59 = row[9];
-                if (row[10].empty())
-                    std::cout << " tag 55 can't be empty " << std::endl;
-                else
-                    tag_55 = row[10];
-                tag_762 = row[11];
-
-                if (row[12].empty())
-                    std::cout << " tag 453 can't be empty " << std::endl;
-                else
-                    tag_453 = row[12];
-
-                if (row[13].empty())
-                    std::cout << " tag 448 can't be empty " << std::endl;
-                else
-                    tag_a_448 = row[13];
-
-                if (row[14].empty())
-                    std::cout << " tag 447 can't be empty " << std::endl;
-                else
-                    tag_a_447 = row[14];
-
-                // if (row[15].empty()) std::cout <<" tag 452 can't be empty " << std::endl;
-                // else tag_a_452=row[15];
-
-                if (row[15].empty())
-                {
-                    std::cout << " tag 452 can't be empty " << std::endl;
-                }
-                else if (in_array(row[15], PartyRoles))
-                {
-                    tag_a_452 = row[15];
-                }
-                else
-                {
-                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
-                }
-
-                if (row[16].empty())
-                    tag_b_448 = clOrdId;
-                else
-                    tag_b_448 = row[16];
-                if (row[17].empty())
-                    std::cout << " tag 447[2] can't be empty " << std::endl;
-                else
-                    tag_b_447 = row[17];
-
-                // if (row[18].empty()) std::cout <<" tag 452[2] can't be empty " << std::endl;
-                // else tag_b_452=row[18];
-                if (row[18].empty())
-                {
-                    std::cout << " tag 452 can't be empty " << std::endl;
-                }
-                else if (in_array(row[18], PartyRoles))
-                {
-                    tag_b_452 = row[18];
-                }
-                else
-                {
-                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
-                }
-            }
-        }
 
         message.getHeader().setField(8, BEGINSTRING); // BeginString
         message.getHeader().setField(50, senderID);   // SenderID
@@ -576,35 +400,27 @@ namespace msg
         message.getHeader().setField(43, "N");
         message.getHeader().setField(52, gmt_Time());
 
-        message.setField(11, tag_11);
+        message.setField(11, generatorCLORID());
+        // message.setField(22, "8");
         message.setField(581, tag_581);
+        // message.setField(207, "V");
         // message.setField(529, tag_529);
         message.setField(38, tag_38);
         message.setField(40, tag_40);
-
-        message.setField(44, "50000"); // order price
-        message.setField(54, tag_54);
+        message.setField(44, "5500"); // order price
+        message.setField(54, "1");
         message.setField(60, gmt_Time());
         // message.setField(58, tag_58);
-        message.setField(59, tag_59);
-        message.setField(55, "ANTM");
-
-        message.setField(762, tag_762);
+        message.setField(59, "0");
+        message.setField(55, "BBRI");
+        message.setField(762, "RG");
         FIX::Group NoPartyIDs(453, 448, FIX::message_order(448, 447, 452, 0));
         NoPartyIDs.setField(448, "1000");
         NoPartyIDs.setField(447, "C");
         NoPartyIDs.setField(452, "5");
         message.addGroup(NoPartyIDs);
-
-        // try
-        // {
         FIX::Message checkMsg(message.toString(), _dd, false);
-        cout << "sendCSVOrderSingle message: " << message.toString() << std::endl;
-        // }
-        // catch (std::exception &e)
-        // {
-        //     cerr << e.what() << endl;
-        // }
+        // cout << "sendCSVOrderSingle message: " << message.toString() << std::endl;
         return message.toString();
     }
 
@@ -662,26 +478,7 @@ namespace msg
         /// construct fix message order
         FIX::Message message;
         std::string MsgSeqNum = std::to_string(msgnum);
-        std::string tag_117;
-        std::string tag_453;
-        std::string tag_a_448;
-        std::string tag_a_447;
-        std::string tag_a_452;
-        std::string tag_b_448;
-        std::string tag_b_447;
-        std::string tag_b_452;
-        std::string tag_581;
-        std::string tag_296;
-        std::string tag_302;
-        std::string tag_304;
-        std::string tag_295;
-        std::string tag_299;
-        std::string tag_55;
-        std::string tag_762;
-        std::string tag_132;
-        std::string tag_133;
-        std::string tag_134;
-        std::string tag_135;
+        std::string tag_117, tag_453, tag_a_448, tag_a_447, tag_a_452, tag_b_448, tag_b_447, tag_b_452, tag_581, tag_296, tag_302, tag_304, tag_295, tag_299, tag_55, tag_762, tag_132, tag_133, tag_134, tag_135;
 
         std::ifstream infile;
         infile.open(dataFileCSVMassQuote);
@@ -856,34 +653,7 @@ namespace msg
         FIX::Message message;
         std::string MsgSeqNum = std::to_string(msgnum);
 
-        std::string tag_571;
-        std::string tag_856;
-        std::string tag_572;
-        std::string tag_64;
-        std::string tag_919;
-        std::string tag_55;
-        std::string tag_762;
-        std::string tag_31;
-        std::string tag_32;
-        std::string tag_552;
-        std::string tag_a_54;
-        std::string tag_a_581;
-        std::string tag_a_453;
-        std::string tag_a1_448;
-        std::string tag_a1_447;
-        std::string tag_a1_452;
-        std::string tag_a2_448;
-        std::string tag_a2_447;
-        std::string tag_a2_452;
-        std::string tag_b_54;
-        std::string tag_b_581;
-        std::string tag_b_453;
-        std::string tag_b1_448;
-        std::string tag_b1_447;
-        std::string tag_b1_452;
-        std::string tag_b2_448;
-        std::string tag_b2_447;
-        std::string tag_b2_452;
+        std::string tag_571, tag_856, tag_572, tag_64, tag_919, tag_55, tag_762, tag_31, tag_32, tag_552, tag_a_54, tag_a_581, tag_a_453, tag_a1_448, tag_a1_447, tag_a1_452, tag_a2_448, tag_a2_447, tag_a2_452, tag_b_54, tag_b_581, tag_b_453, tag_b1_448, tag_b1_447, tag_b1_452, tag_b2_448, tag_b2_447, tag_b2_452;
 
         char trdRptId[20];
         gen_random(trdRptId, 20);
@@ -1073,14 +843,14 @@ namespace msg
         message.getHeader().setField(49, "VP");
         message.getHeader().setField(56, "IDX");
         message.getHeader().setField(34, MsgSeqNum);
-        message.getHeader().setField(43, "N");
+        // message.getHeader().setField(43, "N");
         message.getHeader().setField(52, gmt_Time());
 
         message.setField(571, tag_571); // random
         // if (!tag_856.empty())
         message.setField(856, tag_856); // 2
         message.setField(919, tag_919);
-        message.setField(572, tag_572); // 0
+        message.setField(572, utc_date_()); // 0
 
         message.setField(55, tag_55);
         message.setField(762, tag_762);
@@ -1122,6 +892,2416 @@ namespace msg
         message.addGroup(contraSides);
 
         FIX::Message checkMsg(message.toString(), _dd, false);
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderMassActionRequest(const std::string dataFileCSVOrderMassActionRequest, const std::string senderID, int msgnum)
+    {
+        FIX::Message message;
+        std::string MsgSeqNum = std::to_string(msgnum);
+
+        std::string tag_11, tag_526, tag_1373, tag_1374, tag_55, tag_762, tag_60;
+        std::ifstream infile;
+
+        /*
+        Specifies the scope of the action.
+        1 = All orders for a security (firm level)
+        7 = All orders (for a firm)
+        8 = Cancel particular board (for a firm)
+        */
+        std::vector<std::string> massActionScopes{"1", "7", "8"};
+
+        // infile.open("request_position.csv");
+        infile.open(dataFileCSVOrderMassActionRequest);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderMassActionRequest << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                // std::cout << r.size() << std::endl;
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                    std::cout << " tag 11 can't be empty " << std::endl;
+                else
+                    tag_11 = row[0];
+
+                tag_526 = row[1];
+
+                if (row[2].empty())
+                {
+                    std::cout << " tag 1373 can't be empty " << std::endl;
+                }
+                else
+                    tag_1373 = row[2];
+
+                if (row[3].empty())
+                {
+                    std::cout << " tag 1374 can't be empty" << std::endl;
+                }
+                else if (in_array(row[3], massActionScopes))
+                {
+                    tag_1374 = row[3];
+                }
+                else
+                {
+                    std::cout << " fill in tag 1374 with either [1,7,8] " << std::endl;
+                }
+
+                tag_55 = row[4];
+                tag_762 = row[5];
+                if (row[6].empty())
+                {
+                    std::cout << " tag 60 can't be empty " << std::endl;
+                    tag_60 = gmt_Time();
+                }
+                else
+                    tag_60 = row[6];
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "CA");       // MsgType
+        message.getHeader().setField(49, "VP");
+        message.getHeader().setField(56, "IDX");
+        message.getHeader().setField(34, MsgSeqNum);
+        message.getHeader().setField(43, "N");
+        message.getHeader().setField(52, gmt_Time());
+
+        message.setField(11, generatorCLORID());
+        message.setField(526, generatorCLORID());
+        // Specifies the type of action requested. 3 = Cancel Orders
+        message.setField(1373, tag_1373);
+
+        message.setField(1374, tag_1374);
+
+        if (tag_1374.compare("1") == 0)
+            message.setField(55, tag_55);
+
+        if (tag_1374.compare("8") == 0)
+            message.setField(762, tag_762);
+
+        // message.setField(58, "Test sendCSVOrderMassActionRequest");
+        message.setField(60, tag_60);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderMassActionRequest message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderNegoDealTwoSide(const std::string dataFileCSVOrderNegoDealTwoSide, const std::string senderID, int msgnum)
+    {
+        // construct fix message order
+        FIX::Message message;
+        std::string MsgSeqNum = std::to_string(msgnum);
+
+        std::string tag_571, tag_487, tag_856, tag_64, tag_919, tag_55, tag_762, tag_31, tag_32, tag_552, tag_a_54, tag_a_581, tag_a_453, tag_a1_448, tag_a1_447, tag_a1_452, tag_a2_448, tag_a2_447, tag_a2_452, tag_b_54, tag_b_581, tag_b_453, tag_b1_448, tag_b1_447, tag_b1_452, tag_b2_448, tag_b2_447, tag_b2_452;
+
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+        std::string tradeReportID(trdRptId);
+
+        std::ifstream infile;
+        infile.open(dataFileCSVOrderNegoDealTwoSide);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderNegoDealTwoSide << endl;
+        }
+
+        char buffer[2048];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_487 = row[1]; // 2
+                tag_856 = row[2]; // 0
+
+                if (row[3].empty())
+                    tag_64 = getSettleDate(today);
+                else
+                    tag_64 = row[3];
+
+                tag_919 = row[4];
+
+                if (row[5].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[5];
+
+                tag_762 = row[6];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[7].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[7];
+
+                if (row[8].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[8];
+
+                tag_552 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_a_54 = row[10];
+
+                tag_a_581 = row[11];
+
+                if (row[12].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_a_453 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag a1 448 can't be empty " << std::endl;
+                else
+                    tag_a1_448 = row[13];
+                if (row[14].empty())
+                    std::cout << " tag a1 447 can't be empty " << std::endl;
+                else
+                    tag_a1_447 = row[14];
+
+                if (row[15].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[15], PartyRoles))
+                {
+                    tag_a1_452 = row[15];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[16].empty())
+                    std::cout << " tag a2 448 can't be empty " << std::endl;
+                else
+                    tag_a2_448 = row[16];
+                if (row[17].empty())
+                    std::cout << " tag a2 447 can't be empty " << std::endl;
+                else
+                    tag_a2_447 = row[17];
+
+                if (row[18].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[18], PartyRoles))
+                {
+                    tag_a2_452 = row[18];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[19].empty())
+                    std::cout << " tag b 54 can't be empty " << std::endl;
+                else
+                    tag_b_54 = row[19];
+
+                if (row[20].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_b_453 = row[20];
+
+                if (row[21].empty())
+                    std::cout << " tag b1 448 can't be empty " << std::endl;
+                else
+                    tag_b1_448 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag b1 447 can't be empty " << std::endl;
+                else
+                    tag_b1_447 = row[22];
+
+                if (row[23].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[23], PartyRoles))
+                {
+                    tag_b1_452 = row[23];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[24].empty())
+                    std::cout << " tag b2 448 can't be empty " << std::endl;
+                else
+                    tag_b2_448 = row[24];
+
+                if (row[25].empty())
+                    std::cout << " tag b2 447 can't be empty " << std::endl;
+                else
+                    tag_b2_447 = row[25];
+
+                if (row[26].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[26], PartyRoles))
+                {
+                    tag_b2_452 = row[26];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVOrderNegoDealTwoSide
+        message.getHeader().setField(49, "VP");
+        message.getHeader().setField(56, "IDX");
+        message.getHeader().setField(34, MsgSeqNum);
+        message.getHeader().setField(43, "N");
+        message.getHeader().setField(52, gmt_Time());
+
+        char clId[20];
+        gen_random(clId, 20);
+        std::string clOrdId(clId);
+
+        message.setField(571, tag_571);
+        message.setField(487, tag_487);
+        message.setField(856, tag_856);
+        // message.setField(572,clOrdId);
+        message.setField(574, "2");
+        message.setField(64, tag_64);
+        message.setField(919, tag_919);
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+        // message.setField(58, "Test C++ Jonec API sendCSVOrderNegoDealTwoSide");
+        message.setField(60, GetFixCurrTime());
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_a_54);
+        enteringSides.setField(581, tag_a_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_a1_448);
+        sgEnteringNoPartyIds.setField(447, tag_a1_447);
+        sgEnteringNoPartyIds.setField(452, tag_a1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_a2_448);
+        sgEnteringNoPartyIds.setField(447, tag_a2_447);
+        sgEnteringNoPartyIds.setField(452, tag_a2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+
+        contraSides.setField(54, tag_b_54);
+        // contraSides.setField(581,tag_b_581);
+        sgContraNoPartyIds.setField(448, tag_b1_448);
+        sgContraNoPartyIds.setField(447, tag_b1_447);
+        sgContraNoPartyIds.setField(452, tag_b1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b2_448);
+        sgContraNoPartyIds.setField(447, tag_b2_447);
+        sgContraNoPartyIds.setField(452, tag_b2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        message.addGroup(contraSides);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderNegoDealTwoSide message: " << message.toString() << std::endl;
+        return message.toString();
+    }
+
+    std::string sendCSVCancelOrderNegoDealTwoSideInisiator(const std::string dataFileCSVCancelOrderNegoDealTwoSideInisiator, const std::string senderID)
+    {
+        // construct fix message order
+        FIX::Message message;
+
+        std::string tag_571;
+        std::string tag_856;
+        std::string tag_572;
+        std::string tag_64;
+        std::string tag_919;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_31;
+        std::string tag_32;
+        std::string tag_552;
+        std::string tag_c_54;
+        std::string tag_c_581;
+        std::string tag_c_453;
+        std::string tag_c1_448;
+        std::string tag_c1_447;
+        std::string tag_c1_452;
+        std::string tag_c2_448;
+        std::string tag_c2_447;
+        std::string tag_c2_452;
+        std::string tag_d_54;
+        std::string tag_d_581;
+        std::string tag_d_453;
+        std::string tag_d1_448;
+        std::string tag_d1_447;
+        std::string tag_d1_452;
+        std::string tag_d2_448;
+        std::string tag_d2_447;
+        std::string tag_d2_452;
+
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+        std::string tradeReportID(trdRptId);
+
+        std::ifstream infile;
+        infile.open(dataFileCSVCancelOrderNegoDealTwoSideInisiator);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVCancelOrderNegoDealTwoSideInisiator << endl;
+        }
+
+        char buffer[4048];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                // std::cout <<"2"<<std::endl;
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_856 = row[1]; // 2
+                tag_572 = row[2]; // 0
+
+                if (row[3].empty())
+                    tag_64 = getSettleDate(today);
+                else
+                    tag_64 = row[3];
+
+                tag_919 = row[4];
+
+                if (row[5].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[5];
+
+                tag_762 = row[6];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[7].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[7];
+
+                if (row[8].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[8];
+
+                tag_552 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_c_54 = row[10];
+
+                tag_c_581 = row[11];
+
+                if (row[12].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_c_453 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag c1 448 can't be empty " << std::endl;
+                else
+                    tag_c1_448 = row[13];
+
+                if (row[14].empty())
+                    std::cout << " tag c1 447 can't be empty " << std::endl;
+                else
+                    tag_c1_447 = row[14];
+
+                if (row[15].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[15], PartyRoles))
+                {
+                    tag_c1_452 = row[15];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[16].empty())
+                    std::cout << " tag c2 448 can't be empty " << std::endl;
+                else
+                    tag_c2_448 = row[16];
+
+                if (row[17].empty())
+                    std::cout << " tag c2 447 can't be empty " << std::endl;
+                else
+                    tag_c2_447 = row[17];
+
+                if (row[18].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[18], PartyRoles))
+                {
+                    tag_c2_452 = row[18];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[19].empty())
+                    std::cout << " tag d 54 can't be empty " << std::endl;
+                else
+                    tag_d_54 = row[19];
+
+                tag_d_581 = row[20];
+
+                if (row[21].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_d_453 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag d1 448 can't be empty " << std::endl;
+                else
+                    tag_d1_448 = row[22];
+
+                if (row[23].empty())
+                    std::cout << " tag d1 447 can't be empty " << std::endl;
+                else
+                    tag_d1_447 = row[23];
+
+                if (row[24].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[24], PartyRoles))
+                {
+                    tag_d1_452 = row[24];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[25].empty())
+                    std::cout << " tag d2 448 can't be empty " << std::endl;
+                else
+                    tag_d2_448 = row[25];
+
+                if (row[26].empty())
+                    std::cout << " tag d2 447 can't be empty " << std::endl;
+                else
+                    tag_d2_447 = row[26];
+
+                if (row[27].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[27], PartyRoles))
+                {
+                    tag_d2_452 = row[27];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVCancelOrderNegoDealTwoSideInisiator
+
+        message.setField(571, tag_571);
+        message.setField(856, tag_856); // 3
+        message.setField(572, tag_572);
+
+        message.setField(64, tag_64);
+        message.setField(919, tag_919); // 1
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+        // message.setField(58, "Test C++ Jonec API sendCSVCancelOrderNegoDealTwoSideInisiator");
+        // message.setField(60,GetFixCurrTime());
+
+        message.setField(552, tag_552);
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_c_54);
+        enteringSides.setField(581, tag_c_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_c1_448);
+        sgEnteringNoPartyIds.setField(447, tag_c1_447);
+        sgEnteringNoPartyIds.setField(452, tag_c1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_c2_448);
+        sgEnteringNoPartyIds.setField(447, tag_c2_447);
+        sgEnteringNoPartyIds.setField(452, tag_c2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        contraSides.setField(54, tag_d_54);
+        contraSides.setField(581, tag_d_581);
+
+        sgContraNoPartyIds.setField(448, tag_d1_448);
+        sgContraNoPartyIds.setField(447, tag_d1_447);
+        sgContraNoPartyIds.setField(452, tag_d1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_d2_448);
+        sgContraNoPartyIds.setField(447, tag_d2_447);
+        sgContraNoPartyIds.setField(452, tag_d2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        message.addGroup(contraSides);
+
+        try
+        {
+            FIX::Message checkMsg(message.toString(), _dd, false);
+            cout << "sendCSVCancelOrderNegoDealTwoSideInisiator message: " << message.toString() << std::endl;
+        }
+        catch (std::exception &e)
+        {
+            cerr << e.what() << endl;
+        }
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderCancelRequest(const std::string dataFileCSVOrderCancelRequest, const std::string senderID)
+    {
+        FIX::Message message;
+        std::string tag_11;
+
+        char clId[20];
+        gen_random(clId, 20);
+
+        std::string clOrdId(clId);
+
+        std::string tag_37;
+        std::string tag_41;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_54;
+        std::string tag_60;
+
+        std::ifstream infile;
+        infile.open(dataFileCSVOrderCancelRequest);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderCancelRequest << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            std::cout << std::endl;
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                    tag_11 = clOrdId;
+                else
+                    tag_11 = row[0];
+
+                tag_37 = row[1];
+                if (row[2].empty())
+                    std::cout << " tag 41 can't be empty " << std::endl;
+                else
+                    tag_41 = row[2];
+                if (row[3].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[3];
+                tag_762 = row[4];
+                if (row[5].empty())
+                    std::cout << " tag 54 can't be empty " << std::endl;
+                else
+                    tag_54 = row[5];
+                if (row[6].empty())
+                    tag_60 = GetFixCurrTime();
+                else
+                    tag_60 = row[6];
+
+                std::cout << "tag_11   : " << tag_11 << std::endl;
+                std::cout << "tag_37   : " << tag_37 << std::endl;
+                std::cout << "tag_41   : " << tag_41 << std::endl;
+                std::cout << "tag_55   : " << tag_55 << std::endl;
+                std::cout << "tag_762  : " << tag_762 << std::endl;
+                std::cout << "tag_54   : " << tag_54 << std::endl;
+                std::cout << "tag_60   : " << tag_60 << std::endl;
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "F");        // MsgType
+
+        message.setField(11, tag_11);
+        message.setField(41, tag_41);
+        message.setField(37, tag_37);
+
+        message.setField(54, tag_54);
+        message.setField(55, tag_55);
+        message.setField(60, tag_60);
+        message.setField(58, "Test C++ Jonec API sendCSVOrderCancelRequest");
+
+        FIX::Group NoPartyIDs(453, 448, FIX::message_order(448, 447, 452, 0));
+        NoPartyIDs.setField(448, "555556");
+        NoPartyIDs.setField(447, "C");
+        NoPartyIDs.setField(452, "5");
+        message.addGroup(NoPartyIDs);
+
+        NoPartyIDs.setField(448, tag_11);
+        NoPartyIDs.setField(447, "C");
+        NoPartyIDs.setField(452, "3");
+        message.addGroup(NoPartyIDs);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderCancelRequest message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderNegoAdvertisement(const std::string dataFileCSVOrderNegoAdvertisement, const std::string senderID)
+    {
+        /// construct fix message order
+        FIX::Message message;
+        char clId[20];
+        gen_random(clId, 20);
+
+        std::string clOrdId(clId);
+        std::string tag_11;
+        std::string tag_21;
+        std::string tag_581;
+        std::string tag_529;
+        std::string tag_38;
+        std::string tag_40;
+        std::string tag_44;
+        std::string tag_54;
+        std::string tag_60;
+        std::string tag_58;
+        std::string tag_59;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_453;
+        std::string tag_a_448;
+        std::string tag_a_447;
+        std::string tag_a_452;
+        std::string tag_b_448;
+        std::string tag_b_447;
+        std::string tag_b_452;
+
+        std::ifstream infile;
+        // infile.open("new_order.csv");
+        infile.open(dataFileCSVOrderNegoAdvertisement);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderNegoAdvertisement << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    std::cout << row[c] << "\t";
+                } */
+                // std::cout << row.back() << std::endl;
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 11 can't be empty " << std::endl;
+                    tag_11 = clOrdId;
+                }
+                else
+                    tag_11 = row[0];
+
+                tag_21 = row[1];
+
+                if (row[2].empty())
+                {
+                    std::cout << " tag 581 can't be empty " << std::endl;
+                }
+                else
+                    tag_581 = row[2];
+
+                if (in_array(row[3], OrderRestrictions))
+                {
+                    tag_529 = row[3];
+                }
+                else
+                {
+                    std::cout << " fill in tag 529 with either ['q','r','s','t','u','v','w','x','y','z','Q','R','S','T','U','V','W','X','Y','Z'] " << std::endl;
+                }
+
+                if (row[4].empty())
+                {
+                    std::cout << " tag 38 can't be empty " << std::endl;
+                }
+                else
+                    tag_38 = row[4];
+
+                if (in_array(row[5], OrdTypes))
+                {
+                    tag_40 = row[5];
+                }
+                else
+                {
+                    std::cout << " fill in tag 40 with either ['1','2'] " << std::endl;
+                }
+
+                tag_44 = row[6];
+
+                if (row[7].empty())
+                {
+                    std::cout << " tag 54 can't be empty " << std::endl;
+                }
+                else
+                    tag_54 = row[7];
+
+                if (row[8].empty())
+                {
+                    std::cout << " tag 60 can't be empty " << std::endl;
+                    tag_60 = GetFixCurrTime();
+                }
+                else
+                    tag_60 = row[8];
+
+                tag_58 = row[9];
+                tag_59 = row[10];
+
+                if (row[11].empty())
+                {
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                }
+                else
+                    tag_55 = row[11];
+
+                tag_762 = row[12];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[13].empty())
+                    std::cout << " tag 453 can't be empty " << std::endl;
+                else
+                    tag_453 = row[13];
+
+                if (row[14].empty())
+                    std::cout << " tag 448 can't be empty " << std::endl;
+                else
+                    tag_a_448 = row[14];
+
+                if (row[15].empty())
+                    std::cout << " tag 447 can't be empty " << std::endl;
+                else
+                    tag_a_447 = row[15];
+
+                if (row[16].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[16], PartyRoles))
+                {
+                    tag_a_452 = row[16];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[17].empty())
+                {
+                    std::cout << " tag 448[2] can't be empty " << std::endl;
+                    tag_b_448 = clOrdId;
+                }
+                else
+                    tag_b_448 = row[17];
+
+                if (row[18].empty())
+                    std::cout << " tag 447[2] can't be empty " << std::endl;
+                else
+                    tag_b_447 = row[18];
+
+                if (row[19].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[19], PartyRoles))
+                {
+                    tag_b_452 = row[19];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderCompID
+        message.getHeader().setField(35, "D");        // MsgType
+
+        /*const int len = 20;
+        char clId[len];
+        gen_random(clId, len);
+        std::string clOrdId(clId);*/
+
+        message.setField(11, tag_11);
+        ;
+        message.setField(21, tag_21);
+        message.setField(581, tag_581);
+        message.setField(529, tag_529);
+        message.setField(38, tag_38);
+        message.setField(40, tag_40);
+
+        message.setField(44, tag_44); // order price
+        message.setField(54, tag_54);
+        // std::cout << "_CurrTime: " << GetFixCurrTime() << std::endl;
+        message.setField(60, tag_60);
+        // std::cout << "_CurrTime: " << _CurrTime << std::endl;
+        message.setField(58, tag_58);
+        message.setField(59, tag_59);
+        message.setField(55, tag_55);
+
+        message.setField(762, tag_762);
+        // FIX::Group repeating_group(453, 2);
+        // FIX::Group(453,448,FIX::message_order(448,447,452,802,0))
+        FIX::Group NoPartyIDs(453, 448, FIX::message_order(448, 447, 452, 0));
+        NoPartyIDs.setField(448, tag_a_448);
+        NoPartyIDs.setField(447, tag_a_447);
+        NoPartyIDs.setField(452, tag_a_452);
+        message.addGroup(NoPartyIDs);
+
+        NoPartyIDs.setField(448, tag_b_448);
+        NoPartyIDs.setField(447, tag_b_447);
+        NoPartyIDs.setField(452, tag_b_452);
+        message.addGroup(NoPartyIDs);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "Test sendCSVOrderNegoAdvertisement message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderNegoDealTwoSideConfirmator(const std::string dataFileCSVOrderNegoDealTwoSideConfirmator, const std::string senderID)
+    {
+        // construct fix message order
+        FIX::Message message;
+
+        // const int len = 20;
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+
+        std::string tradeReportID(trdRptId);
+
+        std::string tag_571;
+        std::string tag_487;
+        std::string tag_856;
+        std::string tag_572;
+        std::string tag_64;
+        std::string tag_919;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_31;
+        std::string tag_32;
+        std::string tag_552;
+        std::string tag_a_54;
+        std::string tag_a_581;
+        std::string tag_a_453;
+        std::string tag_a1_448;
+        std::string tag_a1_447;
+        std::string tag_a1_452;
+        std::string tag_a2_448;
+        std::string tag_a2_447;
+        std::string tag_a2_452;
+        std::string tag_b_54;
+        std::string tag_b_581;
+        std::string tag_b_453;
+        std::string tag_b1_448;
+        std::string tag_b1_447;
+        std::string tag_b1_452;
+        std::string tag_b2_448;
+        std::string tag_b2_447;
+        std::string tag_b2_452;
+        std::string tag_b3_448;
+        std::string tag_b3_447;
+        std::string tag_b3_452;
+
+        std::ifstream infile;
+        infile.open(dataFileCSVOrderNegoDealTwoSideConfirmator);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderNegoDealTwoSideConfirmator << endl;
+        }
+        char buffer[2048];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_487 = row[1]; // 2
+                tag_856 = row[2]; // 2
+                tag_572 = row[3]; // 0
+
+                if (row[4].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[4];
+
+                tag_919 = row[5];
+                tag_762 = row[6];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[7].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[7];
+
+                if (row[8].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[8];
+
+                tag_552 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_a_54 = row[10];
+
+                tag_a_581 = row[11];
+
+                if (row[12].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_a_453 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag a1 448 can't be empty " << std::endl;
+                else
+                    tag_a1_448 = row[13];
+                if (row[14].empty())
+                    std::cout << " tag a1 447 can't be empty " << std::endl;
+                else
+                    tag_a1_447 = row[14];
+
+                if (row[15].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[15], PartyRoles))
+                {
+                    tag_a1_452 = row[15];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[16].empty())
+                    std::cout << " tag a2 448 can't be empty " << std::endl;
+                else
+                    tag_a2_448 = row[16];
+                if (row[17].empty())
+                    std::cout << " tag a2 447 can't be empty " << std::endl;
+                else
+                    tag_a2_447 = row[17];
+
+                if (row[18].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[18], PartyRoles))
+                {
+                    tag_a2_452 = row[18];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[19].empty())
+                    std::cout << " tag b 54 can't be empty " << std::endl;
+                else
+                    tag_b_54 = row[19];
+
+                tag_b_581 = row[20];
+
+                if (row[21].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_b_453 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag b1 448 can't be empty " << std::endl;
+                else
+                    tag_b1_448 = row[22];
+
+                if (row[23].empty())
+                    std::cout << " tag b1 447 can't be empty " << std::endl;
+                else
+                    tag_b1_447 = row[23];
+
+                if (row[24].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[24], PartyRoles))
+                {
+                    tag_b1_452 = row[24];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[25].empty())
+                    std::cout << " tag b2 448 can't be empty " << std::endl;
+                else
+                    tag_b2_448 = row[25];
+
+                if (row[26].empty())
+                    std::cout << " tag b2 447 can't be empty " << std::endl;
+                else
+                    tag_b2_447 = row[26];
+
+                if (row[27].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[27], PartyRoles))
+                {
+                    tag_b2_452 = row[27];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[28].empty())
+                    std::cout << " tag b3 448 can't be empty " << std::endl;
+                else
+                    tag_b3_448 = row[28];
+
+                if (row[29].empty())
+                    std::cout << " tag b3 447 can't be empty " << std::endl;
+                else
+                    tag_b3_447 = row[29];
+
+                if (row[30].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[30], PartyRoles))
+                {
+                    tag_b3_452 = row[30];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVOrderNegoDealTwoSideConfirmator
+
+        // const int len = 20; char clId[len];
+        // gen_random(clId, len); std::string clOrdId(clId);
+
+        message.setField(571, tag_571);
+        message.setField(856, tag_856);
+        message.setField(572, tag_572);
+
+        // message.setField(64,tag_64);
+        message.setField(919, tag_919);
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+
+        // message.setField(58, "Test C++ Jonec API sendCSVOrderNegoDealTwoSideConfirmator");
+
+        message.setField(552, tag_552);
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_a_54);
+        enteringSides.setField(581, tag_a_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_a1_448);
+        sgEnteringNoPartyIds.setField(447, tag_a1_447);
+        sgEnteringNoPartyIds.setField(452, tag_a1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_a2_448);
+        sgEnteringNoPartyIds.setField(447, tag_a2_447);
+        sgEnteringNoPartyIds.setField(452, tag_a2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+
+        contraSides.setField(54, tag_b_54);
+        contraSides.setField(581, tag_b_581);
+        sgContraNoPartyIds.setField(448, tag_b1_448);
+        sgContraNoPartyIds.setField(447, tag_b1_447);
+        sgContraNoPartyIds.setField(452, tag_b1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b2_448);
+        sgContraNoPartyIds.setField(447, tag_b2_447);
+        sgContraNoPartyIds.setField(452, tag_b2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b3_448);
+        sgContraNoPartyIds.setField(447, tag_b3_447);
+        sgContraNoPartyIds.setField(452, tag_b3_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        message.addGroup(contraSides);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderNegoDealTwoSideConfirmator message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVCancelOrderNegoDealTwoSideConfirmator(const std::string dataFileCSVCancelOrderNegoDealTwoSideConfirmator, const std::string senderID)
+    {
+        // construct fix message order
+        FIX::Message message;
+        // const int len = 20;
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+
+        std::string tradeReportID(trdRptId);
+
+        std::string tag_571;
+        std::string tag_487;
+        std::string tag_856;
+        std::string tag_572;
+        std::string tag_64;
+        std::string tag_919;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_31;
+        std::string tag_32;
+        std::string tag_552;
+        std::string tag_a_54;
+        std::string tag_a_581;
+        std::string tag_a_453;
+        std::string tag_a1_448;
+        std::string tag_a1_447;
+        std::string tag_a1_452;
+        std::string tag_a2_448;
+        std::string tag_a2_447;
+        std::string tag_a2_452;
+        std::string tag_b_54;
+        std::string tag_b_581;
+        std::string tag_b_453;
+        std::string tag_b1_448;
+        std::string tag_b1_447;
+        std::string tag_b1_452;
+        std::string tag_b2_448;
+        std::string tag_b2_447;
+        std::string tag_b2_452;
+
+        std::ifstream infile;
+        infile.open(dataFileCSVCancelOrderNegoDealTwoSideConfirmator);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVCancelOrderNegoDealTwoSideConfirmator << endl;
+        }
+
+        char buffer[2048];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_487 = row[1]; // 2
+                tag_856 = row[2]; // 2
+                tag_572 = row[3]; // 0
+
+                if (row[4].empty())
+                    tag_64 = getSettleDate(today);
+                else
+                    tag_64 = row[4];
+
+                tag_919 = row[5];
+
+                if (row[6].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[6];
+
+                tag_762 = row[7];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[8].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[8];
+
+                if (row[9].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[9];
+
+                tag_552 = row[10];
+
+                if (row[11].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_a_54 = row[11];
+
+                tag_a_581 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_a_453 = row[13];
+
+                if (row[14].empty())
+                    std::cout << " tag a1 448 can't be empty " << std::endl;
+                else
+                    tag_a1_448 = row[14];
+                if (row[15].empty())
+                    std::cout << " tag a1 447 can't be empty " << std::endl;
+                else
+                    tag_a1_447 = row[15];
+
+                if (row[16].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[16], PartyRoles))
+                {
+                    tag_a1_452 = row[16];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[17].empty())
+                    std::cout << " tag a2 448 can't be empty " << std::endl;
+                else
+                    tag_a2_448 = row[17];
+                if (row[18].empty())
+                    std::cout << " tag a2 447 can't be empty " << std::endl;
+                else
+                    tag_a2_447 = row[18];
+
+                if (row[19].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[19], PartyRoles))
+                {
+                    tag_a2_452 = row[19];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[20].empty())
+                    std::cout << " tag b 54 can't be empty " << std::endl;
+                else
+                    tag_b_54 = row[20];
+
+                tag_b_581 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_b_453 = row[22];
+
+                if (row[23].empty())
+                    std::cout << " tag b1 448 can't be empty " << std::endl;
+                else
+                    tag_b1_448 = row[23];
+
+                if (row[24].empty())
+                    std::cout << " tag b1 447 can't be empty " << std::endl;
+                else
+                    tag_b1_447 = row[24];
+
+                if (row[25].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[25], PartyRoles))
+                {
+                    tag_b1_452 = row[25];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[26].empty())
+                    std::cout << " tag b2 448 can't be empty " << std::endl;
+                else
+                    tag_b2_448 = row[26];
+
+                if (row[27].empty())
+                    std::cout << " tag b2 447 can't be empty " << std::endl;
+                else
+                    tag_b2_447 = row[27];
+
+                if (row[28].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[28], PartyRoles))
+                {
+                    tag_b2_452 = row[28];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVCancelOrderNegoDealTwoSideConfirmator
+
+        // const int len = 20; char clId[len];
+        // gen_random(clId, len); std::string clOrdId(clId);
+
+        message.setField(571, tag_571);
+        message.setField(856, tag_856);
+        message.setField(572, tag_572);
+
+        message.setField(64, tag_64);
+        message.setField(919, tag_919);
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+        // message.setField(58, "Test C++ Jonec API sendCSVCancelOrderNegoDealTwoSideConfirmator");
+        message.setField(552, tag_552);
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_a_54);
+        enteringSides.setField(581, tag_a_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_a1_448);
+        sgEnteringNoPartyIds.setField(447, tag_a1_447);
+        sgEnteringNoPartyIds.setField(452, tag_a1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_a2_448);
+        sgEnteringNoPartyIds.setField(447, tag_a2_447);
+        sgEnteringNoPartyIds.setField(452, tag_a2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+
+        contraSides.setField(54, tag_b_54);
+        contraSides.setField(581, tag_b_581);
+        sgContraNoPartyIds.setField(448, tag_b1_448);
+        sgContraNoPartyIds.setField(447, tag_b1_447);
+        sgContraNoPartyIds.setField(452, tag_b1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b2_448);
+        sgContraNoPartyIds.setField(447, tag_b2_447);
+        sgContraNoPartyIds.setField(452, tag_b2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        message.addGroup(contraSides);
+
+        try
+        {
+            FIX::Message checkMsg(message.toString(), _dd, false);
+            cout << "sendCSVCancelOrderNegoDealTwoSideConfirmator message: " << message.toString() << std::endl;
+        }
+        catch (std::exception &e)
+        {
+            cerr << e.what() << endl;
+        }
+        return message.toString();
+    }
+
+    std::string sendCSVCancelNegoDealInternalCrossingConfirmator(const std::string dataFileCSVCancelNegoDealInternalCrossingConfirmator, const std::string senderID)
+    {
+        // cancel_negointernalcros_confirmator.csv
+        FIX::Message message;
+
+        std::string tag_571;
+        std::string tag_856;
+        std::string tag_572;
+        std::string tag_64;
+        std::string tag_919;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_31;
+        std::string tag_32;
+        std::string tag_552;
+        std::string tag_a_54;
+        std::string tag_a_581;
+        std::string tag_a_453;
+        std::string tag_a1_448;
+        std::string tag_a1_447;
+        std::string tag_a1_452;
+        std::string tag_a2_448;
+        std::string tag_a2_447;
+        std::string tag_a2_452;
+        std::string tag_b_54;
+        std::string tag_b_581;
+        std::string tag_b_453;
+        std::string tag_b1_448;
+        std::string tag_b1_447;
+        std::string tag_b1_452;
+        std::string tag_b2_448;
+        std::string tag_b2_447;
+        std::string tag_b2_452;
+        std::string tag_b3_448;
+        std::string tag_b3_447;
+        std::string tag_b3_452;
+
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+        std::string tradeReportID(trdRptId);
+
+        std::ifstream infile;
+        infile.open(dataFileCSVCancelNegoDealInternalCrossingConfirmator);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVCancelNegoDealInternalCrossingConfirmator << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                // for(size_t c=0; c < row.size() - 1; c++) {
+                //	std::cout << row[c] << "\t";
+                // }
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_856 = row[1]; // 2
+                tag_572 = row[2]; // 0
+
+                if (row[3].empty())
+                    tag_64 = getSettleDate(today);
+                else
+                    tag_64 = row[3];
+
+                tag_919 = row[4];
+
+                if (row[5].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[5];
+
+                tag_762 = row[6];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[7].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[7];
+
+                if (row[8].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[8];
+
+                tag_552 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_a_54 = row[10];
+
+                tag_a_581 = row[11];
+
+                if (row[12].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_a_453 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag a1 448 can't be empty " << std::endl;
+                else
+                    tag_a1_448 = row[13];
+                if (row[14].empty())
+                    std::cout << " tag a1 447 can't be empty " << std::endl;
+                else
+                    tag_a1_447 = row[14];
+
+                if (row[15].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[15], PartyRoles))
+                {
+                    tag_a1_452 = row[15];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[16].empty())
+                    std::cout << " tag a2 448 can't be empty " << std::endl;
+                else
+                    tag_a2_448 = row[16];
+                if (row[17].empty())
+                    std::cout << " tag a2 447 can't be empty " << std::endl;
+                else
+                    tag_a2_447 = row[17];
+
+                if (row[18].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[18], PartyRoles))
+                {
+                    tag_a2_452 = row[18];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[19].empty())
+                    std::cout << " tag b 54 can't be empty " << std::endl;
+                else
+                    tag_b_54 = row[19];
+
+                tag_b_581 = row[20];
+
+                if (row[21].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_b_453 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag b1 448 can't be empty " << std::endl;
+                else
+                    tag_b1_448 = row[22];
+
+                if (row[23].empty())
+                    std::cout << " tag b1 447 can't be empty " << std::endl;
+                else
+                    tag_b1_447 = row[23];
+
+                if (row[24].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[24], PartyRoles))
+                {
+                    tag_b1_452 = row[24];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[25].empty())
+                    std::cout << " tag b2 448 can't be empty " << std::endl;
+                else
+                    tag_b2_448 = row[25];
+
+                if (row[26].empty())
+                    std::cout << " tag b2 447 can't be empty " << std::endl;
+                else
+                    tag_b2_447 = row[26];
+
+                if (row[27].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[27], PartyRoles))
+                {
+                    tag_b2_452 = row[27];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[28].empty())
+                    std::cout << " tag b3 448 can't be empty " << std::endl;
+                else
+                    tag_b3_448 = row[28];
+
+                if (row[29].empty())
+                    std::cout << " tag b3 447 can't be empty " << std::endl;
+                else
+                    tag_b3_447 = row[29];
+
+                if (row[30].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[30], PartyRoles))
+                {
+                    tag_b3_452 = row[30];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderCompID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVCancelNegoDealInternalCrossingConfirmator
+
+        message.setField(571, tag_571); // random
+        message.setField(572, tag_572); // 0
+        // if (!tag_856.empty())
+        message.setField(856, tag_856); // 2
+        message.setField(919, tag_919);
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+        // message.setField(58, "Test C++ Jonec API sendCSVCancelNegoDealInternalCrossingConfirmator");
+        // message.setField(60,GetFixCurrTime());
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_a_54);
+        enteringSides.setField(581, tag_a_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_a1_448);
+        sgEnteringNoPartyIds.setField(447, tag_a1_447);
+        sgEnteringNoPartyIds.setField(452, tag_a1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_a2_448);
+        sgEnteringNoPartyIds.setField(447, tag_a2_447);
+        sgEnteringNoPartyIds.setField(452, tag_a2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+
+        contraSides.setField(54, tag_b_54);
+        contraSides.setField(581, tag_b_581);
+        sgContraNoPartyIds.setField(448, tag_b1_448);
+        sgContraNoPartyIds.setField(447, tag_b1_447);
+        sgContraNoPartyIds.setField(452, tag_b1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b2_448);
+        sgContraNoPartyIds.setField(447, tag_b2_447);
+        sgContraNoPartyIds.setField(452, tag_b2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b3_448);
+        sgContraNoPartyIds.setField(447, tag_b3_447);
+        sgContraNoPartyIds.setField(452, tag_b3_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+        message.addGroup(contraSides);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVCancelNegoDealInternalCrossingConfirmator message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderNegoDealInternalCrossingConfirmator(const std::string dataFileCSVOrderNegoDealInternalCrossingConfirmator, const std::string senderID)
+    {
+        // construct fix message order
+        FIX::Message message;
+
+        std::string tag_571;
+        std::string tag_487;
+        std::string tag_856;
+        std::string tag_572;
+
+        std::string tag_55;
+        std::string tag_919;
+        std::string tag_762;
+        std::string tag_31;
+        std::string tag_32;
+        std::string tag_552;
+
+        std::string tag_a_54;
+        std::string tag_a_581;
+        std::string tag_a_453;
+        std::string tag_a1_448;
+        std::string tag_a1_447;
+        std::string tag_a1_452;
+        std::string tag_a2_448;
+        std::string tag_a2_447;
+        std::string tag_a2_452;
+
+        std::string tag_b_54;
+        std::string tag_b_581;
+        std::string tag_b_453;
+        std::string tag_b1_448;
+        std::string tag_b1_447;
+        std::string tag_b1_452;
+        std::string tag_b2_448;
+        std::string tag_b2_447;
+        std::string tag_b2_452;
+        std::string tag_b3_448;
+        std::string tag_b3_447;
+        std::string tag_b3_452;
+
+        char trdRptId[20];
+        gen_random(trdRptId, 20);
+        std::string tradeReportID(trdRptId);
+
+        // char trdRptId[20];
+        std::ifstream infile;
+
+        // infile.open("negdeal_internal_confirmator.csv");
+        infile.open(dataFileCSVOrderNegoDealInternalCrossingConfirmator);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileCSVOrderNegoDealInternalCrossingConfirmator << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 571 can't be empty " << std::endl;
+                    tag_571 = tradeReportID;
+                }
+                else
+                    tag_571 = row[0];
+
+                tag_487 = row[1];
+                tag_856 = row[2];
+                tag_572 = row[3];
+
+                if (row[4].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[4];
+
+                tag_919 = row[5];
+                tag_762 = row[6];
+                if (tag_762.compare("NG") != 0)
+                    tag_762 = "NG";
+
+                if (row[7].empty())
+                    std::cout << " tag 31 can't be empty " << std::endl;
+                else
+                    tag_31 = row[7];
+
+                if (row[8].empty())
+                    std::cout << " tag 32 can't be empty " << std::endl;
+                else
+                    tag_32 = row[8];
+
+                tag_552 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag a 54 can't be empty " << std::endl;
+                else
+                    tag_a_54 = row[10];
+
+                tag_a_581 = row[11];
+
+                if (row[12].empty())
+                    std::cout << " tag 453[1] can't be empty " << std::endl;
+                else
+                    tag_a_453 = row[12];
+
+                if (row[13].empty())
+                    std::cout << " tag a1 448 can't be empty " << std::endl;
+                else
+                    tag_a1_448 = row[13];
+                if (row[14].empty())
+                    std::cout << " tag a1 447 can't be empty " << std::endl;
+                else
+                    tag_a1_447 = row[14];
+
+                if (row[15].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[15], PartyRoles))
+                {
+                    tag_a1_452 = row[15];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[16].empty())
+                    std::cout << " tag a2 448 can't be empty " << std::endl;
+                else
+                    tag_a2_448 = row[16];
+                if (row[17].empty())
+                    std::cout << " tag a2 447 can't be empty " << std::endl;
+                else
+                    tag_a2_447 = row[17];
+
+                if (row[18].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[18], PartyRoles))
+                {
+                    tag_a2_452 = row[18];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[19].empty())
+                    std::cout << " tag b 54 can't be empty " << std::endl;
+                else
+                    tag_b_54 = row[19];
+
+                tag_b_581 = row[20];
+
+                if (row[21].empty())
+                    std::cout << " tag 453[2] can't be empty " << std::endl;
+                else
+                    tag_b_453 = row[21];
+
+                if (row[22].empty())
+                    std::cout << " tag b1 448 can't be empty " << std::endl;
+                else
+                    tag_b1_448 = row[22];
+
+                if (row[23].empty())
+                    std::cout << " tag b1 447 can't be empty " << std::endl;
+                else
+                    tag_b1_447 = row[23];
+
+                if (row[24].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[24], PartyRoles))
+                {
+                    tag_b1_452 = row[24];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[25].empty())
+                    std::cout << " tag b2 448 can't be empty " << std::endl;
+                else
+                    tag_b2_448 = row[25];
+
+                if (row[26].empty())
+                    std::cout << " tag b2 447 can't be empty " << std::endl;
+                else
+                    tag_b2_447 = row[26];
+
+                if (row[27].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[27], PartyRoles))
+                {
+                    tag_b2_452 = row[24];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[28].empty())
+                    std::cout << " tag b3 448 can't be empty " << std::endl;
+                else
+                    tag_b3_448 = row[28];
+
+                if (row[29].empty())
+                    std::cout << " tag b3 447 can't be empty " << std::endl;
+                else
+                    tag_b3_447 = row[29];
+
+                if (row[30].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[30], PartyRoles))
+                {
+                    tag_b3_452 = row[30];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderCompID
+        message.getHeader().setField(35, "AE");       // MsgType sendCSVOrderNegoDealInternalCrossingConfirmator
+
+        message.setField(571, tag_571); // random
+        message.setField(487, tag_487); // 0
+        // if (!tag_856.empty())
+        message.setField(856, tag_856); // 2
+
+        message.setField(572, tag_572);
+
+        message.setField(919, tag_919);
+
+        message.setField(55, tag_55);
+        message.setField(762, tag_762);
+        message.setField(31, tag_31);
+        message.setField(32, tag_32);
+        // message.setField(58, "Test C++ Jonec API sendCSVOrderNegoDealInternalCrossingConfirmator");
+        // message.setField(60,GetFixCurrTime());
+
+        FIX::Group enteringSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgEnteringNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+        enteringSides.setField(54, tag_a_54);
+        enteringSides.setField(581, tag_a_581);
+
+        sgEnteringNoPartyIds.setField(448, tag_a1_448);
+        sgEnteringNoPartyIds.setField(447, tag_a1_447);
+        sgEnteringNoPartyIds.setField(452, tag_a1_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+
+        sgEnteringNoPartyIds.setField(448, tag_a2_448);
+        sgEnteringNoPartyIds.setField(447, tag_a2_447);
+        sgEnteringNoPartyIds.setField(452, tag_a2_452);
+        enteringSides.addGroup(sgEnteringNoPartyIds);
+        message.addGroup(enteringSides);
+
+        FIX::Group contraSides(552, 54, FIX::message_order(54, 581, 0));
+        FIX::Group sgContraNoPartyIds(453, 448, FIX::message_order(448, 447, 452, 0));
+
+        contraSides.setField(54, tag_b_54);
+        contraSides.setField(581, tag_b_581);
+        sgContraNoPartyIds.setField(448, tag_b1_448);
+        sgContraNoPartyIds.setField(447, tag_b1_447);
+        sgContraNoPartyIds.setField(452, tag_b1_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b2_448);
+        sgContraNoPartyIds.setField(447, tag_b2_447);
+        sgContraNoPartyIds.setField(452, tag_b2_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        sgContraNoPartyIds.setField(448, tag_b3_448);
+        sgContraNoPartyIds.setField(447, tag_b3_447);
+        sgContraNoPartyIds.setField(452, tag_b3_452);
+        contraSides.addGroup(sgContraNoPartyIds);
+
+        message.addGroup(contraSides);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderNegoDealInternalCrossingConfirmator message: " << message.toString() << std::endl;
+
+        return message.toString();
+    }
+
+    std::string sendCSVOrderCancelReplaceRequest(const std::string dataFileOrderCancelReplaceRequest, const std::string senderID)
+    {
+        FIX::Message message;
+        std::string tag_11;
+
+        char clId[20];
+        gen_random(clId, 20);
+
+        std::string clOrdId(clId);
+
+        std::string tag_37;
+        std::string tag_41;
+        std::string tag_55;
+        std::string tag_762;
+        std::string tag_453;
+        std::string tag_a_448;
+        std::string tag_a_447;
+        std::string tag_a_452;
+        std::string tag_b_448;
+        std::string tag_b_447;
+        std::string tag_b_452;
+        std::string tag_581;
+        std::string tag_38;
+        std::string tag_40;
+        std::string tag_44;
+        std::string tag_54;
+        std::string tag_60;
+        std::string tag_59;
+        std::string tag_58;
+
+        std::ifstream infile;
+        infile.open(dataFileOrderCancelReplaceRequest);
+        if (!infile)
+        {
+            cerr << "Can't open input file " << dataFileOrderCancelReplaceRequest << endl;
+        }
+        char buffer[1024];
+        infile.read(buffer, sizeof(buffer));
+        buffer[infile.tellg()] = '\0';
+
+        // parse file, returns vector of rows
+        std::vector<Row> result = parse(buffer, strlen(buffer));
+
+        // print out result
+        for (size_t r = 0; r < result.size(); r++)
+        {
+            Row &row = result[r];
+            // std::cout << std::endl;
+            if (r == 1)
+            {
+                /* for(size_t c=0; c < row.size() - 1; c++) {
+                    //std::cout << row[c] << "\t";
+                } */
+
+                if (row[0].empty())
+                {
+                    std::cout << " tag 11 can't be empty " << std::endl;
+                    tag_11 = clOrdId;
+                }
+                else
+                    tag_11 = row[0];
+
+                if (row[1].empty())
+                    tag_37 = row[1];
+                else
+                    tag_37 = row[1];
+
+                if (row[2].empty())
+                    std::cout << " tag 41 can't be empty " << std::endl;
+                else
+                    tag_41 = row[2];
+
+                if (row[3].empty())
+                    std::cout << " tag 55 can't be empty " << std::endl;
+                else
+                    tag_55 = row[3];
+
+                if (row[4].empty())
+                    tag_762 = row[4];
+                else
+                    tag_762 = row[4];
+
+                if (row[5].empty())
+                    std::cout << " tag 453 can't be empty " << std::endl;
+                else
+                    tag_453 = row[5];
+
+                if (row[6].empty())
+                    std::cout << " tag 448 can't be empty " << std::endl;
+                else
+                    tag_a_448 = row[6];
+
+                if (row[7].empty())
+                    std::cout << " tag 447 can't be empty " << std::endl;
+                else
+                    tag_a_447 = row[7];
+
+                // if (row[8].empty()) std::cout <<" tag 452 can't be empty " << std::endl;
+                // else tag_a_452=row[8];
+                if (row[8].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[8], PartyRoles))
+                {
+                    tag_a_452 = row[8];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[9].empty())
+                    std::cout << " tag 448 can't be empty " << std::endl;
+                else
+                    tag_b_448 = row[9];
+
+                if (row[10].empty())
+                    std::cout << " tag 447 can't be empty " << std::endl;
+                else
+                    tag_b_447 = row[10];
+
+                if (row[11].empty())
+                {
+                    std::cout << " tag 452 can't be empty " << std::endl;
+                }
+                else if (in_array(row[11], PartyRoles))
+                {
+                    tag_b_452 = row[11];
+                }
+                else
+                {
+                    std::cout << " fill in tag 452 with either [3,5,7,17,36,37] " << std::endl;
+                }
+
+                if (row[12].empty())
+                {
+                    std::cout << " tag 581 can't be empty " << std::endl;
+                }
+                else if (in_array(row[12], AccountTypes))
+                {
+                    tag_581 = row[12];
+                }
+                else
+                {
+                    std::cout << " fill in tag 581 with either [1,3,100,101] " << std::endl;
+                }
+
+                if (row[13].empty())
+                    std::cout << " tag 38 can't be empty " << std::endl;
+                else
+                    tag_38 = row[13];
+
+                if (in_array(row[14], OrdTypes))
+                {
+                    tag_40 = row[14];
+                }
+                else
+                {
+                    std::cout << " fill in tag 40 with either ['1','2'] " << std::endl;
+                }
+
+                if (row[15].empty())
+                    tag_44 = row[15];
+                else
+                    tag_44 = row[15];
+
+                if (row[16].empty())
+                    tag_54 = row[16];
+                else
+                    tag_54 = row[16];
+
+                if (row[17].empty())
+                {
+                    std::cout << " tag 60 can't be empty " << std::endl;
+                    tag_60 = GetFixCurrTime();
+                }
+                else
+                    tag_60 = row[17];
+
+                if (row[18].empty())
+                    tag_59 = row[18];
+                else
+                    tag_59 = row[18];
+
+                if (row[19].empty())
+                    tag_58 = row[19];
+                else
+                    tag_58 = row[19];
+            }
+        }
+
+        message.getHeader().setField(8, BEGINSTRING); // BeginString
+        message.getHeader().setField(50, senderID);   // SenderID
+        message.getHeader().setField(35, "G");        // MsgType
+
+        message.setField(11, tag_11);
+        message.setField(41, tag_11);
+        message.setField(37, tag_37);
+        message.setField(38, tag_38);
+        message.setField(40, tag_40);
+        message.setField(44, tag_44);
+        message.setField(54, tag_54);
+        message.setField(55, tag_55);
+        message.setField(58, "Test C++ Jonec API sendCSVOrderCancelReplaceRequest");
+        message.setField(59, tag_59);
+        message.setField(60, tag_60);
+
+        FIX::Group NoPartyIDs(453, 448, FIX::message_order(448, 447, 452, 0));
+        NoPartyIDs.setField(448, tag_a_448);
+        NoPartyIDs.setField(447, tag_a_447);
+        NoPartyIDs.setField(452, tag_a_452);
+        message.addGroup(NoPartyIDs);
+
+        NoPartyIDs.setField(448, tag_b_448);
+        NoPartyIDs.setField(447, tag_b_447);
+        NoPartyIDs.setField(452, tag_b_452);
+        message.addGroup(NoPartyIDs);
+        message.setField(581, tag_581);
+
+        FIX::Message checkMsg(message.toString(), _dd, false);
+        cout << "sendCSVOrderCancelReplaceRequest message: " << message.toString() << std::endl;
 
         return message.toString();
     }

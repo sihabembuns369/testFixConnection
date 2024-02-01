@@ -21,6 +21,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/mem_fn.hpp>
 #include <boost/function.hpp>
 #include <unistd.h>
 
@@ -28,6 +29,7 @@
 #include "inc/netstat.hpp"
 #include "inc/FileCustom.hpp"
 #include "inc/sendOncsv.hpp"
+
 // #include "inc/GuiConsole.hpp"
 
 #include "include/IDXConstants.h"
@@ -39,6 +41,18 @@
 #include "include/IDXUtil.h"
 
 #include "include/md5.hpp"
+
+// #include "OuchEngine.h"
+#include "ouchEngine/header/OuchEngine.h"
+#include <zmq.h>
+#include "ouchEngine/header/TEOrderPackage.h"
+#include "ouchEngine/header/miscfunc.h"
+#include "ouchEngine/header/ClientConverter.h"
+#include "ouchEngine/header/GQueue.h"
+
+#define ZMQ_AOPROXY_IDENTITY "ORDER_ENGINE"
+// typedef CGQueue<CTEOrderPackage> __TEORDER_QUEUE__;
+
 typedef const std::string CSTRING;
 typedef boost::asio::io_service IOSERVICE;
 
@@ -106,6 +120,38 @@ public:
             std::cerr << e.what() << '\n';
         }
 
+        try
+        {
+            zmq_thread = true;
+            _thread_zmq = new boost::thread(boost::bind(&FixSession::ZMQAOProxyFrontendThread, this));
+            std::cout << "ZMQAOProxyFrontendThread..." << std::endl;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
+        try
+        {
+            incomingpackage_thread = true;
+            _thread_incomingpackage = new boost::thread(boost::bind(&FixSession::ProcessIncomingTEPackages, this));
+            std::cout << "ProcessIncomingTEPackagesThread..." << std::endl;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+
+        try
+        {
+            // incomingpackage_thread = true;
+            _thread_itchsubscrption = new boost::thread(boost::bind(&FixSession::ZMQProcessItchSubscription, this));
+            std::cout << "ZMQProcessItchSubscription..." << std::endl;
+        }
+        catch (const std::exception &e)
+        {
+            std::cerr << e.what() << '\n';
+        }
         // }
     }
 
@@ -117,6 +163,7 @@ public:
             bsendthreadrun = false;
             bsendTypeAn = false;
             conCheck = false;
+            incomingpackage_thread = false;
 
             std::cout << "threadjoind() function has been running: " << std::endl;
             // logWrite("threadjoind() function has be running: ", MAGENTA);
@@ -127,7 +174,13 @@ public:
             _thread_send->join();
             _thread_TypeAN->join();
             _thread_conCheck->join();
+            _thread_zmq->join();
+            _thread_incomingpackage->join();
+            _thread_itchsubscrption->join();
 
+            delete _thread_itchsubscrption;
+            delete _thread_incomingpackage;
+            delete _thread_zmq;
             delete _thread_conCheck;
             delete _thread_TypeAN;
             delete _thread_service;
@@ -141,13 +194,14 @@ public:
         }
     }
 
-    void NewOrder()
+    void NewOrder(const std::string clorid, const std::string AccountType, const std::string orderQty, const std::string orderType, const std::string price, const std::string instrument)
     {
 
-        if (FixSession::_loggedOn)
+        if (FixSession::_loggedOn2)
         {
-            // MsgNum++;
-            std::string xs(msg::sendCSVNuewOrder("./conf/new_order.csv", "vpft1001", MsgNum));
+            FixSession::MsgNum++;
+            std::cout << "new order" << std::endl;
+            std::string xs(msg::sendCSVOrderSingle("vpft1001", MsgNum, clorid, AccountType, orderQty, orderType, price, instrument));
             logWrite("New Order: " + Replace_Soh(xs), YELLOW, outp);
             SendMessage(xs);
         }
@@ -155,7 +209,7 @@ public:
 
     void MarketData()
     {
-        if (FixSession::_loggedOn)
+        if (FixSession::_loggedOn2)
         {
 
             std::string xs(msg::SendCSVMarketDataSnapshot("vpft1001", MsgNum));
@@ -166,7 +220,7 @@ public:
 
     void MassQuote()
     {
-        if (FixSession::_loggedOn)
+        if (FixSession::_loggedOn2)
         {
 
             std::string xs(msg::sendCSVMassQuote("./conf/mass_quote.csv", "vpft1001", MsgNum));
@@ -174,11 +228,22 @@ public:
             SendMessage(xs);
         }
     }
-    void TypeAE()
+
+    void MassQuoteActionRequest()
     {
-        if (FixSession::_loggedOn)
+        if (FixSession::_loggedOn2)
         {
 
+            std::string xs(msg::sendCSVOrderMassActionRequest("./conf/mass_action.csv", "vpft1001", MsgNum));
+            logWrite("New Order: " + Replace_Soh(xs), YELLOW, outp);
+            SendMessage(xs);
+        }
+    }
+    void TypeAE()
+    {
+        if (FixSession::_loggedOn2)
+        {
+            std::cout << "type AE" << std::endl;
             std::string xs(msg::sendCSVCancelNegoDealInternalCrossingInisiator("./conf/cancel_negotwoside_inisiator.csv", "vpft1001", MsgNum));
             logWrite("New Order: " + Replace_Soh(xs), YELLOW, outp);
             SendMessage(xs);
@@ -191,7 +256,7 @@ public:
 
             while (bsendTypeAn)
             {
-                if (FixSession::_loggedOn)
+                if (FixSession::_loggedOn2)
                 {
                     std::cout << YELLOW << "_loggedOn: " << _loggedOn << RESET << std::endl;
                     MsgNum++;
@@ -214,17 +279,25 @@ public:
 
     void CheckConnection()
     {
-        std::string reconect = "reconnection ";
+        std::string reconect = "menghubungkan ulang yang ke ";
+        int count = 0;
         while (conCheck)
         {
-            if (!FixSession::IsActive())
+            if (!FixSession::IsActive()) // tidak dalam kondisi konek
             {
-                reconect += ".";
-                std::cout << reconect << std::endl;
+                // reconect += ".";
+                count++;
+                isTEThreadRunning = false;
+                std::cout << YELLOW << reconect << std::to_string(count) << " dalam 700(ms)" << RESET << std::endl;
                 FixSession::start();
             }
-            else
+            else // sudah konek
             {
+                if (!_loggedOn2)
+                {
+                    /* code */
+                }
+
                 reconect = "reconnection ";
 
                 // std::cout << "aktif" << std::endl;
@@ -253,6 +326,260 @@ public:
         return time.gmt_Time();
     }
 
+    void ProcessIncomingTEPackages()
+    {
+        CTEOrderPackage *pkg = NULL;
+        // COuchEngine *p = (COuchEngine *)param;
+        isTEThreadRunning = true;
+        std::cout << GREEN << "void ProcessIncomingTEPackages() run " << RESET << std::endl;
+        // uint32_t nId = __sync_add_and_fetch(&p->nZMQFrontEndThreadsRunning, 1);
+        // p->journal.WriteLog("[COuchEngine::ProcessIncomingTEPackages] - Starting ProcessIncomingTEPackages, nId : %lu;\n", nId);
+        while (isTEThreadRunning)
+        {
+            if (NULL == (pkg = incoming_te_packages.GetfromQueue()))
+            {
+                // std::cout << YELLOW << "sleep" << RESET << std::endl;
+                usleep(100000);
+                continue;
+            }
+
+            // std::cout << BLUE << "pkg->GetPackageId(): " << pkg->GetPackageId() << RESET << std::endl;
+            switch (pkg->GetPackageId())
+            {
+            case PK_RT_NEW_REGULAR_ORDER:
+                std::cout << RED << "PK_RT_NEW_REGULAR_ORDER" << RESET << std::endl;
+                ProcessNewRegularOrder(pkg);
+                break;
+            case PK_RT_NEW_CASH_ORDER:
+                std::cout << RED << "PK_RT_NEW_CASH_ORDER" << RESET << std::endl;
+                // p->ProcessNewCashOrder(pkg);
+                break;
+            case PK_RT_AMEND_REGULAR_ORDER:
+                std::cout << RED << "PK_RT_AMEND_REGULAR_ORDER" << RESET << std::endl;
+                // p->ProcessAmendRegularOrder(pkg);
+                break;
+            case PK_RT_AMEND_CASH_ORDER:
+                std::cout << RED << "PK_RT_AMEND_CASH_ORDER" << RESET << std::endl;
+                // p->ProcessAmendCashOrder(pkg);
+                break;
+            case PK_RT_WITHDRAW_REGULAR_ORDER:
+                std::cout << RED << "PK_RT_WITHDRAW_REGULAR_ORDER" << RESET << std::endl;
+                // p->ProcessWithdrawRegularOrder(pkg);
+                break;
+            case PK_RT_WITHDRAW_CASH_ORDER:
+                std::cout << RED << "PK_RT_WITHDRAW_CASH_ORDER" << RESET << std::endl;
+                // p->ProcessWithdrawCashOrder(pkg);
+                break;
+            }
+        }
+        std::cout << RED << "[COuchEngine::ProcessIncomingTEPackages] - ProcessIncomingTEPackages Ended, nId " << RESET << std::endl;
+
+        // p->journal.WriteLog("[COuchEngine::ProcessIncomingTEPackages] - ProcessIncomingTEPackages Ended, nId : %lu;\n", nId);
+        // __sync_sub_and_fetch(&pnZMQFrontEndThreadsRunning, 1);
+    }
+    void ProcessNewRegularOrder(CTEOrderPackage *pkg)
+    {
+        char szOrderId[32] = {}, szAlt[32] = {}, szCustId[32] = {}, szStockCode[32] = {}, szInputUser[64] = {}, szComplianceId[64] = {}, szOrderSource[16] = {};
+        uint8_t command = pkg->GetByte(),
+                expire = pkg->GetByte(),
+                nationality = pkg->GetByte();
+        uint32_t flags = 0,
+                 price = pkg->GetDWord();
+        int64_t volume = pkg->GetInt64();
+        uint16_t slen = pkg->GetWord();
+
+        pkg->GetString(slen, szOrderId);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szAlt);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szCustId);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szStockCode);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szInputUser);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szComplianceId);
+        slen = pkg->GetWord();
+        pkg->GetString(slen, szOrderSource);
+
+        uint32_t orderToken = pkg->GetDWord(), orderBookId = 0;
+
+        std::cout << "szOrderId: " << szOrderId << " szAlt: " << szAlt << " szCustId: " << szCustId << " szStockCode: " << szStockCode << " szInputUser: " << szInputUser << " szComplianceId: " << szComplianceId << " szOrderSource: " << szOrderSource << " price: " << price << " volume: " << volume << " (lembar sham)" << std::endl;
+
+        NewOrder(szOrderId, "1", std::to_string(volume), "1", std::to_string(price), szStockCode);
+    }
+
+    void SendStartSendingOrderPackage()
+    {
+        CTEOrderPackage *o = new CTEOrderPackage(0, PK_RT_START_SENDING_ORDERS);
+        // o->SetErrorCode(bReqResendOrders ? 1 : 0);
+        outgoing_te_packages.AddtoQueue(o, __TEORDER_QUEUE__::PRIOR_TAIL);
+        // outgoing_te_packages.AddtoQueue(o, __TEORDER_QUEUE__::PRIOR_HEAD);
+    }
+
+    void ZMQProcessItchSubscription()
+    {
+        std::cout << "ZMQProcessItchSubscription run" << std::endl;
+        // p->journal.WriteLog("[COuchEngine::ZMQProcessItchSubscription] - ZMQProcessItchSubscription Thread started.\n");
+        void *context = zmq_ctx_new();
+        if (NULL == context)
+        {
+            std::cout << "ZMQProcessItchSubscription] - Can not create ZMQ Context." << RESET << std::endl;
+
+            // p->journal.WriteLog("[COuchEngine::ZMQProcessItchSubscription] - Can not create ZMQ Context.\n");
+            isItchSubscRunning = false;
+            return;
+        }
+        zmq_ctx_set(context, ZMQ_IO_THREADS, 2);
+        void *zsock = zmq_socket(context, ZMQ_SUB);
+        if (NULL == zsock)
+        {
+            std::cout << "ZMQProcessItchSubscription] - Can not create zmq socket." << RESET << std::endl;
+
+            // p->journal.WriteLog("[COuchEngine::ZMQProcessItchSubscription] - Can not create zmq socket.\n");
+            isItchSubscRunning = false;
+            return;
+        }
+        int nRead = 1000;
+        zmq_setsockopt(zsock, ZMQ_LINGER, &nRead, sizeof(nRead));   //	Linger Period of Socket Shutdown
+        zmq_setsockopt(zsock, ZMQ_RCVTIMEO, &nRead, sizeof(nRead)); //	Receive time out 1 second
+        if (0 != zmq_connect(zsock, "tcp://10.249.250.138:5050"))
+        {
+            std::cout << "ZMQProcessItchSubscription] - Can not connect to zmq :" << RESET << std::endl;
+
+            // p->journal.WriteLog("[COuchEngine::ZMQProcessItchSubscription] - Can not connect to zmq : %s\n", p->oConfig.zmqConfig.zmq_ITCH_Publisher_Address);
+            isItchSubscRunning = false;
+            return;
+        }
+        isItchSubscRunning = true;
+        zmq_setsockopt(zsock, ZMQ_SUBSCRIBE, "", 0);
+        nRead = 0;
+        zmq_msg_t msg;
+        pthread_t tid = 0;
+        // pthread_create(&tid, NULL, (void *(*)(void *))ProcessItchMessages, p);
+        while (isItchSubscRunning)
+        {
+            if (-1 != nRead)
+                zmq_msg_init(&msg);
+            if (-1 == (nRead = zmq_msg_recv(&msg, zsock, 0)))
+            {
+                // std::cout << "ZMQProcessItchSubscription] sleep" << RESET << std::endl;
+
+                usleep(100000);
+                continue;
+            }
+            itchQ.AddtoQueue(new CItch((char *)zmq_msg_data(&msg), nRead, true));
+            zmq_msg_close(&msg);
+            nRead = 0;
+        }
+        isItchSubscRunning = false;
+        if (nRead > 0)
+            zmq_msg_close(&msg);
+        // _thread_itchsubscrption->join();
+        // pthread_join(tid, NULL);
+        zmq_close(zsock);
+        zmq_ctx_destroy(context);
+        // p->journal.WriteLog("[COuchEngine::ZMQProcessItchSubscription] - ZMQProcessItchSubscription Thread ended.\n");
+    }
+
+    void ZMQAOProxyFrontendThread()
+    {
+        int hwm = 0;
+        // char host[128] = "tcp://localhost:5580";
+        const char *message = "Hello from sender!";
+        // COuchEngine *p = (COuchEngine *)this;
+        // uint32_t nId = __sync_add_and_fetch(&p->nZMQFrontEndThreadsRunning, 1);
+        // p->journal.WriteLog("[COuchEngine::ZMQAOProxyFrontendThread] - Starting ZMQAOProxyFrontendThread, nId : %lu;\n", nId);
+        void *context = zmq_ctx_new();
+        if (NULL == context)
+        {
+            std::cout << RED << " Can not create ZMQ Context, ZMQAOProxyFrontendThread Ended." << RESET << std::endl;
+            // p->journal.WriteLog("Can not create ZMQ Context, ZMQAOProxyFrontendThread Ended.\n");
+            return;
+        }
+        zmq_ctx_set(context, ZMQ_IO_THREADS, 2);
+        void *zsock = zmq_socket(context, ZMQ_DEALER);
+        if (NULL == zsock)
+        {
+            // p->journal.WriteLog("[COuchEngine::ZMQAOProxyFrontendThread] - Can not create ZMQ Socket, ZMQAOProxyFrontendThread Ended.\n");
+            std::cout << RED << " Can not create ZMQ Socket, ZMQAOProxyFrontendThread Ended" << RESET << std::endl;
+
+            return;
+        }
+        // p->journal.WriteLog("[COuchEngine::ZMQAOProxyFrontendThread] - Set ZMQ Identity : %s.\n", ZMQ_AOPROXY_IDENTITY);
+        zmq_setsockopt(zsock, ZMQ_IDENTITY, ZMQ_AOPROXY_IDENTITY, strlen(ZMQ_AOPROXY_IDENTITY));
+        zmq_setsockopt(zsock, ZMQ_RCVHWM, &hwm, sizeof(hwm));
+        zmq_setsockopt(zsock, ZMQ_SNDHWM, &hwm, sizeof(hwm));
+        zmq_setsockopt(zsock, ZMQ_LINGER, &(hwm = 100), sizeof(hwm)); //	Set Linger 100 mseconds
+        zmq_setsockopt(zsock, ZMQ_RCVTIMEO, &hwm, sizeof(hwm));       //	Receive time out 100 mseconds
+        std::cout << RED << "  Connect ZMQ Frontend :" << RESET << std::endl;
+
+        // p->journal.WriteLog("[COuchEngine::ZMQAOProxyFrontendThread] - Connect ZMQ Frontend : %s.\n", p->oConfig.zmqConfig.zmq_AOProxy_Frontend);
+        int result = zmq_connect(zsock, "tcp://10.249.250.138:5580");
+        if (-1 == zmq_connect(zsock, "tcp://10.249.250.138:5580"))
+        {
+            std::cout << RED << " Failed to connect to ZMQ frontend" << RESET << std::endl;
+        }
+        else
+        {
+            std::cout << GREEN << " koneksi sukses" << RESET << std::endl;
+        }
+
+        int size = 0;
+        zmq_msg_t msg;
+        time_t lastTime = time(NULL);
+        isTEThreadRunning = true;
+        // for (uint16_t i = 0; i < p->oConfig.zmqConfig.frontend_process_thread_count; i++)
+
+        while (isTEThreadRunning)
+        {
+            // std::cout << "tes isTEThreadRunning" << std::endl;
+            if (-1 != size)
+                zmq_msg_init(&msg);
+            size = zmq_msg_recv(&msg, zsock, 0);
+            if (-1 == size)
+            {
+                // Menangani kasus ketika tidak ada pesan yang diterima dalam jangka waktu tertentu
+                uint32_t nSent = 0;
+                if (difftime(time(NULL), lastTime) >= 1)
+                {
+                    lastTime = time(NULL);
+                    CTEOrderPackage o(1, PK_HTS_HEART_BEAT);
+                    o.AddByte(1);
+                    // std::cout << "mengirim message di zmq1" << std::endl;
+
+                    zmq_send(zsock, (const char *)o, o.GetPackageLength(), 0);
+                    // std::cout << "msg: " << (const char *)o << " length: " << o.GetPackageLength() << std::endl;
+                    // zmq_send(zsock, message, strlen(message), 0);
+                }
+                CTEOrderPackage *pkg = NULL;
+                while (NULL != (pkg = outgoing_te_packages.GetfromQueue()))
+                {
+                    std::cout << "mengirim message di zmq2" << std::endl;
+                    zmq_send(zsock, (const char *)*pkg, pkg->GetPackageLength(), 0);
+                    if (!isTEThreadRunning || ++nSent > 100)
+                        break;
+                }
+                continue;
+            }
+            if (size >= (int)TE_HEADER_LENGTH)
+            {
+                char *psz = new char[size];
+                memcpy(psz, zmq_msg_data(&msg), size);
+                CTEOrderPackage *pkg = new CTEOrderPackage();
+                pkg->SetRawData(psz, size);
+                incoming_te_packages.AddtoQueue(pkg);
+            }
+            zmq_msg_close(&msg);
+        }
+        zmq_close(zsock);
+        zmq_ctx_destroy(context);
+        std::cout << RED << "  ZMQAOProxyFrontendThread Ended" << RESET << std::endl;
+
+        // p->journal.WriteLog("[COuchEngine::ZMQAOProxyFrontendThread] - ZMQAOProxyFrontendThread Ended, nId : %lu;\n", nId);
+        // __sync_sub_and_fetch(&p->nZMQFrontEndThreadsRunning, 1);
+    }
+
     void logWrite(std::string log, std::string color, std::string mode)
     {
         // WriteLog *logWrite = new WriteLog();
@@ -276,6 +603,15 @@ public:
         // std::cout << "runIOService Running: " << std::endl;
         io_service.run();
         io_service.reset();
+    }
+
+    bool checkSchedule()
+    {
+
+        if (1 == 1)
+        {
+            /* code */
+        }
     }
 
     std::string sendTestRequest()
@@ -378,6 +714,11 @@ public:
     int MsgNumServer;
     bool _active;
     bool _logoutInProgress;
+    typedef CGQueue<CTEOrderPackage> __TEORDER_QUEUE__;
+    __TEORDER_QUEUE__ outgoing_te_packages, incoming_te_packages;
+
+    typedef CGQueue<CItch> _ITCHQ_;
+    _ITCHQ_ itchQ;
 
     // bool _HouseKeeping;
 
@@ -414,6 +755,7 @@ private:
             logWrite("connection to the server was successful", GREEN, outp);
             _connect = true;
             _active = true;
+            isTEThreadRunning = true;
             // _connect_timer.cancel();
             handle_connected(ec);
             readFixMessage();
@@ -651,7 +993,7 @@ private:
                             { // 74 + 3 = 77, 83 - 79 = 74
                                 std::string bginseq = sraw.substr(0, posEnd + 1);
                                 // std::cout << YELLOW << "ori get: " << receivedata << RESET << std ::endl;
-                                std::cout << BLUE << "setelah di parse get: " << Replace_Soh(bginseq) << RESET << std ::endl;
+                                // std::cout << BLUE << "setelah di parse get: " << Replace_Soh(bginseq) << RESET << std ::endl;
                                 internal_parsing_data(bginseq);
                                 sraw.erase(0, posStart + find.length());
                                 // std::cout << "sqnum: " << bginseq << " pos " << posStart << " posend: " << posEnd << std::endl;
@@ -732,6 +1074,7 @@ private:
                         // MsgNum++;
                         // SequenceReset();
                         _loggedOn = true;
+                        _loggedOn2 = true;
                     }
                 }
                 else if (sMsgType == "0")
@@ -1015,25 +1358,40 @@ private:
     boost::atomic<bool> brecvthreadrun;
     boost::atomic<bool> bsendTypeAn;
     boost::atomic<bool> conCheck;
+    boost::atomic<bool> zmq_thread;
+    boost::atomic<bool> incomingpackage_thread;
+    // boost::atomic<uint32_t> nZMQFrontEndThreadsRunning;
 
     boost::thread *_thread_send;
     boost::thread *_thread_receive;
     boost::thread *_thread_TypeAN;
     boost::thread *_thread_conCheck;
+    boost::thread *_thread_zmq;
+    boost::thread *_thread_incomingpackage;
+    boost::thread *_thread_itchsubscrption;
 
     std::string _incomplete_raw;
     boost::shared_ptr<boost::asio::ip::tcp::socket> socket_;
 
     bool _connect;
     bool _loggedOn = false;
+    bool _loggedOn2 = false;
     bool _SendHtbt;
     bool _SendTestRequest;
     bool _TypeAn;
+    bool isTEThreadRunning;
+    bool isItchSubscRunning;
 
     bool _loggedOnJATS;
     bool _logonInProgress;
     bool _initiateLogon;
     bool _initiateLogout;
+
+    uint32_t lCurDate, //   yyyymmdd
+                       // lCurTime, //   hhmmssxxx
+        weekDay,       //   0 : Sunday; 1 : Monday; 6 : Saturday
+        tokenId, SHARES_LOT;
+    char szCurDate[8];
 };
 
 void displayRunningText(std::string text)
@@ -1124,8 +1482,8 @@ int main(int argc, char *argv[])
                     }
                     else if (userinput == "d" or userinput == "D")
                     {
-                        fixSession.MsgNum++;
-                        fixSession.NewOrder();
+                        // fixSession.MsgNum++;
+                        // fixSession.NewOrder();
                     }
                     else if (userinput == "v" or userinput == "V")
                     {
@@ -1142,6 +1500,13 @@ int main(int argc, char *argv[])
                         fixSession.MsgNum++;
 
                         fixSession.TypeAE();
+                        // fixSession.aktif();
+                    }
+                    else if (userinput == "ca" or userinput == "CA")
+                    {
+                        fixSession.MsgNum++;
+
+                        fixSession.MassQuoteActionRequest();
                         // fixSession.aktif();
                     }
                     else if (userinput == "c" or userinput == "C")

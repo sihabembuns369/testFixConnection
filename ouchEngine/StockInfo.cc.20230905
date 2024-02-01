@@ -1,0 +1,129 @@
+#include <string.h>
+#include "StockInfo.h"
+#include "TEOrderPackage.h"
+
+CStockInfo::CStockInfo() : isProcess(false)
+{
+	lstk.clear();
+	sstk.clear();
+	pthread_mutex_init(&mutex, NULL);
+}
+
+CStockInfo::~CStockInfo()
+{
+	Release();
+	pthread_mutex_destroy(&mutex);
+}
+
+bool CStockInfo::GetStockInfo(const char *szStockCode, STOCK_INFO &si)
+{
+	bool b = true;
+	pthread_mutex_lock(&mutex);
+	_SSTOCKINFO::const_iterator i = sstk.find(szStockCode);
+	if (i != sstk.end())
+		memcpy(&si, i->second, sizeof(STOCK_INFO));
+	else
+		b = false;
+	pthread_mutex_unlock(&mutex);
+	return b;
+}
+
+bool CStockInfo::GetStockInfoById(const long stockId, STOCK_INFO &si)
+{
+	bool b = true;
+	pthread_mutex_lock(&mutex);
+	_LSTOCKINFO::const_iterator i = lstk.find(stockId);
+	if (i != lstk.end())
+		memcpy(&si, i->second, sizeof(STOCK_INFO));
+	else
+		 b = false;
+	pthread_mutex_unlock(&mutex);
+	return b;
+}
+
+bool CStockInfo::GetStockFlags(const char *szStockCode, uint32_t &flags)
+{
+	bool b = true;
+	pthread_mutex_lock(&mutex);
+	_SSTOCKINFO::const_iterator i = sstk.find(szStockCode);
+	if (i != sstk.end())
+		flags = i->second->flags;
+	else
+		b = false;
+	pthread_mutex_unlock(&mutex);
+	return b;
+}
+
+bool CStockInfo::IsValidStockCode(const char *szStockCode)
+{
+	pthread_mutex_lock(&mutex);
+	_SSTOCKINFO::const_iterator i = sstk.find(szStockCode);
+	bool b = (i != sstk.end());
+	pthread_mutex_unlock(&mutex);
+	return b;
+}
+
+uint32_t CStockInfo::GetStockFlags(const char *szStockCode)
+{
+	pthread_mutex_lock(&mutex);
+	_SSTOCKINFO::const_iterator i = sstk.find(szStockCode);
+	uint32_t flags = (i == sstk.end())?0:i->second->flags;
+	pthread_mutex_unlock(&mutex);
+	return flags;
+}
+
+bool CStockInfo::IsProcess()
+{
+	return isProcess;
+}
+
+bool CStockInfo::IsEmpty()
+{
+	pthread_mutex_lock(&mutex);
+	bool b = sstk.empty();
+	pthread_mutex_unlock(&mutex);
+	return b;
+}
+
+void CStockInfo::Release()
+{
+	pthread_mutex_lock(&mutex);
+	for (_SSTOCKINFO::const_iterator pos = sstk.begin(); pos != sstk.end(); ++pos)
+		delete pos->second;
+	sstk.clear();
+	lstk.clear();
+	isProcess = false;
+	pthread_mutex_unlock(&mutex);
+}
+
+void CStockInfo::ProcessStockInfo(CTEOrderPackage *pkg)
+{
+	Release();
+	STOCK_INFO *psi = NULL;
+	uint32_t nRec = pkg->GetDWord();
+	pthread_mutex_lock(&mutex);
+	for (uint32_t i = 0; i < nRec; ++i)
+	{
+		try
+		{
+			if (NULL != (psi = new STOCK_INFO))
+			{
+				uint8_t isPreopen = pkg->GetByte();	//	IsPreopening
+				psi->flags = pkg->GetDWord();
+				if (isPreopen)
+					psi->flags |= SI_PREOPENING;
+				psi->lotSize = pkg->GetDWord();
+				psi->stockId = pkg->GetDWord();
+				uint16_t slen = pkg->GetWord(); pkg->GetString(slen, psi->szStockCode, CTEOrderPackage::GP_TRIM_RIGHT);
+				lstk.insert(_LSTOCKINFO::value_type(psi->stockId, psi));
+				sstk.insert(_SSTOCKINFO::value_type(psi->szStockCode, psi));
+			}
+		}
+		catch (...)
+		{
+			//jonecLogger.WriteJonecErrLog("[CStockInfo::ProcessStockInfo] - Unknown Exception.\n");
+		}
+	}
+	isProcess = true;
+	pthread_mutex_unlock(&mutex);
+}

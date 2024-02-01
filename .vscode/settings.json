@@ -2,7 +2,7 @@
   "terminal.integrated.fontSize": 12,
   "editor.wordWrap": "on",
   "files.autoSave": "afterDelay",
-  "window.zoomLevel": 0.3,
+  "window.zoomLevel": 0,
   "editor.fontSize": 11,
   "workbench.colorTheme": "Atom One Dark",
   "workbench.iconTheme": "vscode-icons",
@@ -99,5 +99,5 @@
   "[cpp]": {
     "editor.defaultFormatter": "ms-vscode.cpptools"
   },
-  "cmake.sourceDirectory": "/home/riski/FixEngine/QuickfixAppTest/client/test_connect/backup"
+  "cmake.sourceDirectory": "/home/riski/FixEngine/QuickfixAppTest/client/test_connect_ori/backup"
 }

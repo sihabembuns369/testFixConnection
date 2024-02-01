@@ -1,0 +1,859 @@
+#include "GPackage.h"
+#include "RawPackage.h"
+#include "AESRijndael.h"
+#include "CMCrypt.h"
+#include "minilzo.h"
+#include "lz4.h"
+#include "snappy-c.h"
+#include <cstdio>
+
+const uint16_t GP_ENCRYPTED		= 0x0001;
+const uint16_t GP_COMPRESSED	= 0x0002;
+const uint16_t GP_FIRST_PRIORITY= 0x0004;
+const uint32_t GP_PACKAGE_SIGNATURE = 0x956cd89a;
+
+CGPackage::CGPackage(CAESRijndael *p) : 
+	pszData(NULL), prijndael(p), lBufferSize(0), lReadPos(0), lWritePos(0)
+{
+	szReference[0] = 0x00;
+}
+
+CGPackage::CGPackage(CRawPackage *praw, CAESRijndael *p) : 
+	pszData(NULL), lBufferSize(0), lReadPos(0), lWritePos(0)
+{
+	prijndael = p;
+	SetRawData(praw);
+	szReference[0] = 0x00;
+}
+
+CGPackage::CGPackage(OL_UINT32 pkgSize, OL_UINT16 pkgId, CAESRijndael *p) : 
+	pszData(NULL), prijndael(p)
+{
+	szReference[0] = 0x00;
+	AllocateBuffer(pkgSize);
+	SetPackageId(pkgId);
+}
+
+CGPackage::CGPackage(char *pdat, OL_UINT32 pkgSize, bool copyData, CAESRijndael *p) : prijndael(p)
+{
+	szReference[0] = 0x00;
+	if (pkgSize < GP_HEADER_LENGTH)
+	{
+		pszData = NULL;
+		lBufferSize = lReadPos = lWritePos = 0;
+		return;
+	}
+	lReadPos = GP_HEADER_LENGTH;
+	lBufferSize = lWritePos = pkgSize;
+	if (copyData)
+	{
+		pszData = new char[lBufferSize];
+		memcpy(pszData, pdat, pkgSize);
+		UpdatePackageLength();
+	}
+	else
+		pszData = pdat;
+}
+
+CGPackage::~CGPackage()
+{
+	ReleaseBuffer();
+}
+
+CGPackage &CGPackage::operator = (const CGPackage &p)
+{
+	ReleaseBuffer();
+	if (p.lBufferSize >= GP_HEADER_LENGTH)
+	{
+		lBufferSize = p.lBufferSize;
+		lReadPos = p.lReadPos;
+		lWritePos = p.lWritePos;
+		pszData = new char[lBufferSize];
+		memcpy(pszData, p.pszData, lBufferSize);
+	}
+	return *this;
+}
+
+void CGPackage::ResetWritePosition()
+{
+	lWritePos = GP_HEADER_LENGTH;
+	UpdatePackageLength();
+}
+
+void CGPackage::MoveReadPosition(OL_INT32 step)
+{
+	OL_UINT32 newPos = lReadPos + step;
+	if (newPos >= GP_HEADER_LENGTH && newPos <= lBufferSize)
+		lReadPos = newPos;
+}
+
+void CGPackage::MoveWritePosition(OL_INT32 step)
+{
+	OL_UINT32 newPos = lWritePos + step;
+	if (newPos >= GP_HEADER_LENGTH && newPos <= lBufferSize)
+	{
+		lWritePos = newPos;
+		UpdatePackageLength();
+	}
+}
+
+void CGPackage::UpdatePackageLength()
+{
+	OL_UINT32 pkgLen = htonl(lWritePos);
+	memcpy(pszData + SZ_INT32, &pkgLen, SZ_INT32);
+}
+
+void CGPackage::AllocateBuffer(OL_UINT32 bufSize)
+{
+	if (pszData)
+		delete []pszData;
+	pszData = new char[lBufferSize = (GP_HEADER_LENGTH + bufSize)];
+	memset(pszData, 0x00, lBufferSize);
+	OL_UINT32 pkgSig = htonl(GP_PACKAGE_SIGNATURE);
+	memcpy(pszData, &pkgSig, SZ_INT32);
+	lReadPos = lWritePos = GP_HEADER_LENGTH;
+	UpdatePackageLength();
+}
+
+void CGPackage::ReleaseBuffer()
+{
+	if (pszData)
+	{
+		delete []pszData; pszData = NULL;
+	}
+	lBufferSize = lWritePos = lReadPos = 0;
+}
+
+bool CGPackage::SetRawData(CRawPackage *praw)
+{
+	OL_UINT32 rawPackageLength = praw->GetDataLength();
+	if (0 == rawPackageLength)
+		return false;
+	if (pszData)
+		delete []pszData;
+	lReadPos = GP_HEADER_LENGTH;
+	lBufferSize = lWritePos = GP_HEADER_LENGTH + rawPackageLength;
+	pszData = new char[lBufferSize];
+	memset(pszData, 0x00, GP_HEADER_LENGTH);
+	SetPackageId(praw->GetPackageId());
+	SetErrorCode(praw->GetErrorCode());
+	OL_UINT32 pkgSig = htonl(GP_PACKAGE_SIGNATURE);
+	memcpy(pszData, &pkgSig, SZ_INT32);
+	praw->ExtractData(pszData + GP_HEADER_LENGTH);
+	UpdatePackageLength();
+	return true;
+}
+
+void CGPackage::SetRawData(char *pszRaw, OL_UINT32 nRawDataLength)
+{
+	if (NULL != pszRaw && nRawDataLength >= GP_HEADER_LENGTH)
+	{
+		if (pszData)
+			delete []pszData;
+		pszData = pszRaw;
+		lReadPos = GP_HEADER_LENGTH;
+		lBufferSize = lWritePos = nRawDataLength;
+		UpdatePackageLength();
+	}
+}
+
+bool CGPackage::CheckSignature()
+{
+	OL_UINT32 lsign;
+	memcpy(&lsign, pszData, SZ_INT32);
+	return GP_PACKAGE_SIGNATURE == ntohl(lsign);
+}
+
+bool CGPackage::isEncrypted()
+{
+	OL_UINT16 fl;
+	memcpy(&fl, pszData + 10, SZ_INT16);
+	return ntohs(fl) & GP_ENCRYPTED;
+}
+
+bool CGPackage::isCompressed()
+{
+	OL_UINT16 fl;
+	memcpy(&fl, pszData + 10, SZ_INT16);
+	return ntohs(fl) & GP_COMPRESSED;
+}
+
+bool CGPackage::isFirstPriority()
+{
+	OL_UINT16 fl;
+	memcpy(&fl, pszData + 10, SZ_INT16);
+	return ntohs(fl) & GP_FIRST_PRIORITY;
+}
+
+void CGPackage::SetFirstPriority(bool b)
+{
+	OL_UINT16 fl;
+	memcpy(&fl, pszData + 10, SZ_INT16);
+	fl = ntohs(fl);
+	if (b)
+		fl |= GP_FIRST_PRIORITY;
+	else
+		fl &= ~GP_FIRST_PRIORITY;	// 0xfffb;
+	fl = htons(fl);
+	memcpy(pszData + 10, &fl, SZ_INT16);
+}
+
+void CGPackage::SetPackageId(OL_UINT16 pkgId)
+{
+	pkgId = htons(pkgId);
+	memcpy(pszData + 8, &pkgId, SZ_INT16);
+}
+
+void CGPackage::SetErrorCode(OL_UINT16 errCode)
+{
+	errCode = htons(errCode);
+	memcpy(pszData + 12, &errCode, SZ_INT16);
+}
+
+OL_UINT16 CGPackage::GetPackageId() const
+{
+	OL_UINT16 pkgId;
+	memcpy(&pkgId, pszData + 8, SZ_INT16);
+	return ntohs(pkgId);
+}
+
+OL_UINT16 CGPackage::GetErrorCode() const
+{
+	OL_UINT16 errCode;
+	memcpy(&errCode, pszData + 12, SZ_INT16);
+	return ntohs(errCode);
+}
+
+OL_UINT32 *CGPackage::StartArrCountingPoint()
+{
+	OL_UINT32 val = 0;
+	char *pc = pszData + lWritePos;
+	memcpy(pc, &val, SZ_INT32);
+	lWritePos += SZ_INT32;
+	UpdatePackageLength();
+	return (OL_UINT32*)pc;
+}
+
+void CGPackage::EndArrCountingPoint(OL_UINT32 *pv)
+{
+	*pv = htonl(*pv);
+}
+
+void CGPackage::AddInt8(OL_UINT8 val)
+{
+	memcpy(pszData + lWritePos, &val, SZ_INT8);
+	lWritePos += SZ_INT8;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddInt16(OL_UINT16 val)
+{
+	val = htons(val);
+	memcpy(pszData + lWritePos, &val, SZ_INT16);
+	lWritePos += SZ_INT16;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddInt32(OL_UINT32 val)
+{
+	val = htonl(val);
+	memcpy(pszData + lWritePos, &val, SZ_INT32);
+	lWritePos += SZ_INT32;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddInt64(OL_UINT64 val)
+{
+	val = htobe64(val);
+	memcpy(pszData + lWritePos, &val, SZ_INT64);
+	lWritePos += SZ_INT64;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddFloat(float val)
+{
+	memcpy(pszData + lWritePos, &val, SZ_FLOAT);
+	lWritePos += SZ_FLOAT;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddDouble(double val)
+{
+	memcpy(pszData + lWritePos, &val, SZ_DOUBLE);
+	lWritePos += SZ_DOUBLE;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddString(const char *pstr)
+{
+	uint16_t slen = strlen(pstr);
+	AddInt16(slen);
+	if (0 == slen)
+		return;
+	strncpy(pszData + lWritePos, pstr, slen);
+	lWritePos += slen;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddString(const char *pstr, OL_UINT16 strLen)
+{
+	if (0 == strLen)
+		return;
+	strncpy(pszData + lWritePos, pstr, strLen);
+	lWritePos += strLen;
+	UpdatePackageLength();
+}
+
+void CGPackage::AddBinary(const char *pbin, OL_UINT32 dataLen)
+{
+	if (0 == dataLen)
+		return;
+	memcpy(pszData + lWritePos, pbin, dataLen);
+	lWritePos += dataLen;
+	UpdatePackageLength();
+}
+
+void CGPackage::GetString(OL_UINT16 slen, char *pstr, GP_TRIM_STRING op)
+{
+	if ((0 == slen) || ((lReadPos + slen) > lBufferSize))
+	{
+		*pstr = 0x00;
+		return;
+	}
+	strncpy(pstr, pszData + lReadPos, slen);
+	pstr[slen] = 0x00;
+	lReadPos += slen;
+	switch (op)
+	{
+	case GP_TRIM_NONE:
+		break;
+	case GP_TRIM_LEFT:
+		TrimLeft(pstr);
+		break;
+	case GP_TRIM_RIGHT:
+		TrimRight(pstr);
+		break;
+	case GP_TRIM_BOTH:
+		TrimRight(pstr);
+		TrimLeft(pstr);
+		break;
+	}
+}
+
+void CGPackage::GetBinary(OL_UINT32 dataLen, char *pbin)
+{
+	memcpy(pbin, pszData + lReadPos, dataLen);
+	lReadPos += dataLen;
+}
+
+OL_UINT8 CGPackage::GetInt8()
+{
+	if ((lReadPos + SZ_INT8) > lBufferSize)
+		return 0;
+	return pszData[lReadPos++];
+}
+
+OL_UINT16 CGPackage::GetInt16()
+{
+	if ((lReadPos + SZ_INT16) > lBufferSize)
+		return 0;
+	OL_UINT16 val;
+	memcpy(&val, pszData + lReadPos, SZ_INT16);
+	lReadPos += SZ_INT16;
+	return ntohs(val);
+}
+
+OL_UINT32 CGPackage::GetInt32()
+{
+	if ((lReadPos + SZ_INT32) > lBufferSize)
+		return 0;
+	OL_UINT32 val;
+	memcpy(&val, pszData + lReadPos, SZ_INT32);
+	lReadPos += SZ_INT32;
+	return ntohl(val);
+}
+
+OL_UINT64 CGPackage::GetInt64()
+{
+	if ((lReadPos + SZ_INT64) > lBufferSize)
+		return 0;
+	OL_UINT64 val;
+	memcpy(&val, pszData + lReadPos, SZ_INT64);
+	lReadPos += SZ_INT64;
+	return be64toh(val);
+}
+
+float CGPackage::GetFloat()
+{
+	if ((lReadPos + SZ_FLOAT) > lBufferSize)
+		return 0;
+	float val;
+	memcpy(&val, pszData + lReadPos, SZ_FLOAT);
+	lReadPos += SZ_FLOAT;
+	return val;
+}
+
+double CGPackage::GetDouble()
+{
+	if ((lReadPos + SZ_DOUBLE) > lBufferSize)
+		return 0;
+	double val;
+	memcpy(&val, pszData + lReadPos, SZ_DOUBLE);
+	lReadPos += SZ_DOUBLE;
+	return val;
+}
+
+void CGPackage::TrimLeft(char *psz)
+{
+	register OL_UINT16 pos = 0;
+	while (' ' == psz[pos])
+		++pos;
+	if (pos)
+		strcpy(psz, psz + pos);
+}
+
+void CGPackage::TrimRight(char *psz)
+{
+	register OL_UINT16 pos = strlen(psz);
+	if (pos)
+		while (' ' == psz[--pos])
+		{
+			psz[pos] = 0x00;
+			if (0 == pos)
+				break;
+		}
+}
+
+void CGPackage::EncryptAES()
+{
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return;
+	uint16_t flags;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	flags = ntohs(flags);
+	if (flags & GP_ENCRYPTED)
+		return;
+	CMCrypt cm(encryptionKey, strlen(encryptionKey), encryptionIV);
+	uint32_t lDataSize = lWritePos - GP_HEADER_LENGTH,
+			   lEncLen = cm.CalcEncBufferSize(lDataSize);
+	char *pszenc = new char[lEncLen + GP_HEADER_LENGTH + SZ_INT32], 
+	*pT = pszenc + GP_HEADER_LENGTH + SZ_INT32;
+	memcpy(pszenc, pszData, GP_HEADER_LENGTH);
+	memcpy(pT, pszData + GP_HEADER_LENGTH, lDataSize);
+	int32_t iret = cm.FastEncrypt(pT, lEncLen);
+	if (iret < 0 || 1 == iret)
+	{
+		delete []pszenc;
+		return;
+	}
+	memcpy(pszenc + GP_HEADER_LENGTH, &(lWritePos = htonl(lWritePos)), SZ_INT32);
+	lBufferSize = lReadPos = lWritePos = lEncLen + GP_HEADER_LENGTH + SZ_INT32;
+	delete []pszData; pszData = pszenc; pszenc = NULL;
+	memcpy(pszData + 10, &(flags = htons(flags | GP_ENCRYPTED)), SZ_INT16);
+	UpdatePackageLength();
+}
+
+void CGPackage::DecryptAES()
+{
+	uint16_t flags;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	flags = ntohs(flags);
+	if (0 == (flags & GP_ENCRYPTED))
+		return;
+	uint32_t lDecLen;
+	memcpy(&lDecLen, pszData + GP_HEADER_LENGTH, SZ_INT32);
+	lDecLen = ntohl(lDecLen);
+	CMCrypt cm(encryptionKey, strlen(encryptionKey), encryptionIV);
+	memcpy(pszData + GP_HEADER_LENGTH, pszData + GP_HEADER_LENGTH + SZ_INT32, lBufferSize - GP_HEADER_LENGTH - SZ_INT32);
+	cm.FastDecrypt(pszData + GP_HEADER_LENGTH, lBufferSize - GP_HEADER_LENGTH - SZ_INT32);
+	lReadPos	= GP_HEADER_LENGTH;
+	lBufferSize = lWritePos = lDecLen;
+	memcpy(pszData + 10, &(flags = htons(flags & ~GP_ENCRYPTED)), SZ_INT16);
+	UpdatePackageLength();
+}
+
+// void CGPackage::EncryptAES()
+// {
+// 	if (lBufferSize > GP_HEADER_LENGTH)
+// 	{
+// 		OL_UINT16 flags;
+// 		memcpy(&flags, pszData + 10, SZ_INT16);
+// 		flags = ntohs(flags);
+// 		if (!(flags & 0x0001))
+// 		{
+// 			CMCrypt cm(encryptionKey, strlen(encryptionKey), encryptionIV);
+// 			OL_UINT32 lDataSize = lBufferSize - GP_HEADER_LENGTH,
+// 				lEncLen = cm.CalcEncBufferSize(lDataSize);
+// 			char *pszenc = new char[lEncLen + GP_HEADER_LENGTH + SZ_INT32], 
+// 			*pT = pszenc + GP_HEADER_LENGTH + SZ_INT32;
+// 			memcpy(pszenc, pszData, GP_HEADER_LENGTH);
+// 			if (lDataSize < lEncLen)
+// 				memset(pT + lDataSize, 0x00, lEncLen - lDataSize);
+// 			memcpy(pT, pszData + GP_HEADER_LENGTH, lDataSize);
+// 			cm.FastEncrypt(pT, lEncLen);
+// 			lBufferSize = htonl(lBufferSize);
+// 			memcpy(pszenc + GP_HEADER_LENGTH, &lBufferSize, SZ_INT32);	//	Original Buffer Size
+// 			lBufferSize = lReadPos = lWritePos = lEncLen + GP_HEADER_LENGTH + SZ_INT32;
+// 			delete []pszData; pszData = pszenc; pszenc = NULL;
+// 			flags = htons(flags | 0x0001);
+// 			memcpy(pszData + 10, &flags, SZ_INT16);
+// 			UpdatePackageLength();
+// 		}
+// 	}
+// }
+
+void CGPackage::EncryptPackage()
+{
+	if (NULL == prijndael)
+	{
+		EncryptAES();
+		return;
+	}
+	if (lBufferSize > GP_HEADER_LENGTH)
+	{
+		OL_UINT16 flags;
+		memcpy(&flags, pszData + 10, SZ_INT16);
+		flags = ntohs(flags);
+		if (!(flags & 0x0001))
+		{
+			OL_UINT32 lEncLen = prijndael->CalcBufEnc(lBufferSize - GP_HEADER_LENGTH) + GP_HEADER_LENGTH + SZ_INT32;
+			char *pszenc = new char[lEncLen], 
+				*pT = pszenc + GP_HEADER_LENGTH + SZ_INT32;
+			memcpy(pszenc, pszData, GP_HEADER_LENGTH);
+			prijndael->Encrypt(pszData + GP_HEADER_LENGTH, lBufferSize - GP_HEADER_LENGTH, &pT, lEncLen, 0);
+			lBufferSize = htonl(lBufferSize);
+			memcpy(pszenc + GP_HEADER_LENGTH, &lBufferSize, SZ_INT32);	//	Original Buffer Size
+			lBufferSize = lReadPos = lWritePos = lEncLen + GP_HEADER_LENGTH + SZ_INT32;
+			delete []pszData; pszData = pszenc; pszenc = NULL;
+			flags = htons(flags | 0x0001);
+			memcpy(pszData + 10, &flags, SZ_INT16);
+			UpdatePackageLength();
+		}
+	}
+}
+
+// void CGPackage::DecryptAES()
+// {
+// 	OL_UINT16 flags;
+// 	memcpy(&flags, pszData + 10, SZ_INT16);
+// 	flags = ntohs(flags);
+// 	if (flags & 0x0001)
+// 	{
+// 		OL_UINT32 lDecLen;
+// 		CMCrypt cm(encryptionKey, strlen(encryptionKey), encryptionIV);
+// 		memcpy(&lDecLen, pszData + GP_HEADER_LENGTH, SZ_INT32);
+// 		lDecLen = ntohl(lDecLen);
+// 		memcpy(pszData + GP_HEADER_LENGTH, pszData + GP_HEADER_LENGTH + SZ_INT32, lBufferSize - GP_HEADER_LENGTH - SZ_INT32);
+// 		cm.FastDecrypt(pszData + GP_HEADER_LENGTH, lBufferSize - GP_HEADER_LENGTH - SZ_INT32);
+// 		lReadPos	= GP_HEADER_LENGTH;
+// 		lBufferSize = lWritePos = lDecLen + GP_HEADER_LENGTH;
+// 		flags = htons(flags & 0xfffe);
+// 		memcpy(pszData + 10, &flags, SZ_INT16);
+// 		UpdatePackageLength();
+// 	}
+// }
+
+void CGPackage::DecryptPackage()
+{
+	if (NULL == prijndael)
+	{
+		DecryptAES();
+		return;
+	}
+	OL_UINT16 flags;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	flags = ntohs(flags);
+	if (flags & 0x0001)
+	{
+		OL_UINT32 lDecLen;
+		memcpy(&lDecLen, pszData + GP_HEADER_LENGTH, SZ_INT32);
+		lDecLen = ntohl(lDecLen);
+		char *pdec = new char[lDecLen], 
+			*pT = pdec + GP_HEADER_LENGTH;
+		memcpy(pdec, pszData, GP_HEADER_LENGTH);
+		prijndael->Decrypt(pszData + GP_HEADER_LENGTH + SZ_INT32, lBufferSize - GP_HEADER_LENGTH - SZ_INT32, &pT, lDecLen, 0);
+		delete []pszData; pszData = pdec; pdec = NULL;
+		lReadPos	= GP_HEADER_LENGTH;
+		lBufferSize = lWritePos = lDecLen + GP_HEADER_LENGTH;
+		flags = htons(flags & 0xfffe);
+		memcpy(pszData + 10, &flags, SZ_INT16);
+		UpdatePackageLength();
+	}
+}
+
+OL_UINT32 CGPackage::CalcComprLzoBufferUsage(OL_UINT32 nBytestoCompress)
+{
+	return nBytestoCompress + nBytestoCompress / 16 + 64 + 3;
+}
+
+void CGPackage::CompressLZ0()
+{
+	uint16_t flags;
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if ( (flags = ntohs(flags)) & GP_COMPRESSED )
+		return;
+	if (LZO_E_OK != lzo_init())
+		return;
+	lzo_uint out_len = 0;
+	uint32_t compressed_data_size = CalcComprLzoBufferUsage(lWritePos - GP_HEADER_LENGTH);
+	lzo_align_t __LZO_MMODEL wrk[LZO1X_1_MEM_COMPRESS + (sizeof(lzo_align_t)-1) / sizeof(lzo_align_t)];
+	char *pcompressed = new char[compressed_data_size + GP_HEADER_LENGTH + SZ_INT32];
+	if (NULL == pcompressed)
+		return;
+	if (LZO_E_OK != lzo1x_1_compress((const unsigned char*)pszData + GP_HEADER_LENGTH, 
+		lWritePos - GP_HEADER_LENGTH, (unsigned char*)pcompressed + GP_HEADER_LENGTH + SZ_INT32, &out_len, &wrk))
+		{
+			delete []pcompressed;
+			return;
+		}
+	if ( (out_len <= 0) || (out_len >= (lWritePos - GP_HEADER_LENGTH)) )
+		return;
+	lWritePos = htonl(lWritePos);
+	memcpy(pcompressed, pszData, GP_HEADER_LENGTH);
+	memcpy(pcompressed + GP_HEADER_LENGTH, &lWritePos, SZ_INT32);
+	lReadPos = lWritePos = GP_HEADER_LENGTH + out_len + SZ_INT32;
+	lBufferSize = compressed_data_size + GP_HEADER_LENGTH + SZ_INT32;
+	delete []pszData;
+	pszData = pcompressed;
+	flags = htons(flags | GP_COMPRESSED);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+}
+
+bool CGPackage::DecompressLZ0()
+{
+	uint16_t flags;
+	lzo_uint nDecomprLen;
+	uint32_t nOriBufSize = 0;
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return false;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if ( 0 == ((flags = ntohs(flags)) & GP_COMPRESSED) )
+		return true;
+	if (LZO_E_OK != lzo_init())
+		return false;
+	memcpy(&nOriBufSize, pszData + GP_HEADER_LENGTH, SZ_INT32);
+	nOriBufSize = ntohl(nOriBufSize);
+	char *pDecompr = new char[nOriBufSize];
+	if (NULL == pDecompr)
+		return false;
+	
+	if (LZO_E_OK != lzo1x_decompress((const unsigned char*)pszData + GP_HEADER_LENGTH + SZ_INT32, 
+		lBufferSize - GP_HEADER_LENGTH - SZ_INT32, (unsigned char*)pDecompr + GP_HEADER_LENGTH, &nDecomprLen, NULL))
+		{
+			delete []pDecompr;
+			return false;
+		}
+	lReadPos	= GP_HEADER_LENGTH;
+	lBufferSize	= lWritePos = nOriBufSize;
+	memcpy(pDecompr, pszData, GP_HEADER_LENGTH);
+	delete []pszData; pszData = pDecompr; pDecompr = NULL;
+	flags = htons(flags & ~GP_COMPRESSED);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+	return true;
+}
+
+void CGPackage::CompressLZ4()
+{
+	uint16_t flags;
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if ( (flags = ntohs(flags)) & GP_COMPRESSED )
+		return;
+	int max_dst_size = LZ4_compressBound(lBufferSize - GP_HEADER_LENGTH);
+	char *pcompressed = new char[max_dst_size + GP_HEADER_LENGTH + SZ_INT32];
+	if (NULL == pcompressed)
+		return;
+	int compressed_data_size = LZ4_compress_default(pszData + GP_HEADER_LENGTH, pcompressed + GP_HEADER_LENGTH + SZ_INT32, lWritePos - GP_HEADER_LENGTH, max_dst_size);
+	if (compressed_data_size <= 0 || (compressed_data_size >= (lWritePos - GP_HEADER_LENGTH)) )
+	{
+		delete []pcompressed;
+		return;
+	}
+	lWritePos = htonl(lWritePos);
+	memcpy(pcompressed, pszData, GP_HEADER_LENGTH);
+	memcpy(pcompressed + GP_HEADER_LENGTH, &lWritePos, SZ_INT32);
+	lBufferSize = max_dst_size + GP_HEADER_LENGTH + SZ_INT32;
+	lReadPos = lWritePos = compressed_data_size + GP_HEADER_LENGTH + SZ_INT32;
+	delete []pszData;
+	pszData = pcompressed;
+	flags = htons(flags | GP_COMPRESSED);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+}
+
+bool CGPackage::DecompressLZ4()
+{
+	uint16_t flags;
+	uint32_t oriSize = 0;
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return false;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if (0 == ( (flags = ntohs(flags)) & GP_COMPRESSED ))
+		return true;
+	memcpy(&oriSize, pszData + GP_HEADER_LENGTH, SZ_INT32);
+	oriSize = ntohl(oriSize);
+	char *pdecompressed = new char[oriSize];
+	int decompressed_size = LZ4_decompress_safe(pszData + GP_HEADER_LENGTH + SZ_INT32, pdecompressed + GP_HEADER_LENGTH, lWritePos - GP_HEADER_LENGTH - SZ_INT32, oriSize - GP_HEADER_LENGTH);
+	if (decompressed_size < 0 || decompressed_size != (int)(oriSize - GP_HEADER_LENGTH))
+		return false;
+	lReadPos = GP_HEADER_LENGTH;
+	lBufferSize = lWritePos = oriSize;
+	memcpy(pdecompressed, pszData, GP_HEADER_LENGTH);
+	delete []pszData;
+	pszData = pdecompressed;
+	flags = htons(flags & ~GP_COMPRESSED);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+	return true;
+}
+
+void CGPackage::CompressSnappy()
+{
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return;
+	uint16_t flags;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if ( (flags = ntohs(flags)) & GP_COMPRESSED )
+		return;
+	size_t out_len = snappy_max_compressed_length(lWritePos - GP_HEADER_LENGTH);
+	uint32_t estCompressedLength = out_len + GP_HEADER_LENGTH + SZ_INT32;
+	char *pcompressed = new char[estCompressedLength];
+	if (SNAPPY_OK != snappy_compress(pszData + GP_HEADER_LENGTH, lWritePos - GP_HEADER_LENGTH, pcompressed + GP_HEADER_LENGTH + SZ_INT32, &out_len))
+		return;
+	lBufferSize = estCompressedLength;
+	memcpy(pcompressed, pszData, GP_HEADER_LENGTH);
+	delete[]pszData; pszData = pcompressed; pcompressed = NULL;
+	lWritePos = htonl(lWritePos);
+	memcpy(pszData + GP_HEADER_LENGTH, &lWritePos, SZ_INT32);
+	lReadPos = lWritePos = GP_HEADER_LENGTH + (uint32_t)out_len + SZ_INT32;
+	flags = htons(flags | 0x0002);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+}
+
+bool CGPackage::DecompressSnappy()
+{
+	uint16_t flags;
+	uint32_t nOriBufSize;
+	if (lBufferSize <= GP_HEADER_LENGTH)
+		return false;
+	memcpy(&flags, pszData + 10, SZ_INT16);
+	if (0 == ( (flags = ntohs(flags)) & GP_COMPRESSED ))
+		return true;
+	memcpy(&nOriBufSize, pszData + GP_HEADER_LENGTH, SZ_INT32);
+	char *pDecompr = new char[nOriBufSize = ntohl(nOriBufSize)];
+	memcpy(pDecompr, pszData, GP_HEADER_LENGTH);
+	size_t out_len = nOriBufSize - GP_HEADER_LENGTH;
+	if (SNAPPY_OK != snappy_uncompress(pszData + GP_HEADER_LENGTH + SZ_INT32, lWritePos - GP_HEADER_LENGTH - SZ_INT32, pDecompr + GP_HEADER_LENGTH, &out_len))
+		return false;
+	lReadPos = GP_HEADER_LENGTH;
+	lBufferSize = lWritePos = nOriBufSize;
+	delete []pszData; pszData = pDecompr; pDecompr = NULL;
+	flags = htons(flags & 0xfffd);
+	memcpy(pszData + 10, &flags, SZ_INT16);
+	UpdatePackageLength();
+	return true;
+}
+
+void CGPackage::CompressPackage(GP_COMPRESSION_ALGO algo)
+{
+	switch (algo)
+	{
+	case GP_COMPRESS_LZ0:
+		CompressLZ0();
+		break;
+	case GP_COMPRESS_LZ4:
+		CompressLZ4();
+		break;
+	case GP_COMPRESS_SNAPPY:
+		CompressSnappy();
+		break;
+	}
+}
+
+bool CGPackage::DecompressPackage(GP_COMPRESSION_ALGO algo)
+{
+	switch (algo)
+	{
+		case GP_COMPRESS_LZ0:
+			return DecompressLZ0();
+			break;
+		case GP_COMPRESS_LZ4:
+			return DecompressLZ4();
+			break;
+		case GP_COMPRESS_SNAPPY:
+			return DecompressSnappy();
+			break;
+	}
+	return true;
+}
+
+// void CGPackage::CompressPackage()
+// {
+// 	if (lBufferSize > GP_HEADER_LENGTH)
+// 	{
+// 		OL_UINT16 flags;
+// 		memcpy(&flags, pszData + 10, SZ_INT16);
+// 		flags = ntohs(flags);
+// 		if (!(flags & 0x0002))
+// 		{
+// 			if (LZO_E_OK == lzo_init())
+// 			{
+// 				lzo_uint out_len;
+// 				lzo_align_t __LZO_MMODEL wrk[LZO1X_1_MEM_COMPRESS + (sizeof(lzo_align_t)-1) / sizeof(lzo_align_t)];
+// 				char *pcompressed = new char[CalcComprLzoBufferUsage(lBufferSize - GP_HEADER_LENGTH)];
+// 				if (LZO_E_OK == lzo1x_1_compress((const unsigned char*)pszData + GP_HEADER_LENGTH, 
+// 					lBufferSize - GP_HEADER_LENGTH, (unsigned char*)pcompressed, &out_len, &wrk))
+// 				{
+// 					char *pT = new char[out_len + GP_HEADER_LENGTH + SZ_INT32];
+// 					memcpy(pT, pszData, GP_HEADER_LENGTH);
+// 					delete []pszData; pszData = pT; pT = NULL;
+// 					memcpy(pszData + GP_HEADER_LENGTH, &lBufferSize, SZ_INT32);
+// 					lBufferSize = lReadPos = lWritePos = GP_HEADER_LENGTH + out_len + SZ_INT32;
+// 					memcpy(pszData + GP_HEADER_LENGTH + SZ_INT32, pcompressed, out_len);
+// 					flags = htons(flags | 0x0002);
+// 					memcpy(pszData + 10, &flags, SZ_INT16);
+// 					UpdatePackageLength();
+// 				}
+// 				delete []pcompressed; pcompressed = NULL;
+// 			}
+// 		}
+// 	}
+// }
+
+// void CGPackage::DecompressPackage()
+// {
+// 	OL_UINT16 flags;
+// 	memcpy(&flags, pszData + 10, SZ_INT16);
+// 	flags = ntohs(flags);
+// 	if (flags & 0x0002)
+// 	{
+// 		if (LZO_E_OK == lzo_init())
+// 		{
+// 			lzo_uint nDecomprLen;
+// 			OL_UINT32 nOriBufSize;
+// 			memcpy(&nOriBufSize, pszData + GP_HEADER_LENGTH, SZ_INT32);
+// 			char *pDecompr = new char[nOriBufSize];
+// 			memcpy(pDecompr, pszData, GP_HEADER_LENGTH);
+// 			if (LZO_E_OK == lzo1x_decompress((const unsigned char*)pszData + GP_HEADER_LENGTH + SZ_INT32, 
+// 				lBufferSize - GP_HEADER_LENGTH - SZ_INT32, (unsigned char*)pDecompr + GP_HEADER_LENGTH, &nDecomprLen, NULL))
+// 			{
+// 				lReadPos	= GP_HEADER_LENGTH;
+// 				lBufferSize	= lWritePos = nOriBufSize;
+// 				delete []pszData; pszData = pDecompr; pDecompr = NULL;
+// 				flags = htons(flags & 0xfffd);
+// 				memcpy(pszData + 10, &flags, SZ_INT16);
+// 				UpdatePackageLength();
+// 			}
+// 			else
+// 			{
+// 				delete pDecompr; pDecompr = NULL;
+// 			}
+// 		}
+// 	}
+// }

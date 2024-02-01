@@ -1,0 +1,397 @@
+//#ifndef __CONSTANTS_H__
+//#define __CONSTANTS_H__
+#pragma once
+
+#include <cstdint>
+
+#define OL_INT8 int8_t
+#define OL_CHAR char
+#define OL_INT16 int16_t	//short
+#define OL_INT32 int32_t	//int
+#define OL_INT64 int64_t	//long long
+#define OL_UINT8 uint8_t	//unsigned char
+#define OL_UINT16 uint16_t			//unsigned short
+#define OL_UINT32 uint32_t			//unsigned int
+#define OL_UINT64 uint64_t			//unsigned long long
+
+#define SZ_INT8 sizeof(OL_INT8)
+#define SZ_INT16 sizeof(OL_INT16)
+#define SZ_INT32 sizeof(OL_INT32)
+#define SZ_INT64 sizeof(OL_INT64)
+#define SZ_FLOAT sizeof(float)
+#define SZ_DOUBLE sizeof(double)
+#define SZ_LDOUBLE sizeof(long double)
+
+//	Global Config File
+#define CFG_TRADING_SCHEDULE_FILE_NAME "tradingSchedules.cfg"
+
+#define HOLIDAYS_LIST_NAME "Holiday"
+#define PRICE_FRAC_NAME	"PriceFrac.dat"
+#define STOCK_LIST_NAME "StockList.dat"
+#define INDEX_LIST_NAME "IndexList.dat"
+#define BROKER_LIST_NAME "BrokerList.dat"
+#define SECTOR_LIST_NAME "SectorList.dat"
+#define FUTURES_LIST_NAME "FuturesList.dat"
+#define OPTIONS_LIST_NAME "OptionsList.dat"
+#define INDUSTRY_FRAC_NAME "IndustryFrac.dat"
+#define ORDERBOOK_DIRECTORY_LIST_NAME "OrderBookDirectoryList.dat"
+
+#if __BYTE_ORDER == __BIG_ENDIAN
+#define htonll(x) (x)
+#elif __BYTE_ORDER == __LITTLE_ENDIAN
+#define htonll(x) (((OL_UINT64)htonl((OL_UINT32)x)) << 32 || htonl((OL_UINT32)(x >> 32)))
+#endif
+
+const char encryptionIV[] = "1F4114E9F8B1B968";
+const char encryptionKey[]= "97DF7EF6E7D71FA3";
+const char rijndaelCryptoKey[] = "97DF7EF6E7D71FA33F9E7EF3F2F117E5";
+
+enum ORDER_EXPIRY
+{
+	EXP_DAY_ORDER = 0,
+	EXP_SES_ORDER = 1,
+	EXP_IOC_ORDER = 2,	//	( FAK ) Can be filled partially and remain will canceled.
+	EXP_FOK_ORDER = 3	//	Must be filled 100% or not at all.
+};
+
+enum ORDER_COMMAND
+{
+	CMD_BUY  = 0,
+	CMD_SELL = 1,
+	CMD_MARGIN_BUY = 2,
+	CMD_SHORT_SELL = 3,
+	CMD_PRICE_STABILIZATION = 4
+};
+
+enum ORDER_STATUS
+{
+	ORDER_REJECTED = 0,
+	ORDER_OPEN = 1,
+	ORDER_MATCHED = 2,
+	ORDER_AMENDING = 3,
+	ORDER_WITHDRAWING = 4,
+	ORDER_WITHDRAWN = 5,
+	ORDER_AMENDED = 6
+};
+
+#define BOARD_RG "RG"
+#define BOARD_TN "TN"
+#define BOARD_NG "NG"
+#define BOARD_ADV "ADV"
+
+#define INSTRUMENT_ORDI "ORDI"
+#define INSTRUMENT_ORDI_PREOPEN "ORDI_PREOPEN"
+#define INSTRUMENT_WATCHLIST "WATCHLIST"
+#define INSTRUMENT_WATCH_CALL "WATCH_CALL"
+#define INSTRUMENT_WARI_CALL "WARI_CALL"
+#define INSTRUMENT_RGHI_CALL "RGHI_CALL"
+#define INSTRUMENT_RGHI "RGHI"
+#define INSTRUMENT_ACCEL "ACCEL"
+#define INSTRUMENT_MUTI "MUTI"
+#define INSTRUMENT_WARI "WARI"
+#define INSTRUMENT_S_WARI "S_WARI"
+
+const uint16_t STATUS_JE			= 0x0001;
+const uint16_t STATUS_QS			= 0x0002;
+const uint16_t STATUS_JONEC			= 0x0004;
+const uint16_t STATUS_HTS			= 0x0008;
+const uint16_t STATUS_BREAK			= 0x0010;
+const uint16_t STATUS_TRAILING		= 0x0020;
+const uint16_t STATUS_PANIC_MODE	= 0x0040;
+const uint16_t STATUS_ETF_PANIC_MODE = 0x0080;
+
+// const char *BOARD_RG = "RG";
+// const char *BOARD_TN = "TN";
+// const char *BOARD_NG = "NG";
+// const char *BOARD_ADV = "ADV";
+
+// const char *INSTRUMENT_ORDI = "ORDI";
+// const char *INSTRUMENT_ORDI_PREOPEN = "ORDI_PREOPEN";
+// const char *INSTRUMENT_WATCHLIST = "WATCHLIST";
+// const char *INSTRUMENT_WATCH_CALL = "WATCH_CALL";
+// const char *INSTRUMENT_WARI_CALL = "WARI_CALL";
+// const char *INSTRUMENT_RGHI_CALL = "RGHI_CALL";
+// const char *INSTRUMENT_RGHI = "RGHI";
+// const char *INSTRUMENT_ACCEL = "ACCEL";
+// const char *INSTRUMENT_MUTI = "MUTI";
+// const char *INSTRUMENT_WARI = "WARI";
+// const char *INSTRUMENT_S_WARI = "S_WARI";
+
+const OL_UINT16 ERR_UNKNOWN	= 0xffff;
+const OL_UINT16 ERR_DB		= 0x0001;
+const OL_UINT16 ERR_NOT_FOUND	= 0x0002;
+const OL_UINT16 ERR_REGISTERED	= 0x0003;
+const OL_UINT16 ERR_EMAIL_ADDR	= 0x0004;
+const OL_UINT16 ERR_PASSWORD	= 0x0005;
+const OL_UINT16 ERR_DIF_DEVICE	= 0x0006;
+const OL_UINT16 ERR_QUERY		= 0x0007;
+const OL_UINT16 ERR_VOLUME		= 0x0008;
+const OL_UINT16 ERR_TRADING_LIMIT = 0x0009;
+const OL_UINT16 ERR_NO_SHARES	= 0x000a;
+const OL_UINT16 ERR_REJECTED	= 0x000b;
+const OL_UINT16 ERR_AMENDING	= 0x000c;
+const OL_UINT16 ERR_WITHDRAWING	= 0x000d;
+const OL_UINT16 ERR_WITHDRAWN	= 0x000e;
+const OL_UINT16 ERR_MATCHED		= 0x000f;
+const OL_UINT16 ERR_SUSPENDED	= 0x0016;
+const OL_UINT16 ERR_MARGIN		= 0x0017;
+const OL_UINT16 ERR_SYARIAH		= 0x0018;
+
+enum TE_ORDER_SOURCE
+{
+	SRC_FLOOR_ORDER = 0,
+	SRC_DEALER_ORDER = 1,
+	SRC_GTC_ORDER = 2,
+	SRC_AUTOMATIC_ORDER = 3,
+	SRC_WEB_ORDER = 4,
+	SRC_OLT_APP_ORDER = 5,
+	SRC_APH_ORDER = 6,	//	Android Phone
+	SRC_TAB_ORDER = 7,	//	Android Tablet
+	SRC_IPH_ORDER = 8,	//	Iphone
+	SRC_IPAD_ORDER = 9,	//	Ipad
+	SRC_TEL_ORDER = 10,	//	Telegram Order
+	SRC_LIMIT_ORDER = 60,	//	Limit Order
+	SRC_BLOOMBERG = 70,		//	Bloomberg Terminal
+	SRC_FORCE_SELL = 80,	//	Force Sell / Force Buy Back
+	SRC_BASKET_ORDER = 81,	//	Basket Order
+	SRC_ETF_BUFFER = 87,	//	Confirm ETF NG For Buffer Account
+	SRC_ETF_ORDER = 88,		//	ETF Order
+	SRC_ETF_LIQUIDITY = 89,	//	ETF Liquidity Order
+	SRC_ETF_ARBITRAGE = 90	//	ETF Arbitrage
+};
+
+//-----------------------------------------------------------------------------------------
+//	Packet Error Code
+//-----------------------------------------------------------------------------------------
+// const OL_UINT16 CP_ERR_DB		= 0x0001;
+// const OL_UINT16 CP_ERR_NOT_FOUND	= 0x0002;
+// const OL_UINT16 CP_ERR_LOGIN		= 0x0003;
+// const OL_UINT16 CP_ERR_MAX_CONNECTED	= 0x0004;
+// const OL_UINT16 CP_ERR_PASSWD_NOT_MATCH	= 0x0005;
+// const OL_UINT16 CP_ERR_EXEC_QUERY	= 0x0007;
+// const OL_UINT16 CP_ERR_LACK_VOLUME	= 0x0008;
+// const OL_UINT16 CP_ERR_LACK_TRADE_LIMIT	= 0x0009;
+// const OL_UINT16 CP_ERR_NO_SHARE		= 0x000a;
+// const OL_UINT16 CP_ERR_REJECTED_ORDER	= 0x000b;
+// const OL_UINT16 CP_ERR_AMENDING_ORDER	= 0x000c;
+// const OL_UINT16 CP_ERR_WITHDRAWING_ORDER= 0x000d;
+// const OL_UINT16 CP_ERR_WITHDRAWN_ORDER	= 0x000e;
+// const OL_UINT16 CP_ERR_DONE_ORDER	= 0x000f;
+
+const uint16_t CP_ERR_UNKNOWN = 0xffff;
+const uint16_t CP_ERR_DB = 0x0001;
+const uint16_t CP_ERR_NOT_FOUND = 0x0002;
+const uint16_t CP_ERR_LOGIN = 0x0003;
+const uint16_t CP_ERR_MAX_CONNECTED = 0x0004;
+const uint16_t CP_ERR_PASSWD_NOT_MATCH = 0x0005;
+const uint16_t CP_ERR_PASSWD_EXPIRED = 0x0006;
+const uint16_t CP_ERR_EXEC_QUERY = 0x0007;
+const uint16_t CP_ERR_LACK_VOLUME = 0x0008;
+const uint16_t CP_ERR_LACK_TRADE_LIMIT = 0x0009;
+const uint16_t CP_ERR_NO_SHARE = 0x000a;
+const uint16_t CP_ERR_REJECTED_ORDER = 0x000b;
+const uint16_t CP_ERR_AMENDING_ORDER = 0x000c;
+const uint16_t CP_ERR_WITHDRAWING_ORDER = 0x000d;
+const uint16_t CP_ERR_WITHDRAWN_ORDER = 0x000e;
+const uint16_t CP_ERR_DONE_ORDER = 0x000f;
+
+const uint16_t CP_ERR_PERMISSION = 0x0010;
+const uint16_t CP_ERR_CREATE_TABLES = 0x0011;
+const uint16_t CP_ERR_PRINTING_IN_PROGRESS = 0x0012;
+const uint16_t CP_ERR_RESENDING = 0x0013;
+const uint16_t CP_ERR_NEED_AUTH = 0x0014;
+const uint16_t CP_ERR_WARNING_ONLY = 0x0015;
+
+const uint16_t CP_ERR_CUST_SUSPENDED = 0x0016;
+const uint16_t CP_ERR_MARGINABLE = 0x0017;	//	Customer Margin can only Trade Marginable Stock
+const uint16_t CP_ERR_INVALID_PRICE = 0x0018;
+const uint16_t CP_ERR_INVALID_VOLUME = 0x0019;
+const uint16_t CP_ERR_GROUP_MEMBER_NOT_QUALIFIED = 0x001a;
+const uint16_t CP_ERR_POTENTIAL_CROSS_ORDER = 0x001b;
+const uint16_t CP_ERR_INVALID_STOCK_CODE = 0x001c;
+const uint16_t CP_ERR_SYARIAH = 0x001d;
+const uint16_t CP_ERR_PWD_PIN_USED_BEFORE = 0x001e;
+const uint16_t CP_ERR_SAME_ORDER_FOUNDED = 0x001f;
+const uint16_t CP_ERR_CREATE_FILE = 0x0020;
+const uint16_t CP_ERR_MIN_PWD_CHARS = 0x0021;
+const uint16_t CP_ERR_PWD_COMPLEXITY = 0x0022;
+const uint16_t CP_ERR_PROCESSING = 0x0023;
+const uint16_t CP_ERR_MAX_PWD_CHARS = 0x0024;
+const uint16_t CP_ERR_MOCK_TRADING = 0x0025;
+const uint16_t CP_ERR_NO_CONNECTION = 0x0026;	//	Reject order if not connected between TE and IServer
+const uint16_t CP_ERR_PACKAGE_TIME_OUT = 0x0027;	//	Package Time out
+const uint16_t CP_ERR_INACTIVE = 0x0028;	//	Login Id Inactive
+const uint16_t CP_ERR_MAX_RETRY = 0x0029;	//	Max Retry PIN / Password
+
+const uint16_t CP_ERR_MIN_AMOUNT = 0x0030;
+const uint16_t CP_ERR_INVALID_DATE = 0x0031;
+const uint16_t CP_ERR_NOT_ENOUGH_CASH = 0x0032;
+
+//-----------------------------------------------------------------------------------------
+//	TE Packet Id Constants
+//-----------------------------------------------------------------------------------------
+const uint16_t PK_HTS_HEART_BEAT				= 0xffff;
+const uint16_t PK_TE_NEW_REGULAR_ORDER			= 0x0001;
+const uint16_t PK_TE_NEW_CASH_ORDER				= 0x0002;
+const uint16_t PK_TE_NEW_ADVERTISEMENT_ORDER	= 0x0003;
+
+const uint16_t PK_TE_AMEND_REGULAR_ORDER			= 0x0006;
+const uint16_t PK_TE_AMEND_CASH_ORDER				= 0x0007;
+const uint16_t PK_TE_AMEND_ADVERTISEMENT_ORDER		= 0x0008;
+
+const uint16_t PK_TE_WITHDRAW_REGULAR_ORDER			= 0x000a;
+const uint16_t PK_TE_WITHDRAW_CASH_ORDER			= 0x000b;
+const uint16_t PK_TE_WITHDRAW_ADVERTISEMENT_ORDER	= 0x000c;
+
+const uint16_t PK_TE_PORTFOLIO_REQ         		= 0x0010;
+const uint16_t PK_TE_ORDER_LIST_REQ        		= 0x0011;
+const uint16_t PK_TE_TRADE_LIST_REQ        		= 0x0012;
+const uint16_t PK_TE_HISTORY_ORDER_LIST_REQ		= 0x0013;
+const uint16_t PK_TE_HISTORY_TRADE_LIST_REQ		= 0x0014;
+
+const uint16_t PK_TE_REQ_STOCK_BALANCE			= 0x0025;
+
+const uint16_t PK_ZMQ_RESET_BREAK_ORDER			= 0x0040;
+const uint16_t PK_ZMQ_RESET_TRAILING_ORDER		= 0x0041;
+const uint16_t PK_ZMQ_SUBSC_BREAK_ORDER			= 0x0042;
+const uint16_t PK_ZMQ_SUBSC_TRAILING_ORDER		= 0x0043;
+const uint16_t PK_ZMQ_UNSUB_BREAK_ORDER			= 0x0044;
+const uint16_t PK_ZMQ_UNSUB_TRAILING_ORDER		= 0x0045;
+const uint16_t PK_ZMQ_UPDATE_BREAK_ORDER		= 0x0046;
+const uint16_t PK_ZMQ_UPDATE_TRAILING_ORDER		= 0x0047;
+const uint16_t PK_ZMQ_REQ_ALL_OPEN_BREAK		= 0x0048;
+const uint16_t PK_ZMQ_REQ_ALL_OPEN_TRAILING		= 0x0049;
+const uint16_t PK_ZMQ_REQ_ALL_OPEN_ETF_ORDER	= 0x004a;
+const uint16_t PK_ZMQ_RESET_ETF_ORDER			= 0x004b;
+const uint16_t PK_ZMQ_SUBSC_ETF_ORDER			= 0x004c;
+const uint16_t PK_ZMQ_UNSUB_ETF_ORDER			= 0x004d;
+const uint16_t PK_ZMQ_SUBSC_ETF_UNDERLYING		= 0x004e;
+const uint16_t PK_ZMQ_CONTINUE_EXEC_ETF_ORDER	= 0x004f;
+
+const uint16_t PK_ZMQ_REQ_ALL_QUOTES		= 0x0050;
+const uint16_t PK_ZMQ_REQ_ALL_OB			= 0x0051;
+const uint16_t PK_ZMQ_QUOTE					= 0x0052;
+const uint16_t PK_ZMQ_OB					= 0x0053;
+
+const uint16_t PK_ZMQ_REQ_ALL_OPEN_BASKET_ORDER		= 0x0054;
+const uint16_t PK_ZMQ_RESET_BASKET_ORDER			= 0x0055;
+const uint16_t PK_ZMQ_SUBSC_BASKET_ORDER			= 0x0056;
+const uint16_t PK_ZMQ_UNSUB_BASKET_ORDER			= 0x0057;
+const uint16_t PK_ZMQ_SUBSC_BASKET_UNDERLYING		= 0x0058;
+const uint16_t PK_ZMQ_CONTINUE_EXEC_BASKET_ORDER	= 0x0059;
+
+const uint16_t PK_ZMQ_ETF_INIT					= 0x0060;
+const uint16_t PK_ZMQ_ETF_FORECAST_DATA			= 0x0061;
+const uint16_t PK_ZMQ_ITCH_DATA					= 0x0062;
+const uint16_t PK_ZMQ_TRADING_STATUS			= 0x0063;
+
+const uint16_t PK_ZMQ_RESET_INLINE_ORDER		= 0x0070;
+const uint16_t PK_ZMQ_SUBSC_INLINE_ORDER		= 0x0071;
+const uint16_t PK_ZMQ_UNSUB_INLINE_ORDER		= 0x0072;
+const uint16_t PK_ZMQ_UPDATE_INLINE_ORDER		= 0x0073;
+const uint16_t PK_ZMQ_REQ_ALL_OPEN_INLINE		= 0x0074;
+
+const uint16_t PK_RT_START_SENDING_ORDERS		= 0x0800;
+
+const uint16_t PK_RT_OUTCH_OUTBOUND_SEQ_MSG		= 0x0E00;
+const uint16_t PK_RT_ITCH_OUTBOUND_SEQ_MSG		= 0x0F00;
+const uint16_t PK_RT_TRADING_STATUS				= 0x0201;
+
+const uint16_t PK_RT_NEW_REGULAR_ORDER			= 0x1000;
+const uint16_t PK_RT_NEW_CASH_ORDER				= 0x1100;
+const uint16_t PK_RT_NEW_CROSS_ORDER			= 0x1200;
+const uint16_t PK_RT_NEW_NEGOTIATED_DEAL_ORDER	= 0x1300;
+const uint16_t PK_RT_NEW_ADVERTISEMENT_ORDER	= 0x1400;
+
+const uint16_t PK_RT_AMEND_REGULAR_ORDER		= 0x1500;
+const uint16_t PK_RT_AMEND_CASH_ORDER			= 0x1600;
+const uint16_t PK_RT_AMEND_NEGOTIATED_DEAL		= 0x1700;
+const uint16_t PK_RT_AMEND_ADVERTISEMENT_ORDER	= 0x1800;
+
+const uint16_t PK_RT_WITHDRAW_REGULAR_ORDER			= 0x1900;
+const uint16_t PK_RT_WITHDRAW_CASH_ORDER			= 0x1A00;
+const uint16_t PK_RT_WITHDRAW_NEGOTIATED_DEAL		= 0x1B00;
+const uint16_t PK_RT_WITHDRAW_ADVERTISEMENT_ORDER	= 0x1C00;
+const uint16_t PK_RT_AMEND_BEFORE_PASSING			= 0x1D00;
+const uint16_t PK_RT_WITHDRAW_BEFORE_PASSING		= 0x1E00;
+const uint16_t PK_RT_REQUEST_ORDER_BOOK_DIRECTORY	= 0x1F00;
+
+const uint16_t PK_RT_RPL_ACCEPTED_ORDER			= 0x5000;
+const uint16_t PK_RT_RPL_ACCEPTED_AMEND			= 0x5100;
+const uint16_t PK_RT_RPL_ACCEPTED_WITHDRAW		= 0x5200;
+const uint16_t PK_RT_RPL_NEGDEAL_LIST			= 0x5300;
+const uint16_t PK_RT_RPL_TRADE					= 0x5400;
+const uint16_t PK_RT_RPL_TS_TRADE				= 0x5500;
+const uint16_t PK_RT_RPL_REJECTED_ORDER			= 0x5600;
+const uint16_t PK_RT_RPL_REJECTED_AMEND			= 0x5700;
+const uint16_t PK_RT_RPL_REJECTED_WITHDRAW		= 0x5800;
+
+const uint16_t PK_RT_RPL_FLOOR_ORDER			= 0x5900;
+const uint16_t PK_RT_RPL_FLOOR_AMEND			= 0x5A00;
+const uint16_t PK_RT_RPL_FLOOR_WITHDRAW			= 0x5B00;
+const uint16_t PK_RT_RPL_FLOOR_TRADE			= 0x5C00;
+const uint16_t PK_RT_RPL_TRADE_CAPTURE			= 0x5D00;
+
+const OL_UINT16 PKG_LOGIN		= 0x0001;
+const OL_UINT16 PKG_PIN			= 0x0002;
+const OL_UINT16 PKG_STOCK_LIST	= 0x0003;
+const OL_UINT16 PKG_INDEX_LIST	= 0x0004;
+const OL_UINT16 PKG_BROKER_LIST	= 0x0005;
+const OL_UINT16 PKG_IDX_MEMBER	= 0x0006;
+const OL_UINT16 PKG_SUB_RUNNING	= 0x0007;
+const OL_UINT16 PKG_SUB_INDEX	= 0x0008;
+const OL_UINT16 PKG_SUB_QUOTE	= 0x0009;
+const OL_UINT16 PKG_SUB_ORDER_BOOK = 0x000a;
+const OL_UINT16 PKG_SUB_TRADE_BOOK = 0x000b;
+const OL_UINT16 PKG_SUB_BROKER_SUMM = 0x000c;
+const OL_UINT16 PKG_SUB_SUMM_FG_TRANS= 0x000d;
+const OL_UINT16 PKG_REQ_HASH_MASTER_DATA = 0x000e;
+const OL_UINT16 PKG_SECTOR_LIST		= 0x000f;
+
+const OL_UINT16 PKG_AU_DAILY_CHART	= 0x0010;
+const OL_UINT16 PKG_AU_WEEKLY_CHART	= 0x0011;
+const OL_UINT16 PKG_AU_MONTHLY_CHART= 0x0012;
+const OL_UINT16 PKG_AU_INTRADAY_CHART= 0x0013;
+const OL_UINT16 PKG_AU_IDX_DAILY_CHART = 0x0014;
+const OL_UINT16 PKG_AU_IDX_WEEKLY_CHART = 0x0015;
+const OL_UINT16 PKG_AU_IDX_MONTHLY_CHART = 0x0016;
+const OL_UINT16 PKG_AU_IDX_INTRADAY_CHART = 0x0017;
+const OL_UINT16 PKG_REQ_TODAY_TRADES = 0x0020;
+const OL_UINT16 PKG_REQ_DAILY_HIST_TRADES = 0x0021;
+const OL_UINT16 PKG_REQ_IDX_NEWS	= 0x0022;
+const OL_UINT16 PKG_REQ_STK_GROUP	= 0x0023;
+const OL_UINT16 PKG_REQ_STK_GRP_MEM	= 0x0024;
+const OL_UINT16 PKG_UPD_STK_GRP_MEM	= 0x0025;
+const OL_UINT16 PKG_REQ_DAILY_CHART	= 0x0026;
+const OL_UINT16 PKG_REQ_WEEKLY_CHART= 0x0027;
+const OL_UINT16 PKG_REQ_MONTHLY_CHART = 0x0028;
+const OL_UINT16 PKG_REQ_INTRADAY_CHART	= 0x0029;
+const OL_UINT16 PKG_REQ_IDX_DAILY_CHART = 0x002a;
+const OL_UINT16 PKG_REQ_IDX_WEEKLY_CHART= 0x002b;
+const OL_UINT16 PKG_REQ_IDX_MONTHLY_CHART=0x002c;
+const OL_UINT16 PKG_REQ_IDX_INTRADAY_CHART=0x002d;
+const OL_UINT16 PKG_REQ_STOCK_RANKING	= 0x002e;
+const OL_UINT16 PKG_REQ_PARAMETERS		= 0x002f;
+
+const OL_UINT16 PKG_REQ_APP_FILE		= 0x0030;
+const OL_UINT16 PKG_REQ_APP_FILES_HASH	= 0x0031;
+
+const OL_UINT16 PKG_REQ_CLIENT_TEMPLATE_GROUP_LIST			= 0x0033;
+const OL_UINT16 PKG_REQ_CLIENT_TEMPLATE_GROUP_LIST_MEMBERS	= 0x0034;
+const OL_UINT16 PKG_REQ_UPDATE_CLIENT_TEMPLATE_GROUP_MEMBERS= 0x0035;
+
+const OL_UINT16 PKG_REGISTER_USER 		= 0x0090;
+const OL_UINT16 PKG_REQ_BROKER_LIST_ACC	= 0x0091;
+
+const OL_UINT16 PKG_NEW_ORDER	= 0x00A0;
+const OL_UINT16 PKG_AMEND_ORDER	= 0x00A1;
+const OL_UINT16 PKG_WITHDRAW_ORDER	= 0x00A2;
+const OL_UINT16 PKG_REQ_PORTFOLIO	= 0x00A3;
+const OL_UINT16 PKG_REQ_ORDER_LIST	= 0x00A4;
+const OL_UINT16 PKG_REQ_TRADE_LIST	= 0x00A5;
+const OL_UINT16 PKG_REQ_TRADING_LIMIT	= 0x00A6;
+const OL_UINT16 PKG_REQ_STOCK_BALANCE	= 0x00A7;
+
+const OL_UINT16 PKG_HEART_BEAT = 0xffff;
+
+//#endif
